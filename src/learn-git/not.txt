@@ -1,3 +1,6 @@
 git çalışmalarım
 github bağlantısı
 yeni branch ekleme
+
+notlar:
+ git push --set-upstream origin branchTest  -> yeni branch, origin bağlantısına gönderilir.
