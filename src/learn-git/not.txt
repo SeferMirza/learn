@@ -7,6 +7,7 @@ notlar:
  git push --set-upstream origin branchTest  -> yeni branch, origin bağlantısına gönderilir.
  use "git restore <file>..." to discard changes in working directory
  git merge <branch-name> -> branch te yaptığın değişiklikleri commit attıktan sonra master dalına geçerek merge yapılır.
+ *eğer git log yazarak geçmişe bakıyorsan 'Q' ile geçmişten çıkabilirsin :D
  
 sorun var:
  eğer sen başka bir dalda master dalından öndeysen ve commit ten sonra master dalına geçersen master da commit atman gerekiyor.
