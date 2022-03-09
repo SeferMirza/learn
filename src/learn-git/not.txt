@@ -1,10 +1,12 @@
 git çalışmalarım
 github bağlantısı
 yeni branch ekleme
+merge test
 
 notlar:
  git push --set-upstream origin branchTest  -> yeni branch, origin bağlantısına gönderilir.
  use "git restore <file>..." to discard changes in working directory
+ git merge <branch-name> -> branch te yaptığın değişiklikleri commit attıktan sonra master dalına geçerek merge yapılır.
  
 sorun var:
  eğer sen başka bir dalda master dalından öndeysen ve commit ten sonra master dalına geçersen master da commit atman gerekiyor.
