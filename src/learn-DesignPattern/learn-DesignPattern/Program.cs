@@ -1,5 +1,8 @@
 ﻿using learn_DesignPattern.Creational.AbstractFactory;
 using learn_DesignPattern.Creational.AbstractFactory.Web;
+using learn_DesignPattern.Creational.Builder;
+using learn_DesignPattern.Creational.Builder.ConctreteBuilder;
+using learn_DesignPattern.Creational.Builder.Interface;
 using learn_DesignPattern.Creational.Factory;
 using learn_DesignPattern.Creational.Factory.Interface;
 using System;
@@ -30,6 +33,9 @@ namespace learn_DesignPattern
                         case "Abstract Factory":
                             AbstractFactory();
                             break;
+                        case "Builder":
+                            Builder();
+                            break;
                         default:
                             break;
                     }
@@ -37,6 +43,14 @@ namespace learn_DesignPattern
                 }
 
             }
+        }
+        static void Builder()
+        {
+            SkillBuild build = new SkillBuild();
+            Console.WriteLine("Aman Tanrım Düşman Yaklaşıyor Çabuk Bir Saldırı Yap!");
+
+            ISkillBuilder skill = new AreaSkillConcreteBuilder();
+            build.Build(skill);
         }
         static void AbstractFactory()
         {
