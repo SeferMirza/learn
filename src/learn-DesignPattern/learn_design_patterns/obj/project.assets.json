@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\DesignPatterns.csproj",
+      "projectUniqueName": "C:\\project\\learn\\src\\learn-DesignPattern\\learn_design_patterns\\DesignPatterns.csproj",
       "projectName": "DesignPatterns",
-      "projectPath": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\DesignPatterns.csproj",
+      "projectPath": "C:\\project\\learn\\src\\learn-DesignPattern\\learn_design_patterns\\DesignPatterns.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\obj\\",
+      "outputPath": "C:\\project\\learn\\src\\learn-DesignPattern\\learn_design_patterns\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
