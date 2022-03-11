@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\learn-DesignPattern.csproj",
-      "projectName": "learn-DesignPattern",
-      "projectPath": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\learn-DesignPattern.csproj",
+      "projectUniqueName": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\DesignPatterns.csproj",
+      "projectName": "DesignPatterns",
+      "projectPath": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\DesignPatterns.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "C:\\project\\learn\\src\\learn-DesignPattern\\learn-DesignPattern\\obj\\",
       "projectStyle": "PackageReference",
