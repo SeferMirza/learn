@@ -12,6 +12,7 @@ namespace learn_DesignPattern.Creational.Builder
         public void Build(ISkillBuilder builder)
         {
             builder.StartProcess();
+            Console.WriteLine(builder.Fire());
         }
     }
 }

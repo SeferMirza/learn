@@ -10,5 +10,6 @@ namespace learn_DesignPattern.Creational.Builder.Interface
     public interface ISkillBuilder
     {
         void StartProcess();
+        string Fire();
     }
 }

@@ -41,17 +41,56 @@ namespace learn_DesignPattern
                     }
 
                 }
-
+                Console.WriteLine("programı sonlandırmak istiyormusunuz ?");
+                if(Console.ReadLine() == "q")
+                {
+                    Console.Clear();
+                    break;
+                }
             }
         }
+
         static void Builder()
         {
             SkillBuild build = new SkillBuild();
+            ISkillBuilder skill;
             Console.WriteLine("Aman Tanrım Düşman Yaklaşıyor Çabuk Bir Saldırı Yap!");
+            string[] Skills = { "Holly Shit!", "Aduket", "İmam Power" };
+            foreach (var _skill in Skills)
+            {
+                Console.WriteLine("*" + _skill);
+            }
+            Console.WriteLine("Lütfen bir saldırı/buff seç:");
 
-            ISkillBuilder skill = new AreaSkillConcreteBuilder();
-            build.Build(skill);
+            //rLine = Kullanıcıdan saldırı adı alınır.
+            string rLine = Console.ReadLine();
+
+            if (rLine == "Holly Shit!")
+            {
+                skill = new AreaSkillConcreteBuilder();
+                build.Build(skill);
+                Console.WriteLine("\nBu seferlik kurtulduk :)");
+                Console.ReadKey();
+            }
+            else if(rLine == "Aduket")
+            {
+                skill = new SingleTargetConcreteBuilder();
+                build.Build(skill);
+                Console.WriteLine("\nBu seferlik kurtulduk :)");
+                Console.ReadKey();
+            }
+            else if(rLine == "İmam Power") {
+                skill = new BuffConcreteBuilder();
+                build.Build(skill);
+                Console.WriteLine("\nHasar Bile Almadık :D");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Geçmiş olsun sözleri yanlış söyledin ve öldün!");
+            }
         }
+
         static void AbstractFactory()
         {
             Console.Clear();
@@ -104,7 +143,6 @@ namespace learn_DesignPattern
                 Console.WriteLine("Ana menü için 'Q' tuşuna basınız!");
             }
         }
-
 
         static void Factory()
         {
