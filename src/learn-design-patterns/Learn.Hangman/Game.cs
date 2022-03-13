@@ -18,8 +18,14 @@ namespace Learn.Hangman
             int failCount = 0;
             while (true)
             {
+                Clear();
                 if(round % 2 == 0)
                 {
+                    //Color option
+                    //ForegroundColor = ConsoleColor.Red;
+                    //BackgroundColor = ConsoleColor.Green;
+                    //ResetColor();
+
                     WriteLine("-->" + player1.Name + "     " + player2.Name);
                 }
                 else
