@@ -16,7 +16,7 @@ namespace Learn.DesignPatterns.Creational.Prototype.Conctrete
     internal class GraphicSettings : ISettings
     {
         public screenResolution Resolution { get; set; }
-        public ISettings settings()
+        public ISettings Clone()
         {
             return this.MemberwiseClone() as ISettings;
         }
