@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Learn.DesignPatterns.Creational.Prototype.Enums
 {
-    enum screenResolution
+    public enum screenResolution
     {
         Low,
         Medium,

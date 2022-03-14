@@ -1,14 +1,15 @@
 ﻿using Learn.DesignPatterns.Creational.Prototype.Interface;
 using Learn.DesignPatterns.Creational.Prototype.Enums;
 
-namespace Learn.DesignPatterns.Creational.Prototype.Conctrete
+namespace Learn.DesignPatterns.Creational.Prototype.Concrete
 {
-    internal class GraphicSettings : ISettings
+    public class GraphicSettings : ISettings
     {
         public screenResolution Resolution { get; set; }
+
         public ISettings Clone()
         {
-            return this.MemberwiseClone() as ISettings;
+            return MemberwiseClone() as ISettings;
         }
     }
 }
