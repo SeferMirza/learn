@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading;
+﻿using static System.Console;
 
 namespace Learn.Hangman
 {
@@ -8,8 +6,17 @@ namespace Learn.Hangman
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.Start();
+            Game game = new Game("ISTANBUL");
+            game.Ready();
+
+            while (!game.isGameOver)
+            {
+                Clear();
+                game.Start();
+                game.Check();
+            }
+
+            WriteLine("\nHarika tüm harfleri buldunuz!");
         }
     }
 }
