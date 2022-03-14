@@ -9,38 +9,38 @@ namespace Learn.Hangman
 {
     public class Game
     {
+        char[] word = "HANGMAN".ToCharArray();
         public void Start()
         {
-            Man man = new Man();
-            User player1 = new User("Ben");
-            User player2 = new User("Sen");
-            int round = 0;
-            int failCount = 0;
-            while (true)
-            {
-                Clear();
-                if(round % 2 == 0)
-                {
-                    //Color option
-                    //ForegroundColor = ConsoleColor.Red;
-                    //BackgroundColor = ConsoleColor.Green;
-                    //ResetColor();
-
-                    WriteLine("-->" + player1.Name + "     " + player2.Name);
-                }
-                else
-                {
-                    WriteLine(player1.Name + "     " + "-->" + player2.Name);
-                }
-                
-                WriteLine(man.GetMan(failCount));
-                ConsoleKeyInfo keyPressed = ReadKey();
-                if (keyPressed.Key == ConsoleKey.RightArrow)
-                {
-                    failCount++;
-                }
-                round++;
+            char[] enteredKey = new char[word.Length];
+            for (int i = 0; i < word.Length; i++)
+            { 
+                enteredKey[i] = '_';
             }
+            int failCount = 0;
+            bool isGameOver = false;
+            while (!isGameOver)
+            {
+                isGameOver = true;
+                Clear();
+                WriteLine(String.Join(' ', enteredKey));
+                ConsoleKeyInfo keyPressed = ReadKey();
+                for (int i = 0; i < word.Length; i++)
+                {
+                    if (word[i] == ((char)keyPressed.Key))
+                    {
+                        enteredKey[i] = (char)keyPressed.Key;
+                    }
+                }
+                for (int j = 0; j < word.Length; j++)
+                {
+                    if (enteredKey[j] == '_')
+                    {
+                        isGameOver = false;
+                    }
+                }
+            }
+            WriteLine("\nHarika tüm harfleri buldunuz!");
         }
     }
 }

@@ -7,8 +7,4 @@
     <AssemblyName>Learn.DesignPatterns</AssemblyName>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Creational\Prototype\Models\" />
-  </ItemGroup>
-
 </Project>
