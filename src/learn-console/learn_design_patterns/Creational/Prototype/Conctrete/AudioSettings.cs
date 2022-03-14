@@ -10,7 +10,7 @@ namespace Learn.DesignPatterns.Creational.Prototype.Conctrete
     internal class AudioSettings : ISettings
     {
         public int MusicVolume { get; set; }
-        public ISettings settings()
+        public ISettings Clone()
         {
             return this.MemberwiseClone() as ISettings;
         }

@@ -5,6 +5,8 @@ using Learn.DesignPatterns.Creational.Builder.ConctreteBuilder;
 using Learn.DesignPatterns.Creational.Builder.Interface;
 using Learn.DesignPatterns.Creational.Factory;
 using Learn.DesignPatterns.Creational.Factory.Interface;
+using Learn.DesignPatterns.Creational.Prototype.Conctrete;
+using Learn.DesignPatterns.Creational.Prototype.Interface;
 using System;
 
 namespace Learn.DesignPatterns
@@ -13,7 +15,7 @@ namespace Learn.DesignPatterns
     {
         static void Main(string[] args)
         {
-            string[] creational = { "Factory", "Abstract Factory", "Builder" };
+            string[] creational = { "Factory", "Abstract Factory", "Builder", "Prototype" };
             while (true)
             {
                 while (true)
@@ -35,6 +37,13 @@ namespace Learn.DesignPatterns
                             break;
                         case "Builder":
                             Builder();
+                            break;
+                        case "Prototype":
+                            GameplaySettings gameplaySettings = new GameplaySettings();
+                            gameplaySettings.MouseSensitive = 15;
+                            var gameplaySettings2 = gameplaySettings.Clone() as GameplaySettings;
+                            Console.WriteLine(gameplaySettings2.MouseSensitive);
+                            Console.ReadKey(true);
                             break;
                         default:
                             break;
