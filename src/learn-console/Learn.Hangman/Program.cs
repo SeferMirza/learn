@@ -12,6 +12,7 @@ namespace Learn.Hangman
             while (!game.isGameOver)
             {
                 Clear();
+                WriteLine(game.Render());
                 game.Start();
                 game.Check();
             }

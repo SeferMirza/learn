@@ -28,7 +28,6 @@ namespace Learn.Hangman
                     enteredKey[i] = (char)keyPressed.Key;
                 }
             }
-            WriteLine(String.Join(' ', enteredKey));
         }
 
         public void Ready()
@@ -37,8 +36,7 @@ namespace Learn.Hangman
             for (int i = 0; i < word.Length; i++)
             {
                 enteredKey[i] = '_';
-            }
-            WriteLine(String.Join(' ', enteredKey));
+            } 
         }
 
         public bool Check()
@@ -52,6 +50,11 @@ namespace Learn.Hangman
                 }
             }
             return isGameOver;
+        }
+
+        public string Render()
+        {
+            return String.Join(' ', enteredKey);
         }
     }
 }
