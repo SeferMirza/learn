@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Learn.Hangman.Models
+﻿namespace Learn.Hangman.Models
 {
     public class Man
     {
-        string stage_0 = @"                          
+        string case0 = @"                          
                                -----------         
                               |           |        
                               |           |        
@@ -25,7 +19,7 @@ namespace Learn.Hangman.Models
                               |               
                           _________                 ";
 
-        string stage_1 = @"                          
+        string case1 = @"                          
                                -----------         
                               |           |        
                               |           |        
@@ -42,7 +36,7 @@ namespace Learn.Hangman.Models
                               |              
                           _________                 ";
 
-        string stage_2 = @"                          
+        string case2 = @"                          
                                -----------         
                               |           |        
                               |           |        
@@ -59,7 +53,7 @@ namespace Learn.Hangman.Models
                               |               
                           _________                 ";
 
-        string stage_3 = @"                          
+        string case3 = @"                          
                                -----------         
                               |           |        
                               |           |        
@@ -76,7 +70,7 @@ namespace Learn.Hangman.Models
                               |              
                           _________                 ";
 
-        string stage_4 = @"                          
+        string case4 = @"                          
                                -----------         
                               |           |        
                               |           |        
@@ -93,7 +87,7 @@ namespace Learn.Hangman.Models
                               |             
                           _________                 ";
 
-        string stage_5 = @"                          
+        string case5 = @"                          
                                -----------         
                               |           |        
                               |           |        
@@ -110,7 +104,7 @@ namespace Learn.Hangman.Models
                               |             \      
                           _________                 ";
 
-        string stage_6 = @"                          
+        string case6 = @"                          
                                -----------         
                               |           |        
                               |           |        
@@ -126,18 +120,18 @@ namespace Learn.Hangman.Models
                               |          / \       
                               |         /   \      
                           _________                 ";
-        public string GetMan(int stage)
+        public string GetMan(int fail)
         {
-            switch (stage)
+            switch (fail)
             {
-                case 0: return stage_0;
-                case 1: return stage_1;
-                case 2: return stage_2;
-                case 3: return stage_3;
-                case 4: return stage_4;
-                case 5: return stage_5;
-                case 6: return stage_6;
-                default: return stage_0;
+                case 0: return case0;
+                case 1: return case1;
+                case 2: return case2;
+                case 3: return case3;
+                case 4: return case4;
+                case 5: return case5;
+                case 6: return case6;
+                default: return case0;
             }
         }
     }
