@@ -5,7 +5,7 @@ using Learn.DesignPatterns.Creational.Builder.ConctreteBuilder;
 using Learn.DesignPatterns.Creational.Builder.Interface;
 using Learn.DesignPatterns.Creational.Factory;
 using Learn.DesignPatterns.Creational.Factory.Interface;
-using Learn.DesignPatterns.Creational.Prototype.Conctrete;
+using Learn.DesignPatterns.Creational.Prototype.Concrete;
 using Learn.DesignPatterns.Creational.Prototype.Interface;
 using System;
 

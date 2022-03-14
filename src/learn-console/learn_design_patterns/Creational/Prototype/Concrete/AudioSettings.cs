@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Learn.DesignPatterns.Creational.Prototype.Conctrete
+namespace Learn.DesignPatterns.Creational.Prototype.Concrete
 {
-    internal class GameplaySettings : ISettings
+    public class AudioSettings : ISettings
     {
-        public int MouseSensitive { get; set; }
+        public int MusicVolume { get; set; }
+
         public ISettings Clone()
         {
-            return this.MemberwiseClone() as ISettings;
+            return MemberwiseClone() as ISettings;
         }
     }
 }
