@@ -50,7 +50,9 @@ namespace Learn.DesignPatterns
                     }
 
                 }
+
                 Console.WriteLine("programı sonlandırmak istiyormusunuz ?");
+
                 if (Console.ReadLine() == "q")
                 {
                     Console.Clear();
