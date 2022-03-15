@@ -6,7 +6,7 @@ namespace Learn.Hangman.Test
     // TODO rename all tests to fit in AAA or Given When Then format
     public class HangmanTest
     {
-        private Game AGame(string challenge = "HI")
+        private Game AGame(string challenge)
         {
             var result = new Game(challenge);
 
@@ -18,17 +18,17 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Game_initial_state_control()
         {
-            var game = AGame();
+            var testing = AGame(challenge: "HI");
 
-            string text = "_ _"; // empty text
+            var actual = testing.Render();
 
-            Assert.Equal(text, game.Render());
+            Assert.Equal("_ _", actual);
         }
 
         [Fact]
         public void If_user_enter_right_character_open_all_box()
         {
-            var game = AGame();
+            var game = AGame(challenge: "HI");
 
             game.Start(ConsoleKey.I);
             game.Start(ConsoleKey.H);
@@ -41,7 +41,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void If_user_enters_wrong_character_box_reamins_closed()
         {
-            var game = AGame();
+            var game = AGame(challenge: "HI");
 
             game.Start(ConsoleKey.L);
             game.Start(ConsoleKey.K);
@@ -92,7 +92,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void If_user_does_not_enter_letter()
         {
-            var game = AGame();
+            var game = AGame(challenge: "HI");
 
             // TODO Refactor to have one hit per test case using test data
             game.Start(ConsoleKey.Enter);
