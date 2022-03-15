@@ -7,25 +7,22 @@ namespace Learn.Hangman
         private char[] word;
         private char[] enteredKey;
         private int failCount = 0;
-        public bool isGameOver = false;
-        ConsoleKeyInfo keyPressed;
+        public bool GameOver { get; set; }
+        ConsoleKey keyPressed;
 
-        public Game()
+        public Game(string word)
         {
-            word = "HANGMAN".ToCharArray();
+            this.word = word.ToCharArray();
         }
-        public Game(string _word)
+
+        public void Start(ConsoleKey entry)
         {
-            word = _word.ToCharArray();
-        }
-        public void Start()
-        {
-            keyPressed = ReadKey();
+            keyPressed = entry;
             for (int i = 0; i < word.Length; i++)
             {
-                if (word[i] == ((char)keyPressed.Key))
+                if (word[i] == ((char)keyPressed))
                 {
-                    enteredKey[i] = (char)keyPressed.Key;
+                    enteredKey[i] = (char)keyPressed;
                 }
             }
         }
@@ -39,23 +36,24 @@ namespace Learn.Hangman
             } 
         }
 
-        public bool Check()
+        public bool IsGameOverCheck()
         {
-            isGameOver = true;
+            GameOver = true;
             for (int j = 0; j < word.Length; j++)
             {
                 if (enteredKey[j] == '_')
                 {
-                    isGameOver = false;
+                    GameOver = false;
                 }
             }
-            return isGameOver;
+            return GameOver;
         }
 
         public string Render()
         {
-            return String.Join(' ', enteredKey);
+            return string.Join(' ', enteredKey);
         }
+
     }
 }
 
