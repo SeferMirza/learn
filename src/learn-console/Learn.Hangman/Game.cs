@@ -7,7 +7,7 @@ namespace Learn.Hangman
         private char[] word;
         private char[] enteredKey;
         private int failCount = 0;
-        public bool GameOver { get; set; }
+        public bool GameOver { get; private set; }
         ConsoleKey keyPressed;
 
         public Game(string word)
@@ -32,11 +32,14 @@ namespace Learn.Hangman
             enteredKey = new char[word.Length];
             for (int i = 0; i < word.Length; i++)
             {
-                enteredKey[i] = '_';
-            } 
+                if (word[i] == ' ')
+                    enteredKey[i] = ' ';
+                else
+                    enteredKey[i] = '_';
+            }
         }
 
-        public bool IsGameOverCheck()
+        public bool GameOverCheck()
         {
             GameOver = true;
             for (int j = 0; j < word.Length; j++)
