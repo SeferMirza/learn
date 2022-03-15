@@ -9,14 +9,14 @@ namespace Learn.Hangman
             Game game = new Game("ISTANBUL");
             game.Ready();
 
-            while (!game.isGameOver)
+            while (!game.GameOver)
             {
                 Clear();
                 WriteLine(game.Render());
-                game.Start();
-                game.Check();
+                game.Start(ReadKey().Key);
+                game.IsGameOverCheck();
             }
-
+            
             WriteLine("\nHarika tüm harfleri buldunuz!");
         }
     }
