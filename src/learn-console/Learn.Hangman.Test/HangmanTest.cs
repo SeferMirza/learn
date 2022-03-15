@@ -5,17 +5,20 @@ namespace Learn.Hangman.Test
 {
     public class HangmanTest
     {
-        string word = "HI";
-        Game game;
-        public HangmanTest()
+        private Game AGame(string word = "HI")
         {
-            game = new Game(word);
-            game.Ready();
+            var result = new Game(word);
+
+            result.Ready();
+
+            return result;
         }
 
         [Fact]
         public void Game_initial_state_control()
         {
+            var game = AGame();
+
             string text = string.Empty;
             text = "_ _"; // empty text
 
@@ -25,6 +28,8 @@ namespace Learn.Hangman.Test
         [Fact]
         public void If_user_enter_right_character_open_all_box()
         {
+            var game = AGame();
+
             game.Start(ConsoleKey.I);
             game.Start(ConsoleKey.H);
 
@@ -36,6 +41,8 @@ namespace Learn.Hangman.Test
         [Fact]
         public void If_user_enters_wrong_character_box_reamins_closed()
         {
+            var game = AGame();
+
             game.Start(ConsoleKey.L);
             game.Start(ConsoleKey.K);
             game.Start(ConsoleKey.C);
@@ -47,53 +54,47 @@ namespace Learn.Hangman.Test
         [Fact]
         public void If_ser_finds_more_than_one_character_in_the_boxes_they_all_opened()
         {
-            string text = "ADANA";
+            var game = AGame(word: "ADANA");
 
-            Game localGame = new Game(text);
-            localGame.Ready();
-            localGame.Start(ConsoleKey.A);
+            game.Start(ConsoleKey.A);
 
-            Assert.Equal("A _ A _ A", localGame.Render());
+            Assert.Equal("A _ A _ A", game.Render());
         }
 
         [Fact]
         public void All_existing_characters_are_entered_game_over()
         {
-            string text = "AAAAA";
+            var game = AGame(word: "AAAAA");
 
-            Game localGame = new Game(text);
-            localGame.Ready();
-            localGame.Start(ConsoleKey.A);
+            game.Start(ConsoleKey.A);
 
-            Assert.True(localGame.GameOverCheck());
+            Assert.True(game.GameOverCheck());
         }
 
         [Fact]
         public void Texts_consisting_of_more_than_one_word_open_correctly()
         {
-            string text = "KARABIGA BIGA CANAKKALE";
+            var game = AGame(word: "KARABIGA BIGA CANAKKALE");
 
-            Game localGame = new Game(text);
-            localGame.Ready();
-
-            Assert.Equal("_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _", localGame.Render());
+            Assert.Equal("_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _", game.Render());
         }
 
         [Fact]
         public void Character_entered_by_user_opens_correctly_ın_more_than_one_word()
         {
-            string text = "KARABIGA CANAKKALE";
+            var game = AGame(word: "KARABIGA CANAKKALE");
 
-            Game localGame = new Game(text);
-            localGame.Ready();
-            localGame.Start(ConsoleKey.A);
+            game.Start(ConsoleKey.A);
 
-            Assert.Equal("_ A _ A _ _ _ A   _ A _ A _ _ A _ _", localGame.Render());
+            Assert.Equal("_ A _ A _ _ _ A   _ A _ A _ _ A _ _", game.Render());
         }
 
         [Fact]
         public void If_user_does_not_enter_letter()
         {
+            var game = AGame();
+
+            // TODO Refactor to have one hit per test case using test data
             game.Start(ConsoleKey.Enter);
             game.Start(ConsoleKey.F1);
             game.Start(ConsoleKey.NumPad1);
@@ -111,14 +112,11 @@ namespace Learn.Hangman.Test
         [Fact]
         public void User_enters_space_when_there_is_more_than_one_word()
         {
-            string text = "KARABIGA BIGA CANAKKALE";
+            var game = AGame(word: "KARABIGA BIGA CANAKKALE");
+            game.Ready();
+            game.Start(ConsoleKey.Spacebar);
 
-            Game localGame = new Game(text);
-            localGame.Ready();
-            localGame.Start(ConsoleKey.Spacebar);
-
-            Assert.Equal("_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _", localGame.Render());
+            Assert.Equal("_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _", game.Render());
         }
-
     }
 }
