@@ -1,9 +1,6 @@
 using System;
 using Xunit;
-/*...
- 
- 
- */
+
 namespace Learn.Hangman.Test
 {
     public class HangmanTest
@@ -17,7 +14,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Game_Initial_State_Control()
+        public void Game_initial_state_control()
         {
             string text = string.Empty;
             text = "_ _"; // empty text
@@ -26,7 +23,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_User_Enter_Right_Character_Open_All_Box()
+        public void If_user_enter_right_character_open_all_box()
         {
             game.Start(ConsoleKey.I);
             game.Start(ConsoleKey.H);
@@ -37,7 +34,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_User_Enters_Wrong_Character_Box_Reamins_Closed()
+        public void If_user_enters_wrong_character_box_reamins_closed()
         {
             game.Start(ConsoleKey.L);
             game.Start(ConsoleKey.K);
@@ -48,7 +45,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_User_Finds_More_Than_One_Character_In_The_Boxes_They_All_Opened()
+        public void If_ser_finds_more_than_one_character_in_the_boxes_they_all_opened()
         {
             string text = "ADANA";
 
@@ -60,7 +57,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void All_Existing_Characters_Are_Entered_Game_Over()
+        public void All_existing_characters_are_entered_game_over()
         {
             string text = "AAAAA";
 
@@ -72,7 +69,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Texts_Consisting_Of_More_Than_One_Word_Open_Correctly()
+        public void Texts_consisting_of_more_than_one_word_open_correctly()
         {
             string text = "KARABIGA BIGA CANAKKALE";
 
@@ -83,7 +80,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Character_Entered_By_User_Opens_Correctly_In_More_Than_One_Word()
+        public void Character_entered_by_user_opens_correctly_ın_more_than_one_word()
         {
             string text = "KARABIGA CANAKKALE";
 
@@ -95,7 +92,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_User_Does_Not_Enter_Letter()
+        public void If_user_does_not_enter_letter()
         {
             game.Start(ConsoleKey.Enter);
             game.Start(ConsoleKey.F1);
@@ -112,7 +109,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void User_Enters_Space_When_There_Is_More_Than_One_Word()
+        public void User_enters_space_when_there_is_more_than_one_word()
         {
             string text = "KARABIGA BIGA CANAKKALE";
 
@@ -123,10 +120,5 @@ namespace Learn.Hangman.Test
             Assert.Equal("_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _", localGame.Render());
         }
 
-        [Fact]
-        public void If_User_Hits_The_Screen_It_Is_Game_Over()
-        {
-            Assert.True(true);
-        }
     }
 }

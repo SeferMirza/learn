@@ -6,7 +6,7 @@ namespace Learn.Hangman
     {
         static void Main(string[] args)
         {
-            Game game = new Game("ISTANBUL ANKARA ANA BABA");
+            Game game = new Game("I AM IRONMAN");
             game.Ready();
 
             while (!game.GameOver)
