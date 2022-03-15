@@ -16,7 +16,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Game_initial_state_control()
+        public void Given_a_challenge_one_word__when_user_run_program__then_show_as_many_the_number_of_letters_in_word()
         {
             var testing = AGame(challenge: "HI");
 
@@ -26,7 +26,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_user_enter_right_character_open_all_box()
+        public void In_the_challenge__When_user_enters_correct_characters_in_the_boxes__then_letters_pop_up_in_the_correct_places()
         {
             var game = AGame(challenge: "HI");
 
@@ -40,7 +40,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_user_enters_wrong_character_box_reamins_closed()
+        public void Given_a_challenge_one_word__when_user_enter_character_that_are_not_in_the_word__then_no_one_character_pop_up_on_boxes()
         {
             var game = AGame(challenge: "HI");
 
@@ -53,7 +53,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_user_finds_more_than_one_character_in_the_boxes_they_all_opened()
+        public void Given_a_challenge_more_than_a_character_in_a_word__when_user_enter_this_character__then_opened_this_characters()
         {
             var game = AGame(challenge: "ADANA");
 
@@ -63,7 +63,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void All_existing_characters_are_entered_game_over()
+        public void Game_over__when_all_challenge_complete__then_propertie_returns_false()
         {
             var game = AGame(challenge: "AAAAA");
 
@@ -73,7 +73,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Texts_consisting_of_more_than_one_word_open_correctly()
+        public void Given_a_challenge_more_than_a_word__when_programs_start__then_all_box_correctly_opened()
         {
             var game = AGame(challenge: "KARABIGA BIGA CANAKKALE");
 
@@ -81,7 +81,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Character_entered_by_user_opens_correctly_ın_more_than_one_word()
+        public void Given_a_challenge_with_more_than_one_word__when_the_user_enters_characters__then_entered_in_each_word_are_opened()
         {
             var game = AGame(challenge: "KARABIGA CANAKKALE");
 
@@ -91,7 +91,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_user_does_not_enter_letter()
+        public void Given_a_challenge__when_the_user_enters_a_character_that_is_not_in_the_text__then_it_is_ignored()
         {
             var game = AGame(challenge: "HI");
 
