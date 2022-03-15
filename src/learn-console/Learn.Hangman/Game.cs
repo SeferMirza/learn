@@ -1,26 +1,27 @@
-﻿using static System.Console;
-
-namespace Learn.Hangman
+﻿namespace Learn.Hangman
 {
     public class Game
     {
-        private char[] word;
+        private char[] challenge;
         private char[] enteredKey;
-        private int failCount = 0;
-        public bool GameOver { get; private set; }
-        ConsoleKey keyPressed;
+        private ConsoleKey keyPressed;
 
-        public Game(string word)
+        public bool GameOver { get; private set; }
+
+        public Game(string challenge)
         {
-            this.word = word.ToCharArray();
+            this.challenge = challenge.ToCharArray();
+
+            enteredKey = new char[challenge.Length];
         }
 
         public void Start(ConsoleKey entry)
         {
             keyPressed = entry;
-            for (int i = 0; i < word.Length; i++)
+
+            for (int i = 0; i < challenge.Length; i++)
             {
-                if (word[i] == ((char)keyPressed))
+                if (challenge[i] == ((char)keyPressed))
                 {
                     enteredKey[i] = (char)keyPressed;
                 }
@@ -29,26 +30,21 @@ namespace Learn.Hangman
 
         public void Ready()
         {
-            enteredKey = new char[word.Length];
-            for (int i = 0; i < word.Length; i++)
+            for (int i = 0; i < challenge.Length; i++)
             {
-                if (word[i] == ' ')
-                    enteredKey[i] = ' ';
-                else
-                    enteredKey[i] = '_';
+                if (challenge[i] == ' ') enteredKey[i] = ' ';
+                else enteredKey[i] = '_';
             }
         }
 
         public bool GameOverCheck()
         {
             GameOver = true;
-            for (int j = 0; j < word.Length; j++)
+            for (int j = 0; j < challenge.Length; j++)
             {
-                if (enteredKey[j] == '_')
-                {
-                    GameOver = false;
-                }
+                if (enteredKey[j] == '_') GameOver = false;
             }
+
             return GameOver;
         }
 
@@ -56,7 +52,5 @@ namespace Learn.Hangman
         {
             return string.Join(' ', enteredKey);
         }
-
     }
 }
-
