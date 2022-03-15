@@ -409,7 +409,7 @@ obj/
 /wwwroot/node_modules
 
 # Vim stuff
-**/*.sw?
+**/*.swp
 
 ### VisualStudio ###
 

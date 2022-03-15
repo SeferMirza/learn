@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Learn.Hangman.Test
 {
-    // TODO rename all tests to fit in AAA or Given When Then format
+    // TODO REFACTOR rename all tests to fit in AAA or Given When Then format
     public class HangmanTest
     {
         private Game AGame(string challenge)
@@ -30,6 +30,7 @@ namespace Learn.Hangman.Test
         {
             var game = AGame(challenge: "HI");
 
+            // TODO PAIR put it in setup
             game.Start(ConsoleKey.I);
             game.Start(ConsoleKey.H);
 
@@ -94,7 +95,7 @@ namespace Learn.Hangman.Test
         {
             var game = AGame(challenge: "HI");
 
-            // TODO Refactor to have one hit per test case using test data
+            // TODO REFACTOR to have one hit per test case using test data
             game.Start(ConsoleKey.Enter);
             game.Start(ConsoleKey.F1);
             game.Start(ConsoleKey.NumPad1);
