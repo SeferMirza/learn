@@ -3,11 +3,12 @@ using Xunit;
 
 namespace Learn.Hangman.Test
 {
+    // TODO rename all tests to fit in AAA or Given When Then format
     public class HangmanTest
     {
-        private Game AGame(string word = "HI")
+        private Game AGame(string challenge = "HI")
         {
-            var result = new Game(word);
+            var result = new Game(challenge);
 
             result.Ready();
 
@@ -51,9 +52,9 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_ser_finds_more_than_one_character_in_the_boxes_they_all_opened()
+        public void If_user_finds_more_than_one_character_in_the_boxes_they_all_opened()
         {
-            var game = AGame(word: "ADANA");
+            var game = AGame(challenge: "ADANA");
 
             game.Start(ConsoleKey.A);
 
@@ -63,7 +64,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void All_existing_characters_are_entered_game_over()
         {
-            var game = AGame(word: "AAAAA");
+            var game = AGame(challenge: "AAAAA");
 
             game.Start(ConsoleKey.A);
 
@@ -73,7 +74,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Texts_consisting_of_more_than_one_word_open_correctly()
         {
-            var game = AGame(word: "KARABIGA BIGA CANAKKALE");
+            var game = AGame(challenge: "KARABIGA BIGA CANAKKALE");
 
             Assert.Equal("_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _", game.Render());
         }
@@ -81,7 +82,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Character_entered_by_user_opens_correctly_ın_more_than_one_word()
         {
-            var game = AGame(word: "KARABIGA CANAKKALE");
+            var game = AGame(challenge: "KARABIGA CANAKKALE");
 
             game.Start(ConsoleKey.A);
 
@@ -112,7 +113,7 @@ namespace Learn.Hangman.Test
         public void Given_a_challenge_with_more_than_one_word__when_user_enters_a_space__then_it_is_ignored()
         {
             // Arrange
-            var game = AGame(word: "KARABIGA BIGA CANAKKALE");
+            var game = AGame(challenge: "KARABIGA BIGA CANAKKALE");
 
             // Act
             game.Start(ConsoleKey.Spacebar);
