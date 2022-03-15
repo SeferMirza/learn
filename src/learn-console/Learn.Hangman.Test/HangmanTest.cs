@@ -19,8 +19,7 @@ namespace Learn.Hangman.Test
         {
             var game = AGame();
 
-            string text = string.Empty;
-            text = "_ _"; // empty text
+            string text = "_ _"; // empty text
 
             Assert.Equal(text, game.Render());
         }
@@ -110,12 +109,15 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void User_enters_space_when_there_is_more_than_one_word()
+        public void Given_a_challenge_with_more_than_one_word__when_user_enters_a_space__then_it_is_ignored()
         {
+            // Arrange
             var game = AGame(word: "KARABIGA BIGA CANAKKALE");
-            game.Ready();
+
+            // Act
             game.Start(ConsoleKey.Spacebar);
 
+            // Assert
             Assert.Equal("_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _", game.Render());
         }
     }

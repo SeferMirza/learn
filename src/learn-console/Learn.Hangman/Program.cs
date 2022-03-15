@@ -16,7 +16,10 @@ namespace Learn.Hangman
                 game.Start(ReadKey().Key);
                 game.GameOverCheck();
             }
-            
+
+            Clear();
+            WriteLine(game.Render());
+
             WriteLine("\nHarika tüm harfleri buldunuz!");
         }
     }
