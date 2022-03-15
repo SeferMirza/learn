@@ -6,7 +6,7 @@ namespace Learn.Hangman
     {
         static void Main(string[] args)
         {
-            Game game = new Game("ISTANBUL");
+            Game game = new Game("ISTANBUL ANKARA ANA BABA");
             game.Ready();
 
             while (!game.GameOver)
@@ -14,7 +14,7 @@ namespace Learn.Hangman
                 Clear();
                 WriteLine(game.Render());
                 game.Start(ReadKey().Key);
-                game.IsGameOverCheck();
+                game.GameOverCheck();
             }
             
             WriteLine("\nHarika tüm harfleri buldunuz!");
