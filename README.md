@@ -2,7 +2,7 @@
 
 ## Projede Hedefler
 - [x] Kelime Tahmini
-- [x] Yanlış tahminde limit
+- [] Yanlış tahminde limit
 - [ ] İnsan figürü
 - [ ] Menü
 - [ ] Çok oyunculu oynama
