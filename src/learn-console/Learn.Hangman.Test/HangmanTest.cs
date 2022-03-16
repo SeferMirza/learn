@@ -137,5 +137,32 @@ namespace Learn.Hangman.Test
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void In_a_challenge_with_text__when_user_wrong_enter_letter__then_the_wrong_GuessesScore_decreases_by_one()
+        {
+            var game = AGame(challenge: "HI");
+            var expected = game.GetWrongGuessesScroce()-1;
+
+            game.Start(ConsoleKey.A);
+            var actual = game.GetWrongGuessesScroce();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [InlineData(ConsoleKey.A)]
+        [InlineData(ConsoleKey.B)]
+        [InlineData(ConsoleKey.C)]
+        [Theory]
+        public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render__information_massage(ConsoleKey key)
+        {
+            var game = AGame(challenge: "HI");
+            var expected = game.GetWrongGuessesScroce() - 1;
+
+            game.Start(ConsoleKey.A);
+            var actual = game.GetWrongGuessesScroce();
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
