@@ -1,4 +1,5 @@
-![test](https://user-images.githubusercontent.com/36925434/158218155-ca26fe99-c211-43f9-a804-662701dd9050.gif)
+![test](https://user-images.githubusercontent.com/36925434/158653392-c927c165-4e2c-48b7-bbb0-3e29357a159b.gif)
+
 ## Projede Hedefler
 - [x] Kelime Tahmini
 - [ ] Yanlış tahminde limit
