@@ -10,7 +10,7 @@ namespace Learn.Hangman
         private ConsoleKey keyPressed;
         private byte wrongGuessesScore = 6;
         private GameTexts gameTexts;
-        public GameStatus GameStatu { get; private set; }
+        public GameStatus GameStatus { get; private set; }
 
         public Game(string challenge)
         {
@@ -23,10 +23,10 @@ namespace Learn.Hangman
 
         public void Start(ConsoleKey entry)
         {
-            GetGameStatu();
+            GetGameStatus();
             var isWrongKeyEntry = true;
             keyPressed = entry;
-            if (wrongGuessesScore > 0 && GameStatu == GameStatus.Play)
+            if (wrongGuessesScore > 0 && GameStatus == GameStatus.Play)
             {
                 for (int i = 0; i < challenge.Length; i++)
                 {
@@ -50,40 +50,40 @@ namespace Learn.Hangman
             }
         }
 
-        public GameStatus GetGameStatu()
+        public GameStatus GetGameStatus()
         {
             bool foundEmptyBox = false;
 
-            if (wrongGuessesScore <= 0 && GameStatu != GameStatus.Finish)
+            if (wrongGuessesScore <= 0 && GameStatus != GameStatus.Finish)
             {
-                GameStatu = GameStatus.Over;
-                return GameStatu;
+                GameStatus = GameStatus.Over;
+                return GameStatus;
             }
 
             for (int j = 0; j < challenge.Length; j++)
             {
                 if (enteredKey[j] == '_' && wrongGuessesScore > 0)
                 {
-                    GameStatu = GameStatus.Play;
+                    GameStatus = GameStatus.Play;
                     foundEmptyBox = true;
                 }
             }
 
             if (!foundEmptyBox)
             {
-                GameStatu = GameStatus.Finish;
+                GameStatus = GameStatus.Finish;
             }
 
-            return GameStatu;
+            return GameStatus;
         }
 
         public string Render()
         {
-            if (GameStatu == GameStatus.Play)
+            if (GameStatus == GameStatus.Play)
             {
                 return string.Join(' ', enteredKey);
             }
-            else if (GameStatu == GameStatus.Finish)
+            else if (GameStatus == GameStatus.Finish)
             {
                 return gameTexts.GetFinishGameText(FinishGameType.Elite);
             }

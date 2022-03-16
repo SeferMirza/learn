@@ -73,7 +73,7 @@ namespace Learn.Hangman.Test
             var game = AGame(challenge: "AAAAA");
 
             game.Start(ConsoleKey.A);
-            bool condition = game.GetGameStatu() == GameStatus.Finish ? true : false;
+            bool condition = game.GetGameStatus() == GameStatus.Finish ? true : false;
 
             Assert.True(condition);
         }
@@ -151,7 +151,6 @@ namespace Learn.Hangman.Test
             Assert.Equal(expected, actual);
         }
 
-
         [Fact]
         public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render_information_massage()
         {
@@ -166,7 +165,7 @@ namespace Learn.Hangman.Test
             game.Start(ConsoleKey.C);
             game.Start(ConsoleKey.C);
             
-            Assert.True(game.GetGameStatu() == GameStatus.Over);
+            Assert.True(game.GetGameStatus() == GameStatus.Over);
         }
     }
 }

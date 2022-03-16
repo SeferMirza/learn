@@ -10,7 +10,7 @@ namespace Learn.Hangman
             Game game = new Game("I AM IRONMAN");
             game.Ready();
 
-            while (game.GameStatu == GameStatus.Play)
+            while (game.GameStatus == GameStatus.Play)
             {
                 Clear();
                 WriteLine(game.Render());
