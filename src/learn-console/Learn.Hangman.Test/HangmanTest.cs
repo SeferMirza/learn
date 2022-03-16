@@ -35,10 +35,9 @@ namespace Learn.Hangman.Test
             // TODO PAIR put it in setup
             game.Start(ConsoleKey.I);
             game.Start(ConsoleKey.H);
-            string actual = game.Render();
+            string actual = game.GetEnteredKey();
 
             Assert.Equal(expected, actual);
-
         }
 
         [Fact]
@@ -143,10 +142,10 @@ namespace Learn.Hangman.Test
         public void In_a_challenge_with_text__when_user_wrong_enter_letter__then_the_wrong_GuessesScore_decreases_by_one()
         {
             var game = AGame(challenge: "HI");
-            var expected = game.GetWrongGuessesScroce() - 1;
+            var expected = game.GetWrongGuessesScore() - 1;
 
             game.Start(ConsoleKey.A);
-            var actual = game.GetWrongGuessesScroce();
+            var actual = game.GetWrongGuessesScore();
 
             Assert.Equal(expected, actual);
         }

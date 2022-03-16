@@ -1,4 +1,5 @@
-﻿using Learn.Hangman.Models;
+﻿using Learn.Hangman.Interface;
+using Learn.Hangman.Models;
 using static Learn.Hangman.Common.Enums;
 
 namespace Learn.Hangman
@@ -8,8 +9,8 @@ namespace Learn.Hangman
         private char[] challenge;
         private char[] enteredKey;
         private ConsoleKey keyPressed;
-        private byte wrongGuessesScore = 6;
-        private GameTexts gameTexts;
+        private byte wrongGuessesScore = 5;
+        private IText GameEndText;
         public GameStatus GameStatus { get; private set; }
 
         public Game(string challenge)
@@ -17,13 +18,10 @@ namespace Learn.Hangman
             this.challenge = challenge.ToCharArray();
 
             enteredKey = new char[challenge.Length];
-
-            gameTexts = new GameTexts();
         }
 
         public void Start(ConsoleKey entry)
         {
-            GetGameStatus();
             var isWrongKeyEntry = true;
             keyPressed = entry;
             if (wrongGuessesScore > 0 && GameStatus == GameStatus.Play)
@@ -39,6 +37,7 @@ namespace Learn.Hangman
 
                 if (isWrongKeyEntry) wrongGuessesScore--;
             }
+            GetGameStatus();
         }
 
         public void Ready()
@@ -85,17 +84,24 @@ namespace Learn.Hangman
             }
             else if (GameStatus == GameStatus.Finish)
             {
-                return gameTexts.GetFinishGameText(FinishGameType.Elite);
+                GameEndText = new EliteTexts(); 
+                return GameEndText.GameFinishText();
             }
             else
             {
-                return gameTexts.GetGameOverText(GameOverType.Elite);
+                GameEndText = new BloodyTexts();
+                return GameEndText.GameOverText();
             }
         }
 
-        public byte GetWrongGuessesScroce()
+        public byte GetWrongGuessesScore()
         {
             return wrongGuessesScore;
+        }
+
+        public string GetEnteredKey()
+        {
+            return string.Join(' ', enteredKey);
         }
     }
 }

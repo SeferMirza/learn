@@ -16,7 +16,8 @@ namespace Learn.Hangman
                 WriteLine(game.Render());
                 game.Start(ReadKey().Key);
             }
-
+            Clear();
+            WriteLine(game.Render());
         }
     }
 }
