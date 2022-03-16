@@ -23,19 +23,22 @@ namespace Learn.Hangman
 
         public void Start(ConsoleKey entry)
         {
+            GetGameStatu();
             var isWrongKeyEntry = true;
             keyPressed = entry;
-
-            for (int i = 0; i < challenge.Length; i++)
+            if (wrongGuessesScore > 0 && GameStatu == GameStatus.Play)
             {
-                if (challenge[i] == ((char)keyPressed))
+                for (int i = 0; i < challenge.Length; i++)
                 {
-                    isWrongKeyEntry = false;
-                    enteredKey[i] = (char)keyPressed;
+                    if (challenge[i] == ((char)keyPressed))
+                    {
+                        isWrongKeyEntry = false;
+                        enteredKey[i] = (char)keyPressed;
+                    }
                 }
-            }
 
-            if (isWrongKeyEntry) wrongGuessesScore--;
+                if (isWrongKeyEntry) wrongGuessesScore--;
+            }
         }
 
         public void Ready()
@@ -51,7 +54,7 @@ namespace Learn.Hangman
         {
             bool foundEmptyBox = false;
 
-            if (wrongGuessesScore <= 0)
+            if (wrongGuessesScore <= 0 && GameStatu != GameStatus.Finish)
             {
                 GameStatu = GameStatus.Over;
                 return GameStatu;
@@ -59,12 +62,13 @@ namespace Learn.Hangman
 
             for (int j = 0; j < challenge.Length; j++)
             {
-                if (enteredKey[j] == '_')
+                if (enteredKey[j] == '_' && wrongGuessesScore > 0)
                 {
                     GameStatu = GameStatus.Play;
                     foundEmptyBox = true;
                 }
             }
+
             if (!foundEmptyBox)
             {
                 GameStatu = GameStatus.Finish;

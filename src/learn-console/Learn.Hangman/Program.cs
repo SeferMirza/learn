@@ -13,7 +13,6 @@ namespace Learn.Hangman
             while (game.GameStatu == GameStatus.Play)
             {
                 Clear();
-                game.GetGameStatu();
                 WriteLine(game.Render());
                 game.Start(ReadKey().Key);
             }

@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using static Learn.Hangman.Common.Enums;
 
 namespace Learn.Hangman.Test
 {
@@ -72,7 +73,7 @@ namespace Learn.Hangman.Test
             var game = AGame(challenge: "AAAAA");
 
             game.Start(ConsoleKey.A);
-            bool condition = game.GameOverCheck();
+            bool condition = game.GetGameStatu() == GameStatus.Finish ? true : false;
 
             Assert.True(condition);
         }
@@ -142,7 +143,7 @@ namespace Learn.Hangman.Test
         public void In_a_challenge_with_text__when_user_wrong_enter_letter__then_the_wrong_GuessesScore_decreases_by_one()
         {
             var game = AGame(challenge: "HI");
-            var expected = game.GetWrongGuessesScroce()-1;
+            var expected = game.GetWrongGuessesScroce() - 1;
 
             game.Start(ConsoleKey.A);
             var actual = game.GetWrongGuessesScroce();
@@ -150,19 +151,22 @@ namespace Learn.Hangman.Test
             Assert.Equal(expected, actual);
         }
 
-        [InlineData(ConsoleKey.A)]
-        [InlineData(ConsoleKey.B)]
-        [InlineData(ConsoleKey.C)]
-        [Theory]
-        public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render__information_massage(ConsoleKey key)
+
+        [Fact]
+        public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render_information_massage()
         {
             var game = AGame(challenge: "HI");
-            var expected = game.GetWrongGuessesScroce() - 1;
 
+            game.Start(ConsoleKey.H);
             game.Start(ConsoleKey.A);
-            var actual = game.GetWrongGuessesScroce();
-
-            Assert.Equal(expected, actual);
+            game.Start(ConsoleKey.C);
+            game.Start(ConsoleKey.C);
+            game.Start(ConsoleKey.C);
+            game.Start(ConsoleKey.C);
+            game.Start(ConsoleKey.C);
+            game.Start(ConsoleKey.C);
+            
+            Assert.True(game.GetGameStatu() == GameStatus.Over);
         }
     }
 }
