@@ -5,4 +5,4 @@
 - [ ] Yanlış tahminde limit
 - [ ] İnsan figürü
 - [ ] Menü
-- [ ] Çok oyunculu oynama
+- [ ] Local bağlantı ile oynama
