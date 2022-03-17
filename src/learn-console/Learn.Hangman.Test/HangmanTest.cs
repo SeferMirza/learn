@@ -1,6 +1,6 @@
+using Learn.Hangman.Texts;
 using System;
 using Xunit;
-using static Learn.Hangman.Common.Enums;
 
 namespace Learn.Hangman.Test
 {
@@ -10,7 +10,7 @@ namespace Learn.Hangman.Test
             int wrongGuessesScore = 5
         )
         {
-            var result = new Game(challenge, wrongGuessesScore);
+            var result = new Game(challenge, wrongGuessesScore, new EliteText());
 
             result.Ready();
 

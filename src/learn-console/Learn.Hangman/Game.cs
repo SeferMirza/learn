@@ -1,8 +1,4 @@
-﻿using Learn.Hangman.Interface;
-using Learn.Hangman.Models;
-using static Learn.Hangman.Common.Enums;
-
-namespace Learn.Hangman
+﻿namespace Learn.Hangman
 {
     public class Game
     {
@@ -10,13 +6,15 @@ namespace Learn.Hangman
         private char[] enteredKey;
         private ConsoleKey keyPressed;
         private int wrongGuessesScore;
-        private IText GameEndText;
+        private IText text;
+
         public GameStatus GameStatus { get; private set; }
 
-        public Game(string challenge, int wrongGuessesScore = 5)
+        public Game(string challenge, int wrongGuessesScore, IText text)
         {
             this.challenge = challenge.ToCharArray();
             this.wrongGuessesScore = wrongGuessesScore;
+            this.text = text;
 
             enteredKey = new char[challenge.Length];
         }
@@ -85,13 +83,11 @@ namespace Learn.Hangman
             }
             else if (GameStatus == GameStatus.Finish)
             {
-                GameEndText = new EliteTexts();
-                return GameEndText.GameFinishText();
+                return text.GameFinishText();
             }
             else
             {
-                GameEndText = new BloodyTexts();
-                return GameEndText.GameOverText();
+                return text.GameOverText();
             }
         }
 

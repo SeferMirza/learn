@@ -1,4 +1,4 @@
-﻿namespace Learn.Hangman.Interface
+﻿namespace Learn.Hangman
 {
     public interface IText
     {
