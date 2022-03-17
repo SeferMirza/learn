@@ -6,9 +6,11 @@ namespace Learn.Hangman.Test
 {
     public class HangmanTest
     {
-        private Game AGame(string challenge)
+        private Game AGame(string challenge,
+            int wrongGuessesScore = 5
+        )
         {
-            var result = new Game(challenge);
+            var result = new Game(challenge, wrongGuessesScore);
 
             result.Ready();
 
@@ -153,17 +155,11 @@ namespace Learn.Hangman.Test
         [Fact]
         public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render_information_massage()
         {
-            var game = AGame(challenge: "HI");
+            var game = AGame(challenge: "HI", wrongGuessesScore: 1);
 
             game.Start(ConsoleKey.H);
             game.Start(ConsoleKey.A);
-            game.Start(ConsoleKey.C);
-            game.Start(ConsoleKey.C);
-            game.Start(ConsoleKey.C);
-            game.Start(ConsoleKey.C);
-            game.Start(ConsoleKey.C);
-            game.Start(ConsoleKey.C);
-            
+
             Assert.True(game.GetGameStatus() == GameStatus.Over);
         }
     }

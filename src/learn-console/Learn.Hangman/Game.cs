@@ -9,13 +9,14 @@ namespace Learn.Hangman
         private char[] challenge;
         private char[] enteredKey;
         private ConsoleKey keyPressed;
-        private byte wrongGuessesScore = 5;
+        private int wrongGuessesScore;
         private IText GameEndText;
         public GameStatus GameStatus { get; private set; }
 
-        public Game(string challenge)
+        public Game(string challenge, int wrongGuessesScore = 5)
         {
             this.challenge = challenge.ToCharArray();
+            this.wrongGuessesScore = wrongGuessesScore;
 
             enteredKey = new char[challenge.Length];
         }
@@ -84,7 +85,7 @@ namespace Learn.Hangman
             }
             else if (GameStatus == GameStatus.Finish)
             {
-                GameEndText = new EliteTexts(); 
+                GameEndText = new EliteTexts();
                 return GameEndText.GameFinishText();
             }
             else
@@ -94,7 +95,7 @@ namespace Learn.Hangman
             }
         }
 
-        public byte GetWrongGuessesScore()
+        public int GetWrongGuessesScore()
         {
             return wrongGuessesScore;
         }
