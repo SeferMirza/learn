@@ -1,0 +1,22 @@
+{
+    "2022": [
+        {
+            "Mart": [{
+                "21":{
+                    "Codewars-pratik-yap":false,
+                    "Tasarim-kalipları-calis":false,
+                    "Sabah-kahveni-yudumla":false,
+                    "Takvim-kontrolu":false,
+                    "Cihan-abiyle-toplanti":{
+                        "birmasa-uzerinde-calisma":false
+                    },
+                    "Hangman-uzerinde-calis":false
+                }
+            }]
+        }
+    ],
+    "Rules": {
+        "if i did":true,
+        "if i didnt":false
+    }
+}
