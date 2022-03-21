@@ -11,10 +11,10 @@ namespace Learn.Hangman
             this.console = console;
         }
 
-        public bool Run()
+        public void Run()
         {
             game.Ready();
-            while (game.GetGameStatus() == GameStatus.Play)
+            while (game.GameStatus == GameStatus.Play)
             {
                 console.Clear();
                 console.WriteLine(game.Render());
@@ -23,7 +23,6 @@ namespace Learn.Hangman
 
             console.Clear();
             console.WriteLine(game.Render());
-            return true;
         }
     }
 }

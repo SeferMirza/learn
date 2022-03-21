@@ -13,7 +13,7 @@ namespace Learn.Hangman.Test
         {
             var mock = new Mock<IGame>();
 
-            var setup = mock.SetupSequence(t => t.GetGameStatus());
+            var setup = mock.SetupSequence(t => t.GameStatus);
             for (var i = 0; i < remainingRounds; i++)
             {
                 setup = setup.Returns(GameStatus.Play);

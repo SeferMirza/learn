@@ -1,28 +1,30 @@
 ﻿namespace Learn.Hangman
 {
-    public class Game:IGame
+    public class Game : IGame
     {
-        private char[] challenge;
-        private char[] enteredKey;
-        private ConsoleKey keyPressed;
+        private readonly char[] challenge;
+        private readonly int maxGuessesScore;
+        private readonly IText text;
+        private readonly string[] countDown;
+        private readonly char[] enteredKey;
         private int wrongGuessesScore;
-        private IText text;
 
         public GameStatus GameStatus { get; private set; }
 
-        public Game(string challenge, int wrongGuessesScore, IText text)
+        public Game(string challenge, int maxGuessesScore, IText text, string[] countDown)
         {
             this.challenge = challenge.ToCharArray();
-            this.wrongGuessesScore = wrongGuessesScore;
+            this.maxGuessesScore = maxGuessesScore;
             this.text = text;
+            this.countDown = countDown;
 
             enteredKey = new char[challenge.Length];
+            wrongGuessesScore = maxGuessesScore;
         }
 
-        public void Start(ConsoleKey entry)
+        public void Start(ConsoleKey keyPressed)
         {
             var isWrongKeyEntry = true;
-            keyPressed = entry;
             if (wrongGuessesScore > 0 && GameStatus == GameStatus.Play)
             {
                 for (int i = 0; i < challenge.Length; i++)
@@ -36,7 +38,8 @@
 
                 if (isWrongKeyEntry) wrongGuessesScore--;
             }
-            GetGameStatus();
+
+            ProcessGameStatus();
         }
 
         public void Ready()
@@ -48,14 +51,14 @@
             }
         }
 
-        public GameStatus GetGameStatus()
+        private void ProcessGameStatus()
         {
-            bool foundEmptyBox = false;
-
+            var foundEmptyBox = false;
             if (wrongGuessesScore <= 0 && GameStatus != GameStatus.Finish)
             {
                 GameStatus = GameStatus.Over;
-                return GameStatus;
+
+                return;
             }
 
             for (int j = 0; j < challenge.Length; j++)
@@ -71,34 +74,25 @@
             {
                 GameStatus = GameStatus.Finish;
             }
-
-            return GameStatus;
         }
 
         public string Render()
         {
             if (GameStatus == GameStatus.Play)
             {
-                return string.Join(' ', enteredKey);
+                var yuzde = 1 - ((double)wrongGuessesScore) / maxGuessesScore;
+                var countDownIndex = (int)Math.Round(yuzde * countDown.Length);
+
+                return $"{countDown[countDownIndex]}{Environment.NewLine}{string.Join(' ', enteredKey)}";
             }
-            else if (GameStatus == GameStatus.Finish)
-            {
-                return text.GameFinishText();
-            }
-            else
-            {
-                return text.GameOverText();
-            }
+            else if (GameStatus == GameStatus.Finish) return text.GameFinishText();
+            else return $"{countDown.Last()}{Environment.NewLine}{text.GameOverText()}";
         }
 
-        public int GetWrongGuessesScore()
-        {
-            return wrongGuessesScore;
-        }
+        public int GetWrongGuessesScore() => wrongGuessesScore;
 
-        public string GetEnteredKey()
-        {
-            return string.Join(' ', enteredKey);
-        }
+        public string GetEnteredKey() => string.Join(' ', enteredKey);
+
+        public string GetMan() => "";
     }
 }

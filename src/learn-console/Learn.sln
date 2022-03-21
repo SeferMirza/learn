@@ -5,9 +5,14 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learn.DesignPatterns", "Learn.DesignPatterns\Learn.DesignPatterns.csproj", "{231A1D89-7AF3-4360-B9C0-A043BF925ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Hangman", "Learn.Hangman\Learn.Hangman.csproj", "{20D9827E-F07B-43DB-8024-449AF08D2265}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learn.Hangman", "Learn.Hangman\Learn.Hangman.csproj", "{20D9827E-F07B-43DB-8024-449AF08D2265}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Hangman.Test", "Learn.Hangman.Test\Learn.Hangman.Test.csproj", "{599B779F-70B9-4682-9E8F-6CF42B0AD312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Learn.Hangman.Test", "Learn.Hangman.Test\Learn.Hangman.Test.csproj", "{599B779F-70B9-4682-9E8F-6CF42B0AD312}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{36C2DED6-D2CA-4155-942D-69F199544383}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\README.md = ..\..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,11 +6,16 @@ namespace Learn.Hangman.Test
 {
     public class HangmanTest
     {
-        private Game AGame(string challenge,
-            int wrongGuessesScore = 5
+        private Game AGame(
+            string challenge = "HI",
+            int? maxGuessesScore = default,
+            string[]? countDown = default
         )
         {
-            var result = new Game(challenge, wrongGuessesScore, new EliteText());
+            if (countDown == null) countDown = new[] { "|-", "|-O" };
+            if (maxGuessesScore == null) maxGuessesScore = countDown.Length - 1;
+
+            var result = new Game(challenge, maxGuessesScore.Value, new EliteText(), countDown);
 
             result.Ready();
 
@@ -25,7 +30,7 @@ namespace Learn.Hangman.Test
 
             var actual = testing.Render();
 
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [Fact]
@@ -39,13 +44,13 @@ namespace Learn.Hangman.Test
             game.Start(ConsoleKey.H);
             string actual = game.GetEnteredKey();
 
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [Fact]
         public void Given_challenge__when_the_user_enters_character_which_are_not_in_the_word__then_no_character_pops_up_on_the_boxes()
         {
-            var game = AGame(challenge: "HI");
+            var game = AGame(challenge: "HI", maxGuessesScore: 5);
             var expected = "_ _";
 
             game.Start(ConsoleKey.L);
@@ -53,7 +58,7 @@ namespace Learn.Hangman.Test
             game.Start(ConsoleKey.C);
             string actual = game.Render();
 
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [Fact]
@@ -65,7 +70,7 @@ namespace Learn.Hangman.Test
             game.Start(ConsoleKey.A);
             var actual = game.Render();
 
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [Fact]
@@ -74,9 +79,8 @@ namespace Learn.Hangman.Test
             var game = AGame(challenge: "AAAAA");
 
             game.Start(ConsoleKey.A);
-            bool condition = game.GetGameStatus() == GameStatus.Finish ? true : false;
 
-            Assert.True(condition);
+            Assert.Equal(GameStatus.Finish, game.GameStatus);
         }
 
         [Fact]
@@ -87,7 +91,7 @@ namespace Learn.Hangman.Test
 
             var actual = game.Render();
 
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [Fact]
@@ -99,8 +103,7 @@ namespace Learn.Hangman.Test
             game.Start(ConsoleKey.A);
             var actual = game.Render();
 
-
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [InlineData(ConsoleKey.A)]
@@ -122,7 +125,7 @@ namespace Learn.Hangman.Test
             game.Start(key);
             var actual = game.Render();
 
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [Fact]
@@ -137,7 +140,7 @@ namespace Learn.Hangman.Test
             var actual = game.Render();
 
             // Assert
-            Assert.Equal(expected, actual);
+            Assert.Contains(expected, actual);
         }
 
         [Fact]
@@ -155,13 +158,77 @@ namespace Learn.Hangman.Test
         [Fact]
         public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render_information_massage()
         {
-            var game = AGame(challenge: "HI", wrongGuessesScore: 1);
+            var game = AGame(challenge: "HI", maxGuessesScore: 1);
 
             game.Start(ConsoleKey.H);
             game.Start(ConsoleKey.A);
 
-            Assert.True(game.GetGameStatus() == GameStatus.Over);
+            Assert.Equal(GameStatus.Over, game.GameStatus);
         }
 
+        [Fact]
+        public void Oyun_ilk_basladiginda__ilk_geri_sayim_gorseli_cizilir()
+        {
+            var game = AGame(countDown: new[] { "first" });
+
+            var actual = game.Render();
+
+            Assert.Contains("first", actual);
+        }
+
+        [Fact]
+        public void Kullanici_yanlis_tahmin_yaptiginda__geri_sayim_gorseli_bir_sonraki_adima_gecer()
+        {
+            var game = AGame(challenge: "HI", countDown: new[] { "first", "second" });
+            game.Render();
+            game.Start(ConsoleKey.A);
+
+            var actual = game.Render();
+
+            Assert.Contains($"second", actual);
+        }
+
+        [Fact]
+        public void Geri_sayim_animasyon_sayisi__izin_verilen_hata_sayisindan_az_ise__yuzde_hesabi_ile_ilerlenir()
+        {
+            var game = AGame(challenge: "HI", countDown: new[] { "first", "second", "third" }, maxGuessesScore: 5);
+
+            game.Render();
+            game.Start(ConsoleKey.A);
+            game.Start(ConsoleKey.A);
+
+            var actual = game.Render();
+
+            Assert.Contains("second", actual);
+        }
+
+        [Fact]
+        public void Haklar_tukendiginde__geri_sayim_animasyonunun_final_gorseli_cizilir()
+        {
+            var game = AGame(challenge: "HI", countDown: new[] { "first", "final" }, maxGuessesScore: 2);
+
+            game.Render();
+            game.Start(ConsoleKey.A);
+            game.Start(ConsoleKey.A);
+
+            var actual = game.Render();
+
+            Assert.Contains("final", actual);
+        }
+
+        [Fact]
+        public void Geri_sayim_animasyonu_ustte_cizilir()
+        {
+            var game = AGame(challenge: "HI", countDown: new[] { "first" }, maxGuessesScore: 1);
+
+            var actual = game.Render();
+
+            Assert.StartsWith($"first{Environment.NewLine}", actual);
+
+            game.Start(ConsoleKey.A);
+            actual = game.Render();
+
+            Assert.StartsWith($"first{Environment.NewLine}", actual);
+        }
     }
 }
