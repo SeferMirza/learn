@@ -1,6 +1,6 @@
 ﻿namespace Learn.Hangman
 {
-    public class Game
+    public class Game:IGame
     {
         private char[] challenge;
         private char[] enteredKey;

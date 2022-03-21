@@ -69,7 +69,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Game_complated__when_all_challenge_completed__then_propertie_returns_false()
+        public void Game_completed__when_all_challenge_completed__then_propertie_returns_false()
         {
             var game = AGame(challenge: "AAAAA");
 
@@ -162,5 +162,6 @@ namespace Learn.Hangman.Test
 
             Assert.True(game.GetGameStatus() == GameStatus.Over);
         }
+
     }
 }
