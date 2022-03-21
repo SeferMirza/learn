@@ -4,4 +4,5 @@
 - [x] Kelime Tahmini
 - [ ] Yanlış tahminde limit
 - [ ] İnsan figürü
-- [ ] Çok oyunculu oynama
+- [ ] Menü
+- [ ] Local bağlantı ile oynama
