@@ -7,7 +7,6 @@ namespace Learn.Hangman.Test
 {
     public class GameRunnerTest
     {
-        private Mock<IConsole> mockConsoleIO = new Mock<IConsole>();
         private ConsoleKeyInfo AKey(char key = '0') => new ConsoleKeyInfo(key, (ConsoleKey)key, false, false, false);
 
         public IGame AGame(int remainingRounds = 1, GameStatus lastStatus = GameStatus.Finish)
@@ -29,35 +28,48 @@ namespace Learn.Hangman.Test
         {
             var mock = new Mock<IConsole>();
 
-            mock.Setup(t => t.ReadKey());
-            mock.Setup(t => t.WriteLine(It.IsAny<string>()));
-            
+            mock.Setup(t => t.ReadKey()).Returns(AKey());
+
             return mock.Object;
         }
 
         [Fact]
-        public void Oyunun_kazanilmasi_durumunda_program_kullanicidan_entry_istemiyor()
+        public void Oyun_basladiginda_kullaniciya_gorsel_gosterir_ve_bir_harf_istenir()
         {
-            GameRunner gameRunner = new GameRunner(AGame(lastStatus: GameStatus.Finish), AConsole());
+            var console = AConsole();
+            var game = AGame(lastStatus: GameStatus.Finish, remainingRounds:1);
+            GameRunner gameRunner = new GameRunner(game, console);
 
             gameRunner.Run();
 
-        }
-        
-        [Fact]
-        public void Oyun_baslamadan_once_ready_medhodu_cagirilir()
-        {
-            GameRunner gameRunner = new GameRunner(AGame(remainingRounds:2,lastStatus:GameStatus.Finish), AConsole());
-
-            gameRunner.Run();
+            Mock.Get(game).Verify(t=> t.Render());
+            Mock.Get(console).Verify(t => t.ReadKey());
         }
 
         [Fact]
-        public void Kullanici_butun_harfleri_dogru_girer_program_finish_moduna_gecer_son_render_calisir()
+        public void Kullanici_harf_girer_gorsel_gosterilir_oyun_sonlanir()
         {
-            GameRunner gameRunner = new GameRunner(AGame(lastStatus:GameStatus.Finish,remainingRounds:4), AConsole());
+            var console = AConsole();
+            var game = AGame(lastStatus: GameStatus.Finish, remainingRounds: 1);
+            GameRunner gameRunner = new GameRunner(game, console);
 
             gameRunner.Run();
+
+            Mock.Get(game).Verify(t => t.Render(),Times.Exactly(2));
+            Mock.Get(console).Verify(t => t.ReadKey(),Times.Once());
+        }
+
+        [Fact]
+        public void Oyun_sonlanir_son_gorsel_gosterilir()
+        {
+            var console = AConsole();
+            var game = AGame(lastStatus: GameStatus.Finish, remainingRounds: 0);
+            GameRunner gameRunner = new GameRunner(game, console);
+
+            gameRunner.Run();
+
+            Mock.Get(console).Verify(t => t.ReadKey(), Times.Never());
+            Mock.Get(game).Verify(t => t.Render(),Times.Exactly(1));
         }
     }
 }
