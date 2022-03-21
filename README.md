@@ -2,7 +2,7 @@
 
 ## Projede Hedefler
 - [x] Kelime Tahmini
-- [ ] Yanlış tahminde limit
-- [ ] İnsan figürü
+- [x] Yanlış tahminde limit
+- [x] İnsan figürü
 - [ ] Menü
 - [ ] Local bağlantı ile oynama
