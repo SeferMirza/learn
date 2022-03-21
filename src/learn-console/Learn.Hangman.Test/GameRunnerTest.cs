@@ -12,7 +12,7 @@ namespace Learn.Hangman.Test
         public IGame AGame(int remainingRounds = 1, GameStatus lastStatus = GameStatus.Finish)
         {
             var mock = new Mock<IGame>();
-            
+
             var setup = mock.SetupSequence(t => t.GetGameStatus());
             for (var i = 0; i < remainingRounds; i++)
             {
@@ -37,30 +37,30 @@ namespace Learn.Hangman.Test
         public void Oyun_basladiginda_kullaniciya_gorsel_gosterir_ve_bir_harf_istenir()
         {
             var console = AConsole();
-            var game = AGame(lastStatus: GameStatus.Finish, remainingRounds:1);
-            GameRunner gameRunner = new GameRunner(game, console);
-
-            gameRunner.Run();
-
-            Mock.Get(game).Verify(t=> t.Render());
-            Mock.Get(console).Verify(t => t.ReadKey());
-        }
-
-        [Fact]
-        public void Kullanici_harf_girer_gorsel_gosterilir_oyun_sonlanir()
-        {
-            var console = AConsole();
             var game = AGame(lastStatus: GameStatus.Finish, remainingRounds: 1);
             GameRunner gameRunner = new GameRunner(game, console);
 
             gameRunner.Run();
 
-            Mock.Get(game).Verify(t => t.Render(),Times.Exactly(2));
-            Mock.Get(console).Verify(t => t.ReadKey(),Times.Once());
+            Mock.Get(game).Verify(t => t.Render(), Times.AtLeastOnce());
+            Mock.Get(console).Verify(t => t.ReadKey(), Times.AtLeastOnce());
         }
 
         [Fact]
-        public void Oyun_sonlanir_son_gorsel_gosterilir()
+        public void Oyun_bitene_kadar_kullaniciya_gorsel_gosterilmeye_ve_harf_istenmeye_devam_edilir()
+        {
+            var console = AConsole();
+            var game = AGame(lastStatus: GameStatus.Finish, remainingRounds: 2);
+            GameRunner gameRunner = new GameRunner(game, console);
+
+            gameRunner.Run();
+
+            Mock.Get(game).Verify(t => t.Render(), Times.AtLeast(2));
+            Mock.Get(console).Verify(t => t.ReadKey(), Times.AtLeast(2));
+        }
+
+        [Fact]
+        public void Oyun_bittiginde_son_bir_gorsel_daha_gosterilir()
         {
             var console = AConsole();
             var game = AGame(lastStatus: GameStatus.Finish, remainingRounds: 0);
@@ -68,8 +68,7 @@ namespace Learn.Hangman.Test
 
             gameRunner.Run();
 
-            Mock.Get(console).Verify(t => t.ReadKey(), Times.Never());
-            Mock.Get(game).Verify(t => t.Render(),Times.Exactly(1));
+            Mock.Get(game).Verify(t => t.Render(), Times.AtLeastOnce());
         }
     }
 }
