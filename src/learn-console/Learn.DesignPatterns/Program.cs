@@ -6,7 +6,6 @@ using Learn.DesignPatterns.Creational.Builder.Interface;
 using Learn.DesignPatterns.Creational.Factory;
 using Learn.DesignPatterns.Creational.Factory.Interface;
 using Learn.DesignPatterns.Creational.Prototype.Concrete;
-using Learn.DesignPatterns.Creational.Prototype.Interface;
 using System;
 
 namespace Learn.DesignPatterns
@@ -49,14 +48,6 @@ namespace Learn.DesignPatterns
                             break;
                     }
 
-                }
-
-                Console.WriteLine("programı sonlandırmak istiyormusunuz ?");
-
-                if (Console.ReadLine() == "q")
-                {
-                    Console.Clear();
-                    break;
                 }
             }
         }

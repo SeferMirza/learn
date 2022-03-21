@@ -1,26 +1,8 @@
-﻿using static System.Console;
+﻿using Learn.Hangman;
+using Learn.Hangman.Consoles;
 
-namespace Learn.Hangman
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Game game = new Game("I AM IRONMAN");
-            game.Ready();
+var game = new GameFactory().CreateDefault();
+var console = new SystemConsole();
+var runner = new GameRunner(game, console);
 
-            while (!game.GameOver)
-            {
-                Clear();
-                WriteLine(game.Render());
-                game.Start(ReadKey().Key);
-                game.GameOverCheck();
-            }
-
-            Clear();
-            WriteLine(game.Render());
-
-            WriteLine("\nHarika tüm harfleri buldunuz!");
-        }
-    }
-}
+runner.Run();

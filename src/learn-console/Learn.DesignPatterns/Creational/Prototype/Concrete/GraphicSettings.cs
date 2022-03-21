@@ -1,5 +1,5 @@
-﻿using Learn.DesignPatterns.Creational.Prototype.Interface;
-using Learn.DesignPatterns.Creational.Prototype.Enums;
+﻿using Learn.DesignPatterns.Creational.Prototype.Enums;
+using Learn.DesignPatterns.Creational.Prototype.Interface;
 
 namespace Learn.DesignPatterns.Creational.Prototype.Concrete
 {

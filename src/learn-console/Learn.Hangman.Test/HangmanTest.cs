@@ -1,3 +1,4 @@
+using Learn.Hangman.Texts;
 using System;
 using Xunit;
 
@@ -5,9 +6,11 @@ namespace Learn.Hangman.Test
 {
     public class HangmanTest
     {
-        private Game AGame(string challenge)
+        private Game AGame(string challenge,
+            int wrongGuessesScore = 5
+        )
         {
-            var result = new Game(challenge);
+            var result = new Game(challenge, wrongGuessesScore, new EliteText());
 
             result.Ready();
 
@@ -34,10 +37,9 @@ namespace Learn.Hangman.Test
             // TODO PAIR put it in setup
             game.Start(ConsoleKey.I);
             game.Start(ConsoleKey.H);
-            string actual = game.Render();
+            string actual = game.GetEnteredKey();
 
             Assert.Equal(expected, actual);
-
         }
 
         [Fact]
@@ -67,12 +69,12 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Game_complated__when_all_challenge_completed__then_propertie_returns_false()
+        public void Game_completed__when_all_challenge_completed__then_propertie_returns_false()
         {
             var game = AGame(challenge: "AAAAA");
 
             game.Start(ConsoleKey.A);
-            bool condition = game.GameOverCheck();
+            bool condition = game.GetGameStatus() == GameStatus.Finish ? true : false;
 
             Assert.True(condition);
         }
@@ -137,5 +139,29 @@ namespace Learn.Hangman.Test
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void In_a_challenge_with_text__when_user_wrong_enter_letter__then_the_wrong_GuessesScore_decreases_by_one()
+        {
+            var game = AGame(challenge: "HI");
+            var expected = game.GetWrongGuessesScore() - 1;
+
+            game.Start(ConsoleKey.A);
+            var actual = game.GetWrongGuessesScore();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render_information_massage()
+        {
+            var game = AGame(challenge: "HI", wrongGuessesScore: 1);
+
+            game.Start(ConsoleKey.H);
+            game.Start(ConsoleKey.A);
+
+            Assert.True(game.GetGameStatus() == GameStatus.Over);
+        }
+
     }
 }
