@@ -13,12 +13,11 @@ namespace Learn.Hangman
 
         public void Run()
         {
-            game.Ready();
             while (game.GameStatus == GameStatus.Play)
             {
                 console.Clear();
                 console.WriteLine(game.Render());
-                game.Start(console.ReadKey().Key);
+                game.ProcessKey(console.ReadKey().Key);
             }
 
             console.Clear();

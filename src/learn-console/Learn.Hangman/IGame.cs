@@ -9,10 +9,7 @@ namespace Learn.Hangman
     public interface IGame
     {
         GameStatus GameStatus { get; }
-        void Ready();
-        void Start(ConsoleKey key);
+        void ProcessKey(ConsoleKey key);
         string Render();
-        int GetWrongGuessesScore();
-        string GetMan();
     }
 }

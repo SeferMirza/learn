@@ -4,6 +4,6 @@
     {
         Play,
         Over,
-        Finish
+        Won
     }
 }

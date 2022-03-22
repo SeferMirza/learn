@@ -15,11 +15,7 @@ namespace Learn.Hangman.Test
             if (countDown == null) countDown = new[] { "|-", "|-O" };
             if (maxGuessesScore == null) maxGuessesScore = countDown.Length - 1;
 
-            var result = new Game(challenge, maxGuessesScore.Value, new EliteText(), countDown);
-
-            result.Ready();
-
-            return result;
+            return new(challenge, maxGuessesScore.Value, new EliteText(), countDown);
         }
 
         [Fact]
@@ -34,28 +30,14 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Kullanici_tum_harfleri_dogru_tahmin_ettiginde__Butun_altcizgiler_karakterlere_donusur()
-        {
-            var game = AGame(challenge: "HI");
-            var expected = "H I";
-
-            // TODO PAIR put it in setup
-            game.Start(ConsoleKey.I);
-            game.Start(ConsoleKey.H);
-            string actual = game.GetEnteredKey();
-
-            Assert.Contains(expected, actual);
-        }
-
-        [Fact]
         public void Kullanici_kelimede_olaman_bir_fark_girdiginde__Hic_bir_altcizgi_harfe_donusmez()
         {
             var game = AGame(challenge: "HI", maxGuessesScore: 5);
             var expected = "_ _";
 
-            game.Start(ConsoleKey.L);
-            game.Start(ConsoleKey.K);
-            game.Start(ConsoleKey.C);
+            game.ProcessKey(ConsoleKey.L);
+            game.ProcessKey(ConsoleKey.K);
+            game.ProcessKey(ConsoleKey.C);
             string actual = game.Render();
 
             Assert.Contains(expected, actual);
@@ -67,7 +49,7 @@ namespace Learn.Hangman.Test
             var game = AGame(challenge: "ADANA");
             var expected = "A _ A _ A";
 
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
             var actual = game.Render();
 
             Assert.Contains(expected, actual);
@@ -78,9 +60,9 @@ namespace Learn.Hangman.Test
         {
             var game = AGame(challenge: "AAAAA");
 
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
 
-            Assert.Equal(GameStatus.Finish, game.GameStatus);
+            Assert.Equal(GameStatus.Won, game.GameStatus);
         }
 
         [Fact]
@@ -100,7 +82,7 @@ namespace Learn.Hangman.Test
             var game = AGame(challenge: "KARABIGA CANAKKALE");
             var expected = "_ A _ A _ _ _ A   _ A _ A _ _ A _ _";
 
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
             var actual = game.Render();
 
             Assert.Contains(expected, actual);
@@ -119,10 +101,10 @@ namespace Learn.Hangman.Test
         [Theory]
         public void Kullanici_kelimede_olamayan_bir_harf_girdiginde__Kelimede_o_harf_acilmaz(ConsoleKey key)
         {
-            var game = AGame(challenge: "HI");
+            var game = AGame(challenge: "HI",countDown: new[] { "first", "final" }, maxGuessesScore: 2);
             var expected = "_ _";
 
-            game.Start(key);
+            game.ProcessKey(key);
             var actual = game.Render();
 
             Assert.Contains(expected, actual);
@@ -136,7 +118,7 @@ namespace Learn.Hangman.Test
             var expected = "_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _";
 
             // Act
-            game.Start(ConsoleKey.Spacebar);
+            game.ProcessKey(ConsoleKey.Spacebar);
             var actual = game.Render();
 
             // Assert
@@ -144,24 +126,12 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Kullanici_yanlis_tahmin_yaptiginda__yanlis_tahmin_hakki_bir_azalir()
-        {
-            var game = AGame(challenge: "HI");
-            var expected = game.GetWrongGuessesScore() - 1;
-
-            game.Start(ConsoleKey.A);
-            var actual = game.GetWrongGuessesScore();
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
         public void Kullanici_yanlis_tahmin_haklarini_bitirdiğinde_oyun_statusu_kaybetme_durumuna_gecer()
         {
             var game = AGame(challenge: "HI", maxGuessesScore: 1);
 
-            game.Start(ConsoleKey.H);
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.H);
+            game.ProcessKey(ConsoleKey.A);
 
             Assert.Equal(GameStatus.Over, game.GameStatus);
         }
@@ -169,7 +139,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Oyun_ilk_basladiginda__ilk_geri_sayim_gorseli_cizilir()
         {
-            var game = AGame(countDown: new[] { "first" });
+            var game = AGame(countDown: new[] { "first" }, maxGuessesScore: 1);
 
             var actual = game.Render();
 
@@ -181,7 +151,7 @@ namespace Learn.Hangman.Test
         {
             var game = AGame(challenge: "HI", countDown: new[] { "first", "second" });
             game.Render();
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
 
             var actual = game.Render();
 
@@ -194,8 +164,8 @@ namespace Learn.Hangman.Test
             var game = AGame(challenge: "HI", countDown: new[] { "first", "second", "third" }, maxGuessesScore: 5);
 
             game.Render();
-            game.Start(ConsoleKey.A);
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
 
             var actual = game.Render();
 
@@ -208,8 +178,8 @@ namespace Learn.Hangman.Test
             var game = AGame(challenge: "HI", countDown: new[] { "first", "final" }, maxGuessesScore: 2);
 
             game.Render();
-            game.Start(ConsoleKey.A);
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
 
             var actual = game.Render();
 
@@ -225,7 +195,7 @@ namespace Learn.Hangman.Test
 
             Assert.StartsWith($"first{Environment.NewLine}", actual);
 
-            game.Start(ConsoleKey.A);
+            game.ProcessKey(ConsoleKey.A);
             actual = game.Render();
 
             Assert.StartsWith($"first{Environment.NewLine}", actual);
