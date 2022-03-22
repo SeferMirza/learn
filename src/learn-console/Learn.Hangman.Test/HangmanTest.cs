@@ -23,7 +23,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Given_a_challenge_one_word__when_user_run_program__then_show_underscores_how_many_the_number_of_characters_in_word()
+        public void Kullaniciya_bir_kelime_verildiginde__Baslangicta_kelimedeki_harfler_kullaniciya__Altcizgi_olarak_gozukur()
         {
             var testing = AGame(challenge: "HI");
             var expected = "_ _";
@@ -34,7 +34,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void In_the_challenge__When_user_enters_correct_characters_in_the_boxes__then_all_underscores_are_turn_entered_characters()
+        public void Kullanici_tum_harfleri_dogru_tahmin_ettiginde__Butun_altcizgiler_karakterlere_donusur()
         {
             var game = AGame(challenge: "HI");
             var expected = "H I";
@@ -48,7 +48,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Given_challenge__when_the_user_enters_character_which_are_not_in_the_word__then_no_character_pops_up_on_the_boxes()
+        public void Kullanici_kelimede_olaman_bir_fark_girdiginde__Hic_bir_altcizgi_harfe_donusmez()
         {
             var game = AGame(challenge: "HI", maxGuessesScore: 5);
             var expected = "_ _";
@@ -62,7 +62,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void If_more_than_one_character_is_in_the_word__when_the_user_enters_the_character__then_each_underscores_are_turn_entered_character()
+        public void Bir_kelimede_ayni_harften_birden_fazla_varken__Kullanici_o_harfi_girdiginde__Harfler_acilir()
         {
             var game = AGame(challenge: "ADANA");
             var expected = "A _ A _ A";
@@ -74,7 +74,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Game_completed__when_all_challenge_completed__then_propertie_returns_false()
+        public void Ayni_harften_olusan_kelime_verildiginde__Kullanici_dogru_harfi_girerse__Oyun_kazanilir()
         {
             var game = AGame(challenge: "AAAAA");
 
@@ -84,7 +84,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void When_the_program_starts_a_challenge_of_over_one_word__all_the_letters_are_rendered_as_underscores()
+        public void Birden_cok_kelimeden_olusan_metin_verildiginde__Butun_harfler_altcizgi_olarak_acilir()
         {
             var game = AGame(challenge: "KARABIGA BIGA CANAKKALE");
             var expected = "_ _ _ _ _ _ _ _   _ _ _ _   _ _ _ _ _ _ _ _ _";
@@ -95,7 +95,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Given_a_challenge_with_more_than_one_word__when_the_user_enters_characters__then_each_underscores_are_turn_entered_character()
+        public void Kullaniciya_birden_fazla_kelimeden_olusan_metin_verildiginde__Eger_karakterin_girdigi_harf_birden_cok_kelimede_varsa__Butun_kelimelerde_acilir()
         {
             var game = AGame(challenge: "KARABIGA CANAKKALE");
             var expected = "_ A _ A _ _ _ A   _ A _ A _ _ A _ _";
@@ -117,7 +117,7 @@ namespace Learn.Hangman.Test
         [InlineData(ConsoleKey.Clear)]
         [InlineData(ConsoleKey.D4)]
         [Theory]
-        public void When_the_user_enters_a_character_that_is_not_in_the_text__then_it_is_ignored(ConsoleKey key)
+        public void Kullanici_kelimede_olamayan_bir_harf_girdiginde__Kelimede_o_harf_acilmaz(ConsoleKey key)
         {
             var game = AGame(challenge: "HI");
             var expected = "_ _";
@@ -129,7 +129,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Given_a_challenge_with_more_than_one_word__when_user_enters_a_space__then_it_is_ignored()
+        public void Metinde_kelimeler_arası_bosluk_yoksayilir__bosluk_karakteri_islevsizdir()
         {
             // Arrange
             var game = AGame(challenge: "KARABIGA BIGA CANAKKALE");
@@ -144,7 +144,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void In_a_challenge_with_text__when_user_wrong_enter_letter__then_the_wrong_GuessesScore_decreases_by_one()
+        public void Kullanici_yanlis_tahmin_yaptiginda__yanlis_tahmin_hakki_bir_azalir()
         {
             var game = AGame(challenge: "HI");
             var expected = game.GetWrongGuessesScore() - 1;
@@ -156,7 +156,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void In_a_challenge_with_text__when_user_maximum_wrong_enter_letter__then_game_over_and_render_information_massage()
+        public void Kullanici_yanlis_tahmin_haklarini_bitirdiğinde_oyun_statusu_kaybetme_durumuna_gecer()
         {
             var game = AGame(challenge: "HI", maxGuessesScore: 1);
 
