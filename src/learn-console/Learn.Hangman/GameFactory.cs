@@ -7,7 +7,7 @@ namespace Learn.Hangman
     {
         public Game CreateDefault() =>
             new Game("I AM IRONMAN",
-                maxGuesses: 4,
+                maxGuesses: 9,
                 text: new MixedText(
                     new EliteText(),
                     new BloodyText()
