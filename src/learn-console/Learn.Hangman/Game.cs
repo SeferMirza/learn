@@ -45,7 +45,7 @@
                 case GameStatus.Play:
                     {
                         var yuzde = 1 - (double)remainingGuesses / maxGuesses;
-                        var countDownIndex = (int)Math.Round(yuzde * countDown.Length);
+                        var countDownIndex = (int)Math.Round(yuzde * (countDown.Length - 1));
 
                         return $"{countDown[countDownIndex]}{Environment.NewLine}{string.Join(' ', letters)}";
                     }

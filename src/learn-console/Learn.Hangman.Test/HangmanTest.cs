@@ -159,7 +159,7 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Geri_sayim_animasyon_sayisi__izin_verilen_hata_sayisindan_az_ise__yuzde_hesabi_ile_ilerlenir()
+        public void Geri_sayim_animasyon_sayisi__Izin_verilen_hata_sayisindan_az_ise__Yuzde_hesabi_ile_ilerlenir()
         {
             var game = AGame(challenge: "HI", countDown: new[] { "first", "second", "third" }, maxGuessesScore: 5);
 
@@ -170,6 +170,31 @@ namespace Learn.Hangman.Test
             var actual = game.Render();
 
             Assert.Contains("second", actual);
+        }
+
+        [InlineData(0, "1")]
+        [InlineData(1, "2")]
+        [InlineData(2, "3")]
+        [InlineData(3, "4")]
+        [InlineData(4, "5")]
+        [InlineData(5, "6")]
+        [InlineData(6, "7")]
+        [InlineData(7, "8")]
+        [InlineData(8, "9")]
+        [Theory]
+        public void Geri_sayim_animasyon_sayisi__Izin_verilen_hata_sayisindan_fazla_ise__Yuzde_hesabi_ile_ilerlenir(int numberOfWrongGuesses, string expectedAnimationStep)
+        {
+            var game = AGame(challenge: "HI", countDown: new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" }, maxGuessesScore: 8);
+
+            game.Render();
+            for(var i = 0;  i < numberOfWrongGuesses; i++)
+            {
+                game.ProcessKey(ConsoleKey.A);
+            }
+
+            var actual = game.Render();
+
+            Assert.Contains(expectedAnimationStep, actual);
         }
 
         [Fact]

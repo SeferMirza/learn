@@ -1,4 +1,4 @@
-![test](https://user-images.githubusercontent.com/36925434/158653392-c927c165-4e2c-48b7-bbb0-3e29357a159b.gif)
+![test](./src/learn-console/Learn.Hangman/Assets)
 
 ## Projede Hedefler
 - [x] Kelime Tahmini
