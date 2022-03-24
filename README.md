@@ -1,4 +1,4 @@
-![test](./src/learn-console/Learn.Hangman/Assets)
+![test](./src/learn-console/Learn.Hangman/Assets/gameplay.gif)
 
 ## Projede Hedefler
 - [x] Kelime Tahmini
