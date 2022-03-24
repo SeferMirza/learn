@@ -1,104 +1,59 @@
 ﻿namespace Learn.Hangman
 {
-    public class Game:IGame
+    public class Game : IGame
     {
-        private char[] challenge;
-        private char[] enteredKey;
-        private ConsoleKey keyPressed;
-        private int wrongGuessesScore;
-        private IText text;
+        private readonly int maxGuesses;
+        private readonly IText text;
+        private readonly string[] countDown;
+        private readonly List<Letter> letters;
+        private int remainingGuesses;
 
         public GameStatus GameStatus { get; private set; }
 
-        public Game(string challenge, int wrongGuessesScore, IText text)
+        private bool NoMoreGuesses => remainingGuesses <= 0;
+
+        public Game(string challenge, int maxGuesses, IText text, string[] countDown)
         {
-            this.challenge = challenge.ToCharArray();
-            this.wrongGuessesScore = wrongGuessesScore;
+            this.maxGuesses = maxGuesses;
             this.text = text;
+            this.countDown = countDown;
 
-            enteredKey = new char[challenge.Length];
+            letters = challenge.Select(c => new Letter(c)).ToList();
+            remainingGuesses = maxGuesses;
         }
 
-        public void Start(ConsoleKey entry)
+        public void ProcessKey(ConsoleKey key)
         {
-            var isWrongKeyEntry = true;
-            keyPressed = entry;
-            if (wrongGuessesScore > 0 && GameStatus == GameStatus.Play)
-            {
-                for (int i = 0; i < challenge.Length; i++)
-                {
-                    if (challenge[i] == ((char)keyPressed))
-                    {
-                        isWrongKeyEntry = false;
-                        enteredKey[i] = (char)keyPressed;
-                    }
-                }
+            var hit = letters
+                .Where(l => l.Is(key))
+                .ForEach(l => l.Reveal())
+                .Any();
 
-                if (isWrongKeyEntry) wrongGuessesScore--;
-            }
-            GetGameStatus();
-        }
+            if (!hit) remainingGuesses--;
 
-        public void Ready()
-        {
-            for (int i = 0; i < challenge.Length; i++)
-            {
-                if (challenge[i] == ' ') enteredKey[i] = ' ';
-                else enteredKey[i] = '_';
-            }
-        }
-
-        public GameStatus GetGameStatus()
-        {
-            bool foundEmptyBox = false;
-
-            if (wrongGuessesScore <= 0 && GameStatus != GameStatus.Finish)
-            {
-                GameStatus = GameStatus.Over;
-                return GameStatus;
-            }
-
-            for (int j = 0; j < challenge.Length; j++)
-            {
-                if (enteredKey[j] == '_' && wrongGuessesScore > 0)
-                {
-                    GameStatus = GameStatus.Play;
-                    foundEmptyBox = true;
-                }
-            }
-
-            if (!foundEmptyBox)
-            {
-                GameStatus = GameStatus.Finish;
-            }
-
-            return GameStatus;
+            GameStatus = NoMoreGuesses
+                ? GameStatus.Over
+                : letters.All(l => l.Revealed)
+                    ? GameStatus.Won
+                    : GameStatus.Play;
         }
 
         public string Render()
         {
-            if (GameStatus == GameStatus.Play)
+            switch (GameStatus)
             {
-                return string.Join(' ', enteredKey);
-            }
-            else if (GameStatus == GameStatus.Finish)
-            {
-                return text.GameFinishText();
-            }
-            else
-            {
-                return text.GameOverText();
-            }
-        }
+                case GameStatus.Play:
+                    {
+                        var yuzde = 1 - (double)remainingGuesses / maxGuesses;
+                        var countDownIndex = (int)Math.Round(yuzde * (countDown.Length - 1));
 
-        public int GetWrongGuessesScore()
-        {
-            return wrongGuessesScore;
-        }
-
-        public string GetEnteredKey()
-        {
-            return string.Join(' ', enteredKey);
+                        return $"{countDown[countDownIndex]}{Environment.NewLine}{string.Join(' ', letters)}";
+                    }
+                case GameStatus.Won:
+                    return text.GameFinishText();
+                default:
+                    return $"{countDown.Last()}{Environment.NewLine}{text.GameOverText()}";
+            }
         }
     }
 }

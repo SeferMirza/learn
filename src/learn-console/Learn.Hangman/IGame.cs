@@ -8,10 +8,8 @@ namespace Learn.Hangman
 {
     public interface IGame
     {
-        GameStatus GetGameStatus();
-        void Ready();
-        void Start(ConsoleKey key);
+        GameStatus GameStatus { get; }
+        void ProcessKey(ConsoleKey key);
         string Render();
-        int GetWrongGuessesScore();
     }
 }
