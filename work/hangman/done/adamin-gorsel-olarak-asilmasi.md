@@ -1,4 +1,4 @@
-## Hedef
+# Adamın Görsel Olarak Asılması
 
 Kullanıcı yanlış tahminde bulunduğunda adamımız parça parça asılır.
 

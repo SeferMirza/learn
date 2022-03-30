@@ -1,13 +1,19 @@
+# Ana Menü
 
-## Hedef
- Oyun başladığında kullanıcıyı menü karşılar.
+Oyun başladığında kullanıcıyı menü karşılar.
 
 ## Koşul
- Kullanıcı programı başlatır
- 
+
+Kullanıcı programı başlatır
 
 ## Sonuç
-Kullanıcıyı oyun ayarlarını yapabilir. Oyunu başlatabilir.
+
+İki seçenek çıkar.
+
+- Oyunu başlatabilir.
+- Çıkabilir.
+
+Kullanıcı çıkana kadar ana menü gösterilmeye devam eder.
 
 ## Adım-Adım Anlatım
 
@@ -16,4 +22,3 @@ Kullanıcıyı oyun ayarlarını yapabilir. Oyunu başlatabilir.
  3. Kullanıcının karşısına menü seçenekleri sıralanır.
  4. Kullanıcı istediği seçeneğin numarasını girer.
  5. Kullanıcının seçtiği ekran açılır.
- 
