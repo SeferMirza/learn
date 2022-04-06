@@ -1,5 +1,4 @@
-﻿using Learn.Hangman.Texts;
-using Moq;
+﻿using Moq;
 using System;
 using Xunit;
 
