@@ -1,8 +1,9 @@
 ﻿using Learn.Hangman;
 using Learn.Hangman.Consoles;
+using Learn.Hangman.Models;
 
-var game = new GameFactory().CreateDefault();
-var console = new SystemConsole();
-var runner = new GameRunner(game, console);
+var menus = new Menus();
+var menu = new MainMenu(menus.MainMenu);
+var menuRunner = new MenuRunner(menu, new SystemConsole());
 
-runner.Run();
+menuRunner.Run();

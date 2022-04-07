@@ -1,4 +1,5 @@
-﻿using Learn.Hangman.Models;
+﻿using Learn.Hangman.Consoles;
+using Learn.Hangman.Models;
 
 namespace Learn.Hangman
 {
@@ -23,13 +24,34 @@ namespace Learn.Hangman
 
         public string Render()
         {
-            var menu = new Menus();
-            return string.Join(Environment.NewLine, menu.MainMenu);
+            string res = "";
+
+            for (int i = 0; i < Menus.Length; i++)
+            {
+                Console.ResetColor();
+                if(i == Position)
+                {
+                    res += ">>" + Menus[i] + Environment.NewLine;
+                }
+                else
+                {
+                    res += "  " + Menus[i] + Environment.NewLine;
+                }
+            }
+            
+            return res;
         }
 
         public void Select()
         {
-            
+            if(Menus[Position] == "Play")
+            {
+                var game = new GameFactory().CreateDefault();
+                var console = new SystemConsole();
+                var runner = new GameRunner(game, console);
+
+                runner.Run();
+            }
         }
     }
 }
