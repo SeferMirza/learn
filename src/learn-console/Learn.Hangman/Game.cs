@@ -17,6 +17,7 @@
             this.maxGuesses = maxGuesses;
             this.text = text;
             this.countDown = countDown;
+            GameStatus = GameStatus.Play;
 
             letters = challenge.Select(c => new Letter(c)).ToList();
             remainingGuesses = maxGuesses;

@@ -2,10 +2,10 @@
 {
     public class MenuRunner
     {
-        private readonly MainMenu mainMenu;
+        private readonly IMenu mainMenu;
         private readonly IConsole console;
 
-        public MenuRunner(MainMenu mainMenu, IConsole console)
+        public MenuRunner(IMenu mainMenu, IConsole console)
         {
             this.console = console;
             this.mainMenu = mainMenu;

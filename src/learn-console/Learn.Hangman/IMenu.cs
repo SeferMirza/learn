@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Learn.Hangman
+﻿namespace Learn.Hangman
 {
     public interface IMenu
     {
-        public void Load();
         public void Select();
+        GameStatus GameStatus { get; }
+        void ProcessKey(ConsoleKey key);
+        string Render();
     }
 }

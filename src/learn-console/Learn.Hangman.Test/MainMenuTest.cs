@@ -1,4 +1,5 @@
-﻿using Learn.Hangman.Models;
+﻿using Learn.Hangman.Lists;
+using Learn.Hangman.Models;
 using System;
 using Xunit;
 
@@ -6,21 +7,22 @@ namespace Learn.Hangman.Test
 {
     public class MainMenuTest
     {
-        public IGame GMenu()
+        private MenuList menuList = new MenuList();
+        public IMenu GMenu()
         {
-            MainMenu mainMenu = new MainMenu(new string[] {"Play", "Exit"});
+            MainMenu mainMenu = new MainMenu(menuList.GetMainMenu());
             return mainMenu;
         }
 
         public IMenu MMenu()
         {
-            MainMenu mainMenu = new MainMenu(new string[] { "Play", "Exit" });
+            MainMenu mainMenu = new MainMenu(menuList.GetMainMenu());
             return mainMenu;
         }
 
         public MainMenu Menu()
         {
-            MainMenu mainMenu = new MainMenu(new string[] { "Play", "Exit" });
+            MainMenu mainMenu = new MainMenu(menuList.GetMainMenu());
             return mainMenu;
         }
 
@@ -28,8 +30,7 @@ namespace Learn.Hangman.Test
         public void Oyun_basladiginda_menu_ekrani_yuklenir()
         {
             var menu = GMenu();
-            var menus = new Menus();
-            var expect = string.Join(Environment.NewLine, menus.MainMenu);
+            var expect = ">>Play" + Environment.NewLine + "  Exit" + Environment.NewLine;
 
             Assert.Equal(expect, menu.Render());
         }
@@ -49,16 +50,7 @@ namespace Learn.Hangman.Test
             var menu = Menu();
             menu.ProcessKey(ConsoleKey.UpArrow);
 
-            Assert.Equal(menu.Menus.Length - 1, menu.Position);
-        }
-
-        [Fact]
-        public void Kullanici_Play_secenegini_secer_oyun_baslar()
-        {
-            var menu = Menu();
-            menu.Select();
-
-            Assert.Equal();
+            Assert.Equal(menu.Menus.Count - 1, menu.Position);
         }
 
         [Fact]
