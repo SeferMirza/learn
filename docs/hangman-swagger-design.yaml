@@ -1,0 +1,203 @@
+swagger: '2.0'
+info:
+  description: Bu hangman projesinin kelime deposunun API'sinin swagger tasarımıdır.
+  version: 1.0.0
+  title: Swagger Hangmen
+  termsOfService: https://github.com/SeferMirza/learn/tree/master/src/learn-console/
+  contact:
+    email: sefermirza@gmail.com
+host: Learn.Hangman
+tags:
+  - name: kelime
+    description: Hangman kelime deposu
+schemes:
+  - http
+paths:
+  /kelimeler:
+    get:
+      tags:
+        - kelime
+      summary: Kelimelerden rastgele kelime döndür.
+      description: Kelimelerden rastgele kelime döndür.
+      operationId: getWord
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: succes
+          schema:
+            $ref: '#/definitions/kelime-s'
+        '400':
+          description: Invalid Kelime supplied
+          schema:
+            $ref: '#/definitions/400'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/404'
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - kelime
+      summary: Kelimelere kelime/cümle ekle
+      description: Kelimelere kelime/cümle ekle
+      parameters:
+        - in: body
+          name: kelime
+          required: true
+          description: Yeni kelime ekle
+          schema:
+            $ref: '#/definitions/kelime-l'
+      operationId: postWord
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: succes
+          schema:
+            $ref: '#/definitions/kelime-l'
+        '400':
+          description: Invalid Kelime supplied
+          schema:
+            $ref: '#/definitions/400'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/404'
+        '405':
+          description: Invalid input
+    put:
+      tags:
+        - kelime
+      summary: Kelimelerden bodydeki id'si eşleşen kelimeyi güncelle
+      description: Kelimelerden bodydeki id'si eşleşen kelimeyi güncelle
+      operationId: putWord
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: kelime
+          required: true
+          description: Yeni kelime ekle
+          schema:
+            $ref: '#/definitions/kelime-l'
+      responses:
+        '200':
+          description: succes
+          schema:
+            $ref: '#/definitions/kelime-l'
+        '400':
+          description: Invalid Kelime supplied
+          schema:
+            $ref: '#/definitions/400'
+        '404':
+          description: Not found
+        '405':
+          description: Invalid input
+  /kelimeler/{seviye}:
+    get:
+      tags:
+        - kelime
+      summary: Kelimelerden uygun seviyede kelime döndür.
+      description: Kelimelerden uygun seviyede kelime döndür.
+      operationId: getWordByLevel
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: seviye
+          in: path
+          description: Veritabanından seviyeye uygun bir kelime getir
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: succes
+          schema:
+            $ref: '#/definitions/kelime-m'
+        '400':
+          description: Invalid Kelime supplied
+          schema:
+            $ref: '#/definitions/400'
+        '404':
+          description: Not found
+        '405':
+          description: Invalid input
+definitions:
+  '400':
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: hata kodu id
+      message:
+        type: string
+        description: hata mesajı
+        example: Wrong
+    xml:
+      name: hata
+  '404':
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: hata kodu id
+      message:
+        type: string
+        description: hata mesajı
+        example: Error
+    xml:
+      name: hata
+  kelime-s:
+    type: object
+    properties:
+      kelime:
+        type: string
+    xml:
+      name: Kelime
+  kelime-m:
+    type: object
+    properties:
+      kelime:
+        type: string
+      seviye:
+        type: integer
+        format: int32
+    xml:
+      name: Kelime
+  kelime-l:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      kelime:
+        type: string
+      seviye:
+        type: integer
+        format: int32
+      dil:
+        type: string
+        enum:
+          - Türkçe
+          - İngilizce
+      tür:
+        type: string
+        enum:
+          - kelime
+          - deyim
+          - cümle
+    xml:
+      name: Kelime
