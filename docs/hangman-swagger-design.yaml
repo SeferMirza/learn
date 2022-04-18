@@ -1,17 +1,16 @@
-swagger: '2.0'
+openapi: 3.0.1
 info:
-  description: This is the swagger design of the hangman project's word repository API.
-  version: 1.0.0
   title: Swagger Hangmen
+  description: This is the swagger design of the hangman project's word repository API.
   termsOfService: https://github.com/SeferMirza/learn/tree/master/src/learn-console/
   contact:
     email: sefermirza@gmail.com
-host: Learn.Hangman
+  version: 1.0.0
+servers:
+  - url: http://Learn.Hangman/
 tags:
   - name: word
     description: Hangman words database
-schemes:
-  - http
 paths:
   /words:
     get:
@@ -20,90 +19,129 @@ paths:
       summary: Returns a random word in the database.
       description: Returns a random word in the database.
       operationId: getWord
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
       responses:
         '200':
           description: succes
-          schema:
-            $ref: '#/definitions/word-s'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/out-word-s'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/out-word-s'
         '400':
           description: Invalid word supplied
-          schema:
-            $ref: '#/definitions/400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/400'
         '404':
           description: Not found
-          schema:
-            $ref: '#/definitions/404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/404'
         '405':
           description: Invalid input
+          content: {}
     post:
       tags:
         - word
       summary: Adds a word in the database.
       description: Adds a word in the database
-      parameters:
-        - in: body
-          name: word
-          required: true
-          description: Add new word
-          schema:
-            $ref: '#/definitions/word-l'
       operationId: postWord
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
+      requestBody:
+        description: Add new word
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/in-word-l'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/in-word-l'
+        required: true
       responses:
         '200':
           description: succes
-          schema:
-            $ref: '#/definitions/word-l'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/out-word-l'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/out-word-l'
         '400':
           description: Invalid word supplied
-          schema:
-            $ref: '#/definitions/400'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/400'
         '404':
           description: Not found
-          schema:
-            $ref: '#/definitions/404'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/404'
         '405':
           description: Invalid input
+          content: {}
+      x-codegen-request-body-name: word
+  /words/{id}:
     put:
       tags:
         - word
-      summary: Kelimelerden bodydeki id'si eşleşen kelimeyi güncelle
-      description: Kelimelerden bodydeki id'si eşleşen kelimeyi güncelle
+      summary: Update word
+      description: Update word
       operationId: putWord
-      produces:
-        - application/json
-        - application/xml
       parameters:
-        - in: body
-          name: word
+        - name: id
+          in: path
           required: true
-          description: Yeni kelime ekle
-          schema:
-            $ref: '#/definitions/word-l'
+          schema: {}
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/in-word-l'
+        required: true
       responses:
         '200':
           description: succes
-          schema:
-            $ref: '#/definitions/word-l'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/out-word-l'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/out-word-l'
         '400':
-          description: Invalid Kelime supplied
-          schema:
-            $ref: '#/definitions/400'
+          description: Invalid word supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/400'
         '404':
           description: Not found
+          content: {}
         '405':
           description: Invalid input
+          content: {}
+      x-codegen-request-body-name: word
   /words?level=1:
     get:
       tags:
@@ -111,87 +149,112 @@ paths:
       summary: Return random word from words with given level.
       description: Return random word from words with given level.
       operationId: getWordByLevel
-      produces:
-        - application/json
-        - application/xml
       parameters:
-        - in: query
-          name: level
+        - name: level
+          in: query
           description: Return random word from words with given level in database.
-          required: false
-          type: integer
+          schema:
+            type: integer
       responses:
         '200':
           description: succes
-          schema:
-            $ref: '#/definitions/word-m'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/out-word-m'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/out-word-m'
         '400':
-          description: Invalid Kelime supplied
-          schema:
-            $ref: '#/definitions/400'
+          description: Invalid word supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/400'
         '404':
           description: Not found
+          content: {}
         '405':
           description: Invalid input
-definitions:
-  '400':
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-        description: fail code
-      message:
-        type: string
-        description: error message
-        example: Wrong
-    xml:
-      name: fail
-  '404':
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-        description: fail code
-      message:
-        type: string
-        description: error message
-        example: Error
-    xml:
-      name: fail
-  word-s:
-    type: object
-    properties:
-      word:
-        type: string
-    xml:
-      name: Word
-  word-m:
-    type: object
-    properties:
-      word:
-        type: string
-      level:
-        type: integer
-        format: int32
-    xml:
-      name: Word
-  word-l:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      word:
-        type: string
-      level:
-        type: integer
-        format: int32
-      language:
-        type: string
-        enum:
-          - Türkçe
-          - İngilizce
-    xml:
-      name: Word
+          content: {}
+components:
+  schemas:
+    '400':
+      type: object
+      properties:
+        id:
+          type: integer
+          description: fail code
+          format: int64
+        message:
+          type: string
+          description: error message
+          example: Wrong
+      xml:
+        name: fail
+    '404':
+      type: object
+      properties:
+        id:
+          type: integer
+          description: fail code
+          format: int64
+        message:
+          type: string
+          description: error message
+          example: Error
+      xml:
+        name: fail
+    out-word-s:
+      type: object
+      properties:
+        word:
+          type: string
+      xml:
+        name: Word
+    out-word-m:
+      type: object
+      properties:
+        word:
+          type: string
+        level:
+          type: integer
+          format: int32
+      xml:
+        name: Word
+    out-word-l:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        word:
+          type: string
+        level:
+          type: integer
+          format: int32
+        language:
+          type: string
+          enum:
+            - Türkçe
+            - İngilizce
+      xml:
+        name: Word
+    in-word-l:
+      type: object
+      properties:
+        word:
+          type: string
+        level:
+          type: integer
+          format: int32
+        language:
+          type: string
+          enum:
+            - Türkçe
+            - İngilizce
+      xml:
+        name: Word
