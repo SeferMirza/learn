@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: Bu hangman projesinin kelime deposunun API'sinin swagger tasarımıdır.
+  description: This is the swagger design of the hangman project's word repository API.
   version: 1.0.0
   title: Swagger Hangmen
   termsOfService: https://github.com/SeferMirza/learn/tree/master/src/learn-console/
@@ -8,17 +8,17 @@ info:
     email: sefermirza@gmail.com
 host: Learn.Hangman
 tags:
-  - name: kelime
-    description: Hangman kelime deposu
+  - name: word
+    description: Hangman words database
 schemes:
   - http
 paths:
-  /kelimeler:
+  /words:
     get:
       tags:
-        - kelime
-      summary: Kelimelerden rastgele kelime döndür.
-      description: Kelimelerden rastgele kelime döndür.
+        - word
+      summary: Returns a random word in the database.
+      description: Returns a random word in the database.
       operationId: getWord
       consumes:
         - application/json
@@ -30,9 +30,9 @@ paths:
         '200':
           description: succes
           schema:
-            $ref: '#/definitions/kelime-s'
+            $ref: '#/definitions/word-s'
         '400':
-          description: Invalid Kelime supplied
+          description: Invalid word supplied
           schema:
             $ref: '#/definitions/400'
         '404':
@@ -43,16 +43,16 @@ paths:
           description: Invalid input
     post:
       tags:
-        - kelime
-      summary: Kelimelere kelime/cümle ekle
-      description: Kelimelere kelime/cümle ekle
+        - word
+      summary: Adds a word in the database.
+      description: Adds a word in the database
       parameters:
         - in: body
-          name: kelime
+          name: word
           required: true
-          description: Yeni kelime ekle
+          description: Add new word
           schema:
-            $ref: '#/definitions/kelime-l'
+            $ref: '#/definitions/word-l'
       operationId: postWord
       consumes:
         - application/json
@@ -64,9 +64,9 @@ paths:
         '200':
           description: succes
           schema:
-            $ref: '#/definitions/kelime-l'
+            $ref: '#/definitions/word-l'
         '400':
-          description: Invalid Kelime supplied
+          description: Invalid word supplied
           schema:
             $ref: '#/definitions/400'
         '404':
@@ -77,7 +77,7 @@ paths:
           description: Invalid input
     put:
       tags:
-        - kelime
+        - word
       summary: Kelimelerden bodydeki id'si eşleşen kelimeyi güncelle
       description: Kelimelerden bodydeki id'si eşleşen kelimeyi güncelle
       operationId: putWord
@@ -86,16 +86,16 @@ paths:
         - application/xml
       parameters:
         - in: body
-          name: kelime
+          name: word
           required: true
           description: Yeni kelime ekle
           schema:
-            $ref: '#/definitions/kelime-l'
+            $ref: '#/definitions/word-l'
       responses:
         '200':
           description: succes
           schema:
-            $ref: '#/definitions/kelime-l'
+            $ref: '#/definitions/word-l'
         '400':
           description: Invalid Kelime supplied
           schema:
@@ -104,27 +104,27 @@ paths:
           description: Not found
         '405':
           description: Invalid input
-  /kelimeler/{seviye}:
+  /words?level=1:
     get:
       tags:
-        - kelime
-      summary: Kelimelerden uygun seviyede kelime döndür.
-      description: Kelimelerden uygun seviyede kelime döndür.
+        - word
+      summary: Return random word from words with given level.
+      description: Return random word from words with given level.
       operationId: getWordByLevel
       produces:
         - application/json
         - application/xml
       parameters:
-        - name: seviye
-          in: path
-          description: Veritabanından seviyeye uygun bir kelime getir
-          required: true
+        - in: query
+          name: level
+          description: Return random word from words with given level in database.
+          required: false
           type: integer
       responses:
         '200':
           description: succes
           schema:
-            $ref: '#/definitions/kelime-m'
+            $ref: '#/definitions/word-m'
         '400':
           description: Invalid Kelime supplied
           schema:
@@ -140,64 +140,58 @@ definitions:
       id:
         type: integer
         format: int64
-        description: hata kodu id
+        description: fail code
       message:
         type: string
-        description: hata mesajı
+        description: error message
         example: Wrong
     xml:
-      name: hata
+      name: fail
   '404':
     type: object
     properties:
       id:
         type: integer
         format: int64
-        description: hata kodu id
+        description: fail code
       message:
         type: string
-        description: hata mesajı
+        description: error message
         example: Error
     xml:
-      name: hata
-  kelime-s:
+      name: fail
+  word-s:
     type: object
     properties:
-      kelime:
+      word:
         type: string
     xml:
-      name: Kelime
-  kelime-m:
+      name: Word
+  word-m:
     type: object
     properties:
-      kelime:
+      word:
         type: string
-      seviye:
+      level:
         type: integer
         format: int32
     xml:
-      name: Kelime
-  kelime-l:
+      name: Word
+  word-l:
     type: object
     properties:
       id:
         type: integer
         format: int64
-      kelime:
+      word:
         type: string
-      seviye:
+      level:
         type: integer
         format: int32
-      dil:
+      language:
         type: string
         enum:
           - Türkçe
           - İngilizce
-      tür:
-        type: string
-        enum:
-          - kelime
-          - deyim
-          - cümle
     xml:
-      name: Kelime
+      name: Word
