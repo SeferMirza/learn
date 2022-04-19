@@ -16,7 +16,7 @@ paths:
     get:
       tags:
         - word
-      summary: Returns random word in the database.
+      summary: Returns word in the database.
       description: Returns word in the database.
       parameters:
         - name: "level"
@@ -24,7 +24,7 @@ paths:
           description: Word level.
           schema:
             type: integer
-        - name: "per-page"
+        - name: "per_page"
           in: query
           description: Return word counts.
           schema:
