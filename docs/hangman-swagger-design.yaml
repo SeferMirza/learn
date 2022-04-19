@@ -16,19 +16,24 @@ paths:
     get:
       tags:
         - word
-      summary: Returns a random word in the database.
-      description: Returns a random word in the database.
+      summary: Returns random word in the database.
+      description: Returns word in the database.
       parameters:
         - name: "level"
           in: query
-          description: Return random word from words with given level in database.
+          description: Word level.
           schema:
             type: integer
         - name: "per-page"
           in: query
-          description: Return random word from words with given level in database.
+          description: Return word counts.
           schema:
             type: integer
+        - name: "random"
+          in: query
+          description: Return random or sequential word.
+          schema:
+            type: boolean
       responses:
         '200':
           description: succes
