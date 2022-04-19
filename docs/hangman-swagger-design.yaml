@@ -18,7 +18,6 @@ paths:
         - word
       summary: Returns a random word in the database.
       description: Returns a random word in the database.
-      operationId: getWord
       parameters:
         - name: "level"
           in: query
@@ -72,7 +71,6 @@ paths:
         - word
       summary: Adds a word in the database.
       description: Adds a word in the database
-      operationId: postWord
       requestBody:
         description: Add new word
         content:
@@ -127,7 +125,6 @@ paths:
         - word
       summary: Update word
       description: Update word
-      operationId: putWord
       parameters:
         - name: id
           in: path
