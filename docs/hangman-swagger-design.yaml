@@ -19,6 +19,17 @@ paths:
       summary: Returns a random word in the database.
       description: Returns a random word in the database.
       operationId: getWord
+      parameters:
+        - name: "level"
+          in: query
+          description: Return random word from words with given level in database.
+          schema:
+            type: integer
+        - name: "per-page"
+          in: query
+          description: Return random word from words with given level in database.
+          schema:
+            type: integer
       responses:
         '200':
           description: succes
@@ -49,7 +60,13 @@ paths:
                 $ref: '#/components/schemas/404'
         '405':
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/405'
     post:
       tags:
         - word
@@ -96,7 +113,13 @@ paths:
                 $ref: '#/components/schemas/404'
         '405':
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/405'
       x-codegen-request-body-name: word
   /words/{id}:
     put:
@@ -137,49 +160,24 @@ paths:
                 $ref: '#/components/schemas/400'
         '404':
           description: Not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/404'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/404'
         '405':
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/405'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/405'
       x-codegen-request-body-name: word
-  /words?level=1:
-    get:
-      tags:
-        - word
-      summary: Return random word from words with given level.
-      description: Return random word from words with given level.
-      operationId: getWordByLevel
-      parameters:
-        - name: level
-          in: query
-          description: Return random word from words with given level in database.
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: succes
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/out-word-m'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/out-word-m'
-        '400':
-          description: Invalid word supplied
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/400'
-        '404':
-          description: Not found
-          content: {}
-        '405':
-          description: Invalid input
-          content: {}
+  
 components:
   schemas:
     '400':
@@ -189,6 +187,7 @@ components:
           type: integer
           description: fail code
           format: int64
+          example: 400
         message:
           type: string
           description: error message
@@ -202,6 +201,21 @@ components:
           type: integer
           description: fail code
           format: int64
+          example: 404
+        message:
+          type: string
+          description: error message
+          example: Error
+      xml:
+        name: fail
+    '405':
+      type: object
+      properties:
+        id:
+          type: integer
+          description: fail code
+          format: int64
+          example: 405
         message:
           type: string
           description: error message
