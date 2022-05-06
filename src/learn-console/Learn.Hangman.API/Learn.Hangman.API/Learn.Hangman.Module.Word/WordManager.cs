@@ -1,16 +1,18 @@
 ﻿using Gazel;
+using Learn.Hangman.Core.Module.Configuration;
 using Learn.Hangman.Module.WordManagement.Service;
-using System;
 
 namespace Learn.Hangman.Module.WordManagement
 {
     public class WordManager : IWordManagerService
     {
         private readonly IModuleContext context;
+        private readonly Validator validator;
 
-        public WordManager(IModuleContext context)
+        public WordManager(IModuleContext context, Validator validator)
         {
             this.context = context;
+            this.validator = validator;
         }
 
         public Word CreateWord(string text = default, int level = 3, Language language = Language.English)
@@ -20,10 +22,8 @@ namespace Learn.Hangman.Module.WordManagement
 
         public Word GetWord(int level = 3, Language language = Language.English)
         {
-            if (level > 7)
-            {
-                throw new ArgumentOutOfRangeException(nameof(level), $"level must be 7 or less.");
-            }
+            validator.Between(() => level, min: 1, max: 3);
+
             return context.Query<Words>().FirstBy(level, language);
         }
 

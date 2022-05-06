@@ -1,5 +1,6 @@
 ﻿using Gazel;
 using Gazel.DataAccess;
+using Learn.Hangman.Core.Module.Configuration;
 using Learn.Hangman.Module.WordManagement.Service;
 using System;
 using static Learn.Hangman.Core.Module.Configuration.CoreExceptions;
@@ -10,12 +11,14 @@ namespace Learn.Hangman.Module.WordManagement
     {
         private readonly IRepository<Word> repository;
         private readonly IModuleContext context;
+        private readonly Validator validator;
 
         protected Word() { }
-        public Word(IRepository<Word> repository, IModuleContext context)
+        public Word(IRepository<Word> repository, IModuleContext context, Validator validator)
         {
             this.repository = repository;
             this.context = context;
+            this.validator = validator;
         }
         public virtual int Id { get; protected set; }
         public virtual int Level { get; protected set; }
@@ -30,10 +33,9 @@ namespace Learn.Hangman.Module.WordManagement
         }
         protected virtual void Set(string text, int level, Language language)
         {
-            if (level > 7)
-            {
-                throw new ArgumentOutOfRangeException(nameof(level), $"level must be 7 or less.");
-            }
+            validator
+                .Between(() => level, min: 1, max: 3)
+                .RequiredText(() => text);
 
             if (text == default)
             {

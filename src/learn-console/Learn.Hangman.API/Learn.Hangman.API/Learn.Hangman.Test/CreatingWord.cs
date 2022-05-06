@@ -7,7 +7,7 @@ using static Learn.Hangman.Core.Module.Configuration.CoreExceptions;
 namespace Learn.Hangman.Test
 {
     [TestFixture]
-    public class CreatingWord:WordManagerTestBase
+    public class CreatingWord : WordManagerTestBase
     {
         [Test]
         public void When_creating_a_new_word__No_text_is_given__Then_it_throws_an_error()
@@ -51,7 +51,7 @@ namespace Learn.Hangman.Test
             BeginTest();
 
             var actual = CreateAWord(
-                text:"DEMİRADAM",
+                text: "DEMİRADAM",
                 level: 1,
                 language: Language.Turkce
                 );
@@ -76,17 +76,18 @@ namespace Learn.Hangman.Test
 
             BeginTest();
 
-            Assert.Throws<AlreadyExists>(() => testing.CreateWord(text:createWordText, level:createWordLevel, language:createWordLanguage), "The created word already exists but not throws an error");
+            Assert.Throws<AlreadyExists>(() => testing.CreateWord(text: createWordText, level: createWordLevel, language: createWordLanguage), "The created word already exists but not throws an error");
         }
 
         [Test]
-        public void When_given_an_undefined_parameter__Throws_an_exception()
+        public void When_given_a_level_less_than_min_value_or_greater_than_max_value__Throws_an_exception()
         {
             var testing = Context.Get<WordManager>();
 
             BeginTest();
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => testing.CreateWord(text:"WORD", level:50, language:Language.English), "Given undefined parameter but didnt throws an exception");
+            Assert.Throws<LevelShouldBeAtMost>(() => testing.CreateWord(text: "WORD", level: 4, language: Language.English), "Given a level greater than max level but didnt throws an exception");
+            Assert.Throws<LevelShouldBeAtLeast>(() => testing.CreateWord(text: "WORD", level: 0, language: Language.English), "Given a level less than min level but didnt throws an exception");
         }
     }
 }

@@ -4,6 +4,7 @@ using Learn.Hangman.Module.WordManagement;
 using Learn.Hangman.Module.WordManagement.Service;
 using NUnit.Framework;
 using System;
+using static Learn.Hangman.Core.Module.Configuration.CoreExceptions;
 
 namespace Learn.Hangman.Test
 {
@@ -23,19 +24,20 @@ namespace Learn.Hangman.Test
 
             BeginTest();
 
-            var actual = testing.GetWord(3,Language.English);
+            var actual = testing.GetWord(3, Language.English);
 
             Assert.AreEqual(defaultLevel, actual.Level);
         }
 
         [Test]
-        public void When_given_an_undefined_parameter__Throws_an_exception()
+        public void When_given_a_level_less_than_min_value_or_greater_than_max_value__Throws_an_exception()
         {
             var testing = Context.Get<WordManager>() as IWordManagerService;
 
             BeginTest();
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => testing.GetWord(50, Language.Turkce), "Given undefined parameter but didnt throws an exception");
+            Assert.Throws<LevelShouldBeAtMost>(() => testing.GetWord(4, Language.Turkce), "Given a level greater than max level but didnt throws an exception");
+            Assert.Throws<LevelShouldBeAtLeast>(() => testing.GetWord(0, Language.Turkce), "Given a level less than min level but didnt throws an exception");
         }
 
         [Test]
