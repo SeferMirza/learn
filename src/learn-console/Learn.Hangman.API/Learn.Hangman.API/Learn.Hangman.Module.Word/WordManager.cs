@@ -1,5 +1,6 @@
 ﻿using Gazel;
 using Learn.Hangman.Module.WordManagement.Service;
+using System;
 
 namespace Learn.Hangman.Module.WordManagement
 {
@@ -19,6 +20,10 @@ namespace Learn.Hangman.Module.WordManagement
 
         public Word GetWord(int level = 3, Language language = Language.English)
         {
+            if (level > 7)
+            {
+                throw new ArgumentOutOfRangeException(nameof(level), $"level must be 7 or less.");
+            }
             return context.Query<Words>().FirstBy(level, language);
         }
 

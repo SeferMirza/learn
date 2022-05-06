@@ -3,6 +3,7 @@ using Gazel.UnitTesting;
 using Learn.Hangman.Module.WordManagement;
 using Learn.Hangman.Module.WordManagement.Service;
 using NUnit.Framework;
+using System;
 
 namespace Learn.Hangman.Test
 {
@@ -28,9 +29,19 @@ namespace Learn.Hangman.Test
         }
 
         [Test]
-        public void When_the_defined_parameter_is_given_but_there_is_no_word__Then_closest_word_is_returned()
+        public void When_given_an_undefined_parameter__Throws_an_exception()
         {
-            Assert.Fail("TODO - Daha yazılmadı");
+            var testing = Context.Get<WordManager>() as IWordManagerService;
+
+            BeginTest();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => testing.GetWord(50, Language.Turkce), "Given undefined parameter but didnt throws an exception");
+        }
+
+        [Test]
+        public void If_there_are_no_words_in_the_given_parameters__Returns_the_message_not_found()
+        {
+            Assert.Fail("Kelime olmadığına dair mesaj");
         }
     }
 }

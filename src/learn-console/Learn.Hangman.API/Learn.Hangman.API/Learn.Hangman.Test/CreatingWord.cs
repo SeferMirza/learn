@@ -72,17 +72,21 @@ namespace Learn.Hangman.Test
             var createWordText = "I AM IRONMAN";
             var createWordLanguage = Language.English;
 
+            var testing = Context.Get<WordManager>();
+
             BeginTest();
 
-            Assert.Throws<AlreadyExists>(() => CreateAWord(text:createWordText, level:createWordLevel, language:createWordLanguage), "The created word already exists but not throws an error");
+            Assert.Throws<AlreadyExists>(() => testing.CreateWord(text:createWordText, level:createWordLevel, language:createWordLanguage), "The created word already exists but not throws an error");
         }
 
         [Test]
         public void When_given_an_undefined_parameter__Throws_an_exception()
         {
+            var testing = Context.Get<WordManager>();
+
             BeginTest();
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => CreateAWord(text:"WORD", level:50, language:Language.English), "Given undefined parameter but didnt throws an exception");
+            Assert.Throws<ArgumentOutOfRangeException>(() => testing.CreateWord(text:"WORD", level:50, language:Language.English), "Given undefined parameter but didnt throws an exception");
         }
     }
 }
