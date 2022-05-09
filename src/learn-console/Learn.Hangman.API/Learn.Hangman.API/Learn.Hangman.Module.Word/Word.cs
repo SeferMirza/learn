@@ -3,22 +3,22 @@ using Gazel.DataAccess;
 using Learn.Hangman.Core.Module.Configuration;
 using Learn.Hangman.Module.WordManagement.Service;
 using System;
-using static Learn.Hangman.Core.Module.Configuration.CoreExceptions;
+using static Learn.Hangman.Core.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Module.WordManagement
 {
-    public class Word : IOutWordL
+    public class Word : IOutWord
     {
         private readonly IRepository<Word> repository;
         private readonly IModuleContext context;
-        private readonly Validator validator;
+        private readonly Validator validate;
 
         protected Word() { }
         public Word(IRepository<Word> repository, IModuleContext context, Validator validator)
         {
             this.repository = repository;
             this.context = context;
-            this.validator = validator;
+            this.validate = validator;
         }
         public virtual int Id { get; protected set; }
         public virtual int Level { get; protected set; }
@@ -33,14 +33,9 @@ namespace Learn.Hangman.Module.WordManagement
         }
         protected virtual void Set(string text, int level, Language language)
         {
-            validator
+            validate
                 .Between(() => level, min: 1, max: 3)
-                .RequiredText(() => text);
-
-            if (text == default)
-            {
-                throw new TextCannotNullOrEmpty();
-            }
+                .RequiredText(text);
 
             if (context.Query<Words>().SingleByText(text) != null)
             {
@@ -50,7 +45,7 @@ namespace Learn.Hangman.Module.WordManagement
             Text = text;
             Level = level;
             Language = language;
-        }
+        }   
     }
 
     public class Words : Query<Word>
@@ -79,5 +74,4 @@ namespace Learn.Hangman.Module.WordManagement
         Turkce,
         English
     }
-
 }

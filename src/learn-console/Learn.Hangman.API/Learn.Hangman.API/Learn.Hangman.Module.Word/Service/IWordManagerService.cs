@@ -2,6 +2,6 @@
 {
     public interface IWordManagerService
     {
-        IOutWordM GetWord(int Level, Language language);
+        IOutWord GetWord(int Level, Language language);
     }
 }

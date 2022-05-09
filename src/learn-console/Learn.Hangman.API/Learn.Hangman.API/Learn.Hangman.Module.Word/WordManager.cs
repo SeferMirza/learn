@@ -15,7 +15,7 @@ namespace Learn.Hangman.Module.WordManagement
             this.validator = validator;
         }
 
-        public Word CreateWord(string text = default, int level = 3, Language language = Language.English)
+        public Word CreateWord(string text, int level = 3, Language language = Language.English)
         {
             return context.New<Word>().With(text, level, language);
         }
@@ -27,6 +27,8 @@ namespace Learn.Hangman.Module.WordManagement
             return context.Query<Words>().FirstBy(level, language);
         }
 
-        IOutWordM IWordManagerService.GetWord(int Level, Language language) => GetWord(Level, language);
+        #region service mapping
+        IOutWord IWordManagerService.GetWord(int Level, Language language) => GetWord(Level, language);
+        #endregion
     }
 }

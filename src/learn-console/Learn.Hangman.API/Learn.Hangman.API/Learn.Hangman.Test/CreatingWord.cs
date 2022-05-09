@@ -2,7 +2,7 @@
 using Learn.Hangman.Module.WordManagement;
 using NUnit.Framework;
 using System;
-using static Learn.Hangman.Core.Module.Configuration.CoreExceptions;
+using static Learn.Hangman.Core.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Test
 {
@@ -10,13 +10,14 @@ namespace Learn.Hangman.Test
     public class CreatingWord : WordManagerTestBase
     {
         [Test]
-        public void When_creating_a_new_word__No_text_is_given__Then_it_throws_an_error()
+        public void When_creating_a_new_word__Text_is_null_or_empty__Then_it_throws_an_error()
         {
             var testing = Context.Get<WordManager>();
 
             BeginTest();
 
-            Assert.Throws<TextCannotNullOrEmpty>(() => testing.CreateWord());
+            Assert.Throws<TextCannotNullOrEmpty>(() => testing.CreateWord(text:" "));
+            Assert.Throws<TextCannotNullOrEmpty>(() => testing.CreateWord(text:""));
         }
 
         [Test]
@@ -48,9 +49,11 @@ namespace Learn.Hangman.Test
             var expectedText = "DEMİRADAM";
             var expectedLanguage = Language.Turkce;
 
+            var testing = Context.Get<WordManager>();
+
             BeginTest();
 
-            var actual = CreateAWord(
+            var actual = testing.CreateWord(
                 text: "DEMİRADAM",
                 level: 1,
                 language: Language.Turkce
