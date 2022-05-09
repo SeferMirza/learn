@@ -16,17 +16,44 @@ namespace Learn.Hangman.Core.Module.Configuration
             this.context = context;
         }
 
-        public Validator RequiredText(string parameter)
+        public Validator Required<T>(Expression<Func<T>> parameter, string parameterName = null)
         {
-            if (string.IsNullOrWhiteSpace(parameter))
+            var name = parameterName ?? NameOf(parameter);
+            var value = ValueOf(parameter);
+
+            if (value is string stringValue)
             {
-                throw new TextCannotNullOrEmpty();
+                if (string.IsNullOrWhiteSpace(stringValue))
+                {
+                    throw new ValueIsRequired(name);
+                }
+            }
+            else if (value is IList collection)
+            {
+                if (collection == null || collection.Count == 0)
+                {
+                    throw new ValueIsRequired(name);
+                }
+            }
+            else if (value is Array array)
+            {
+                if (array == null || array.Length == 0)
+                {
+                    throw new ValueIsRequired(name);
+                }
+            }
+            else
+            {
+                if (Equals(value, default(T)))
+                {
+                    throw new ValueIsRequired(name);
+                }
             }
 
             return this;
         }
 
-        public Validator Between(Expression<Func<int>> parameter, int min = default, int max = default)
+        public Validator Limit(Expression<Func<int>> parameter, int min = default, int max = default)
         {
             if (min == default) { min = int.MinValue; }
             if (max == default) { max = int.MaxValue; }

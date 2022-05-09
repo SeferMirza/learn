@@ -159,8 +159,8 @@
       <Project>{d77a2e17-a6e1-44df-801a-9cfbffddd461}</Project>
       <Name>Learn.Hangman.Core.Module.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Learn.Hangman.Module.Word\Learn.Hangman.Module.WordManagement.csproj">
-      <Project>{0BEFF51E-8235-4648-B59B-650503BA6242}</Project>
+    <ProjectReference Include="..\Learn.Hangman.Module.WordManagement\Learn.Hangman.Module.WordManagement.csproj">
+      <Project>{0beff51e-8235-4648-b59b-650503ba6242}</Project>
       <Name>Learn.Hangman.Module.WordManagement</Name>
     </ProjectReference>
   </ItemGroup>

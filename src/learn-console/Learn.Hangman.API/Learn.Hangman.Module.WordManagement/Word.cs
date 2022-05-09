@@ -34,8 +34,8 @@ namespace Learn.Hangman.Module.WordManagement
         protected virtual void Set(string text, int level, Language language)
         {
             validate
-                .Between(() => level, min: 1, max: 3)
-                .RequiredText(text);
+                .Limit(() => level, min: 1, max: 3)
+                .Required(() => text);
 
             if (context.Query<Words>().SingleByText(text) != null)
             {
@@ -45,19 +45,15 @@ namespace Learn.Hangman.Module.WordManagement
             Text = text;
             Level = level;
             Language = language;
-        }   
+        }
     }
 
     public class Words : Query<Word>
     {
-        public Words(IModuleContext context) : base(context)
-        {
-        }
+        public Words(IModuleContext context) : base(context) { }
 
-        internal Word SingleByText(string text)
-        {
-            return SingleBy(w => w.Text == text);
-        }
+        internal Word SingleByText(string text) => SingleBy(w => w.Text == text);
+
         internal Word FirstBy(int level, Language language)
         {
             return FirstBy(w => true,

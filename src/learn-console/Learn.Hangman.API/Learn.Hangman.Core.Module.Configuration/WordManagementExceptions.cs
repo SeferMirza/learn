@@ -10,10 +10,10 @@ namespace Learn.Hangman.Core.Module.Configuration
                 : base(ResultCodes.WordManagement.Err(0), wordText) { }
         }
 
-        public class TextCannotNullOrEmpty : ServiceException
+        public class ValueIsRequired : ServiceException
         {
-            public TextCannotNullOrEmpty()
-                : base(ResultCodes.WordManagement.Err(1)) { }
+            public ValueIsRequired(string parameterName)
+                : base(ResultCodes.WordManagement.Err(1), parameterName) { }
         }
 
         public class LevelShouldBeAtLeast : ServiceException
