@@ -3,6 +3,8 @@ using Gazel.DataAccess;
 using Learn.Hangman.Core.Module.Configuration;
 using Learn.Hangman.Module.WordManagement.Service;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using static Learn.Hangman.Core.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Module.WordManagement
@@ -54,15 +56,19 @@ namespace Learn.Hangman.Module.WordManagement
 
         internal Word SingleByText(string text) => SingleBy(w => w.Text == text);
 
-        internal Word FirstBy(int level, Language language)
+        internal Word RandomBy(int level, Language language)
         {
-            return FirstBy(w => true,
-                optionals: new[]
-                {
-                    When(level).IsNotDefault().ThenAnd(w => w.Level == level),
-                    When(language).IsNotDefault().ThenAnd(w => w.Language == language )
-                }
-            );
+            var wordListByLevelAndLang = By(level, language);
+
+            var rand = new Random();
+            int skip = rand.Next(0, wordListByLevelAndLang.Count);
+
+            return wordListByLevelAndLang.Skip(skip).Take(1).First();
+        }
+
+        private List<Word> By(int level, Language language)
+        {
+            return By(word => word.Level == level && word.Language == language);
         }
     }
     public enum Language

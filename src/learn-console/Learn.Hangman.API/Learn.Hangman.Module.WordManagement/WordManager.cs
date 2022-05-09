@@ -21,11 +21,11 @@ namespace Learn.Hangman.Module.WordManagement
         {
             validate.Limit(() => level, min: 1, max: 3);
 
-            return context.Query<Words>().FirstBy(level, language);
+            return context.Query<Words>().RandomBy(level, language);
         }
 
         #region service mapping
-        IOutWord IWordManagerService.GetWord(int Level, Language language) => GetWord(Level, language);
+        IOutWord IWordManagerService.GetRandom(int Level, Language language) => GetWord(Level, language);
         IOutWord IWordManagerService.AddWord(string text, int level, Language language) => CreateWord(text, level, language);
         #endregion
     }
