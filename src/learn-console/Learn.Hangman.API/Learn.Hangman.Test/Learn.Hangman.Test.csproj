@@ -155,9 +155,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Learn.Hangman.Core.Module.Configuration\Learn.Hangman.Core.Module.Configuration.csproj">
+    <ProjectReference Include="..\Learn.Hangman.Module.Configuration\Learn.Hangman.Module.Configuration.csproj">
       <Project>{d77a2e17-a6e1-44df-801a-9cfbffddd461}</Project>
-      <Name>Learn.Hangman.Core.Module.Configuration</Name>
+      <Name>Learn.Hangman.Module.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Learn.Hangman.Module.WordManagement\Learn.Hangman.Module.WordManagement.csproj">
       <Project>{0beff51e-8235-4648-b59b-650503ba6242}</Project>

@@ -57,9 +57,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Learn.Hangman.Core.Module.Configuration\Learn.Hangman.Core.Module.Configuration.csproj">
-      <Project>{D77A2E17-A6E1-44DF-801A-9CFBFFDDD461}</Project>
-      <Name>Learn.Hangman.Core.Module.Configuration</Name>
+    <ProjectReference Include="..\Learn.Hangman.Module.Configuration\Learn.Hangman.Module.Configuration.csproj">
+      <Project>{d77a2e17-a6e1-44df-801a-9cfbffddd461}</Project>
+      <Name>Learn.Hangman.Module.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

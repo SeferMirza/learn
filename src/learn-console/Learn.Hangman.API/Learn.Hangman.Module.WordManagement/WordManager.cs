@@ -1,5 +1,5 @@
 ﻿using Gazel;
-using Learn.Hangman.Core.Module.Configuration;
+using Learn.Hangman.Module.Configuration;
 using Learn.Hangman.Module.WordManagement.Service;
 
 namespace Learn.Hangman.Module.WordManagement
@@ -16,7 +16,7 @@ namespace Learn.Hangman.Module.WordManagement
         }
 
         public Word CreateWord(string text, int level, Language language) => context.New<Word>().With(text, level, language);
-        
+
         public Word GetWord(int level = 3, Language language = Language.English)
         {
             validate.Limit(() => level, min: 1, max: 3);

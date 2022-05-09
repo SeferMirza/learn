@@ -1,6 +1,6 @@
 ﻿using Gazel.Service;
 
-namespace Learn.Hangman.Core.Module.Configuration
+namespace Learn.Hangman.Module.Configuration
 {
     public class ResultCodes : ResultCodeBlocks
     {

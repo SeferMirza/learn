@@ -1,6 +1,6 @@
 ﻿using Gazel.Service;
 
-namespace Learn.Hangman.Core.Module.Configuration
+namespace Learn.Hangman.Module.Configuration
 {
     public static class WordManagementExceptions
     {
@@ -26,6 +26,12 @@ namespace Learn.Hangman.Core.Module.Configuration
         {
             public LevelShouldBeAtMost(string parameterName, int max)
                 : base(ResultCodes.WordManagement.Err(3), parameterName, max) { }
+        }
+
+        public class CannotFind : ServiceException
+        {
+            public CannotFind()
+                : base(ResultCodes.WordManagement.Err(4)) { }
         }
     }
 }

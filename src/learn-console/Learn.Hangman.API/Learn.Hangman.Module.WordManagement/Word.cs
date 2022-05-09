@@ -1,11 +1,11 @@
 ﻿using Gazel;
 using Gazel.DataAccess;
-using Learn.Hangman.Core.Module.Configuration;
+using Learn.Hangman.Module.Configuration;
 using Learn.Hangman.Module.WordManagement.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Learn.Hangman.Core.Module.Configuration.WordManagementExceptions;
+using static Learn.Hangman.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Module.WordManagement
 {
@@ -16,11 +16,11 @@ namespace Learn.Hangman.Module.WordManagement
         private readonly Validator validate;
 
         protected Word() { }
-        public Word(IRepository<Word> repository, IModuleContext context, Validator validator)
+        public Word(IRepository<Word> repository, IModuleContext context, Validator validate)
         {
             this.repository = repository;
             this.context = context;
-            this.validate = validator;
+            this.validate = validate;
         }
         public virtual int Id { get; protected set; }
         public virtual int Level { get; protected set; }
@@ -58,17 +58,11 @@ namespace Learn.Hangman.Module.WordManagement
 
         internal Word RandomBy(int level, Language language)
         {
-            var wordListByLevelAndLang = By(level, language);
+            var wordCount = CountBy(w => w.Level == level && w.Language == language);
 
-            var rand = new Random();
-            int skip = rand.Next(0, wordListByLevelAndLang.Count);
+            int skip = context.System.Random(0, wordCount);
 
-            return wordListByLevelAndLang.Skip(skip).Take(1).First();
-        }
-
-        private List<Word> By(int level, Language language)
-        {
-            return By(word => word.Level == level && word.Language == language);
+            return By(skip: skip, take: 1, where: w => w.Level == level && w.Language == language).Single();
         }
     }
     public enum Language

@@ -12,8 +12,10 @@ namespace Learn.Hangman.Test
     public class RequestingOfWord : WordManagerTestBase
     {
         [Test]
-        public void Given_default_values_are_and_appropriate_word_is_returned__Instead_of_the_ones_that_are_not_given_among_the_requested_parameters()
+        public void Returns_a_random_word__From_records__That_match_the_given_parameters()
         {
+            SetUpRandoms(1);
+
             var createWord = CreateAWord("I AM IRONMAN", 3, Language.English);
             var createWordTwo = CreateAWord("I AM BATMAN", 3, Language.English);
 
@@ -24,6 +26,7 @@ namespace Learn.Hangman.Test
             var actual = testing.GetRandom(3, Language.English);
 
             Assert.AreEqual(3, actual.Level);
+            Assert.AreEqual("I AM BATMAN", actual.Text);
             Assert.AreEqual(Language.English, actual.Language);
         }
 
@@ -42,6 +45,12 @@ namespace Learn.Hangman.Test
         public void If_there_are_no_words_in_the_given_parameters__Returns_the_message_not_found()
         {
             Assert.Fail("Kelime olmadığına dair mesaj");
+
+            var testing = Context.Get<WordManager>() as IWordManagerService;
+
+            BeginTest();
+
+            Assert.Throws<CannotFind>(() => testing.GetRandom(1, Language.Turkce), "No words find");
         }
     }
 }

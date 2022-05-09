@@ -3,9 +3,9 @@ using Gazel.Service;
 using System;
 using System.Collections;
 using System.Linq.Expressions;
-using static Learn.Hangman.Core.Module.Configuration.WordManagementExceptions;
+using static Learn.Hangman.Module.Configuration.WordManagementExceptions;
 
-namespace Learn.Hangman.Core.Module.Configuration
+namespace Learn.Hangman.Module.Configuration
 {
     public class Validator
     {
