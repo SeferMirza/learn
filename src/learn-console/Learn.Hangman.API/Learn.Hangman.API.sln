@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Hangman.Test", "Learn.Hangman.Test\Learn.Hangman.Test.csproj", "{61CFC1C6-3538-41C2-9B4C-31AD81640945}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Hangman.App.Service", "Learn.Hangman.App.Service\Learn.Hangman.App.Service.csproj", "{FA1C7087-DC64-430D-95CC-E44D1516A63D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Hangman.Module.WordManagement", "Learn.Hangman.Module.WordManagement\Learn.Hangman.Module.WordManagement.csproj", "{0BEFF51E-8235-4648-B59B-650503BA6242}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Hangman.App.Rest", "Learn.Hangman.App.Rest\Learn.Hangman.App.Rest.csproj", "{C6058314-763C-4981-901D-956F2B10B22F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Hangman.Module.Configuration", "Learn.Hangman.Module.Configuration\Learn.Hangman.Module.Configuration.csproj", "{D77A2E17-A6E1-44DF-801A-9CFBFFDDD461}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61CFC1C6-3538-41C2-9B4C-31AD81640945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61CFC1C6-3538-41C2-9B4C-31AD81640945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61CFC1C6-3538-41C2-9B4C-31AD81640945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61CFC1C6-3538-41C2-9B4C-31AD81640945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA1C7087-DC64-430D-95CC-E44D1516A63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA1C7087-DC64-430D-95CC-E44D1516A63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA1C7087-DC64-430D-95CC-E44D1516A63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA1C7087-DC64-430D-95CC-E44D1516A63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BEFF51E-8235-4648-B59B-650503BA6242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BEFF51E-8235-4648-B59B-650503BA6242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BEFF51E-8235-4648-B59B-650503BA6242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BEFF51E-8235-4648-B59B-650503BA6242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6058314-763C-4981-901D-956F2B10B22F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6058314-763C-4981-901D-956F2B10B22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6058314-763C-4981-901D-956F2B10B22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6058314-763C-4981-901D-956F2B10B22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D77A2E17-A6E1-44DF-801A-9CFBFFDDD461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77A2E17-A6E1-44DF-801A-9CFBFFDDD461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77A2E17-A6E1-44DF-801A-9CFBFFDDD461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77A2E17-A6E1-44DF-801A-9CFBFFDDD461}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {765B0754-5768-4595-8B3A-A19E776BFFED}
+	EndGlobalSection
+EndGlobal
