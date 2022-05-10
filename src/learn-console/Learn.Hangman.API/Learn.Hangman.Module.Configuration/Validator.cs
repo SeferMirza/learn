@@ -3,6 +3,7 @@ using Gazel.Service;
 using System;
 using System.Collections;
 using System.Linq.Expressions;
+
 using static Learn.Hangman.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Module.Configuration

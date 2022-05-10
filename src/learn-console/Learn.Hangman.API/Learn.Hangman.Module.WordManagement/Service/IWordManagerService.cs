@@ -2,7 +2,7 @@
 {
     public interface IWordManagerService
     {
-        IOutWord GetRandom(int Level, Language language);
         IOutWord AddWord(string text, int level, Language language);
+        IOutWord GetRandom(int Level, Language language);
     }
 }

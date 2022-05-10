@@ -3,6 +3,7 @@ using Learn.Hangman.Module.WordManagement;
 using Learn.Hangman.Module.WordManagement.Service;
 using NUnit.Framework;
 using System;
+
 using static Learn.Hangman.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Test
@@ -24,10 +25,6 @@ namespace Learn.Hangman.Test
         [Test]
         public void Given_the_parameters__Then_word_is_created()
         {
-            var expectedLevel = 1;
-            var expectedText = "DEMİRADAM";
-            var expectedLanguage = Language.Turkce;
-
             var testing = Context.Get<WordManager>() as IWordManagerService;
 
             BeginTest();
@@ -40,9 +37,9 @@ namespace Learn.Hangman.Test
 
             Verify.ObjectIsPersisted(actual);
 
-            Assert.AreEqual(expectedLevel, actual.Level);
-            Assert.AreEqual(expectedLanguage, actual.Language);
-            Assert.AreEqual(expectedText, actual.Text);
+            Assert.AreEqual(1, actual.Level);
+            Assert.AreEqual(Language.Turkce, actual.Language);
+            Assert.AreEqual("DEMİRADAM", actual.Text);
         }
 
         [Test]
@@ -50,15 +47,14 @@ namespace Learn.Hangman.Test
         {
             var word = CreateAWord();
 
-            var createWordLevel = 3;
-            var createWordText = "I AM IRONMAN";
-            var createWordLanguage = Language.English;
-
             var testing = Context.Get<WordManager>() as IWordManagerService;
 
             BeginTest();
 
-            Assert.Throws<AlreadyExists>(() => testing.AddWord(text: createWordText, level: createWordLevel, language: createWordLanguage), "The created word already exists but not throws an error");
+            Assert.Throws<AlreadyExists>(
+                () => testing.AddWord(text: "I AM IRONMAN", level: 3, language: Language.English),
+                "The created word already exists but not throws an error"
+            );
         }
 
         [Test]
@@ -68,8 +64,14 @@ namespace Learn.Hangman.Test
 
             BeginTest();
 
-            Assert.Throws<LevelShouldBeAtMost>(() => testing.AddWord(text: "WORD", level: 4, language: Language.English), "Given a level greater than max level but didnt throws an exception");
-            Assert.Throws<LevelShouldBeAtLeast>(() => testing.AddWord(text: "WORD", level: 0, language: Language.English), "Given a level less than min level but didnt throws an exception");
+            Assert.Throws<LevelShouldBeAtMost>(
+                () => testing.AddWord(text: "WORD", level: 4, language: Language.English),
+                "Given a level greater than max level but didnt throws an exception"
+            );
+            Assert.Throws<LevelShouldBeAtLeast>(
+                () => testing.AddWord(text: "WORD", level: 0, language: Language.English),
+                "Given a level less than min level but didnt throws an exception"
+            );
         }
     }
 }

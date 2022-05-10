@@ -19,9 +19,6 @@ namespace Learn.Hangman.App.Rest
         {
             return configure.Custom(c => c
                 .RequestHeader("Accept-Language", Header.LanguageCode, header => header.Before(","))
-
-                .ResponseHeader("X-Code", Header.ResultCode)
-                .ResponseHeader("X-Message", Header.ResultMessage)
             );
 
         }
