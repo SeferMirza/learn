@@ -12,7 +12,7 @@ namespace Learn.Hangman.App.Rest
     {
         protected override ServiceClientConfiguration ServiceClient(ServiceClientConfigurer configure)
         {
-            return configure.Routine("http://localhost:6161/service");
+            return configure.Routine("https://localhost:44303/service");
         }
 
         protected override HttpHeaderConfiguration HttpHeader(HttpHeaderConfigurer configure)
@@ -44,30 +44,8 @@ namespace Learn.Hangman.App.Rest
         {
             return configure.Rest(
                 rootPath: "/",
-                namingStyle: WebServiceConfiguration.NamingStyle.camelCase,
-                exceptionBodyFunc: ex => new CodeMessage(ex)
+                namingStyle: WebServiceConfiguration.NamingStyle.camelCase
             );
-        }
-
-        private class CodeMessage : IServiceResultData
-        {
-            public int code { get; private set; }
-            public string message { get; private set; }
-
-            public CodeMessage(Exception exception)
-            {
-                code = ResultCodeBlocks.Gazel.Fatal();
-                message = exception.Message;
-            }
-
-            void IServiceResultData.SetResultStatus(int resultCode, string resultMessage)
-            {
-                code = resultCode;
-                message = resultMessage;
-            }
-
-            int IServiceResultData.ResultCode => code;
-            string IServiceResultData.ResultMessage => message;
         }
     }
 }
