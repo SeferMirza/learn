@@ -4,7 +4,7 @@ using Learn.Hangman.Module.WordManagement;
 using Learn.Hangman.Module.WordManagement.Service;
 using NUnit.Framework;
 using System;
-using static Learn.Hangman.Core.Module.Configuration.WordManagementExceptions;
+using static Learn.Hangman.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Test
 {

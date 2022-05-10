@@ -7,8 +7,8 @@
     <ProjectGuid>{D77A2E17-A6E1-44DF-801A-9CFBFFDDD461}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Learn.Hangman.Core.Module.Configuration</RootNamespace>
-    <AssemblyName>Learn.Hangman.Core.Module.Configuration</AssemblyName>
+    <RootNamespace>Learn.Hangman.Module.Configuration</RootNamespace>
+    <AssemblyName>Learn.Hangman.Module.Configuration</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

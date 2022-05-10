@@ -18,8 +18,8 @@ namespace Learn.Hangman.Test
 
             BeginTest();
 
-            Assert.Throws<ValueIsRequired>(() => testing.AddWord(text: " ", level: 1, language: Language.Turkce));
-            Assert.Throws<ValueIsRequired>(() => testing.AddWord(text: "", level: 1, language: Language.Turkce));
+            Assert.Throws<ValueIsRequired>(() => testing.CreateWord(text: " ", level: 1, language: Language.Turkce));
+            Assert.Throws<ValueIsRequired>(() => testing.CreateWord(text: "", level: 1, language: Language.Turkce));
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace Learn.Hangman.Test
 
             BeginTest();
 
-            var actual = testing.AddWord(
+            var actual = testing.CreateWord(
                 text: "DEMİRADAM",
                 level: 1,
                 language: Language.Turkce
@@ -52,7 +52,7 @@ namespace Learn.Hangman.Test
             BeginTest();
 
             Assert.Throws<AlreadyExists>(
-                () => testing.AddWord(text: "I AM IRONMAN", level: 3, language: Language.English),
+                () => testing.CreateWord(text: "I AM IRONMAN", level: 3, language: Language.English),
                 "The created word already exists but not throws an error"
             );
         }
@@ -65,11 +65,11 @@ namespace Learn.Hangman.Test
             BeginTest();
 
             Assert.Throws<LevelShouldBeAtMost>(
-                () => testing.AddWord(text: "WORD", level: 4, language: Language.English),
+                () => testing.CreateWord(text: "WORD", level: 4, language: Language.English),
                 "Given a level greater than max level but didnt throws an exception"
             );
             Assert.Throws<LevelShouldBeAtLeast>(
-                () => testing.AddWord(text: "WORD", level: 0, language: Language.English),
+                () => testing.CreateWord(text: "WORD", level: 0, language: Language.English),
                 "Given a level less than min level but didnt throws an exception"
             );
         }

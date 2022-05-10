@@ -56,7 +56,7 @@ namespace Learn.Hangman.Module.WordManagement
 
         internal Word SingleByText(string text) => SingleBy(w => w.Text == text);
 
-        internal Word CountBy(int level, Language language) => CountBy(w => w.Level == level && w.Language == language);
+        internal int CountBy(int level, Language language) => CountBy(w => w.Level == level && w.Language == language);
         internal Word SingleBy(int level, Language language, int index) => By(skip: index, take: 1, where: w => w.Level == level && w.Language == language).Single();
     }
 }

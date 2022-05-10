@@ -40,12 +40,11 @@ namespace Learn.Hangman.App.Rest
                     "Accept-Language"
             });
         }
-        protected override WebServiceConfiguration WebService(WebServiceConfigurer configure)
+        protected override WebServiceConfiguration WebService(WebServiceConfigurer configure) => configure.Rest();
+
+        protected override LoggingFeature Logging(LoggingConfigurer configure)
         {
-            return configure.Rest(
-                rootPath: "/",
-                namingStyle: WebServiceConfiguration.NamingStyle.camelCase
-            );
+            return configure.Log4Net(Gazel.Logging.LogLevel.Debug);
         }
     }
 }

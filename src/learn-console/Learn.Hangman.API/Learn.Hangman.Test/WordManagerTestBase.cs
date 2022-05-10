@@ -1,5 +1,6 @@
 ﻿using Gazel.UnitTesting;
 using Learn.Hangman.Module.WordManagement;
+using Learn.Hangman.Module.WordManagement.Service;
 
 namespace Learn.Hangman.Test
 {
@@ -21,11 +22,8 @@ namespace Learn.Hangman.Test
             Language language = Language.English
             )
         {
-            return Context.Get<WordManager>().CreateWord(
-                                                text: text,
-                                                level: level,
-                                                language: language
-                                                );
+            var wm = Context.Get<WordManager>() as IWordManagerService;
+            return (Word)wm.CreateWord(text, level, language);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Learn.Hangman.Module.WordManagement
             this.validate = validate;
         }
 
-        private Word AddWord(string text, int level, Language language) =>
+        private Word CreateWord(string text, int level, Language language) =>
             context.New<Word>().With(text, level, language);
 
         private Word GetRandom(int level = 3, Language language = Language.English)
@@ -25,7 +25,6 @@ namespace Learn.Hangman.Module.WordManagement
             validate.Limit(() => level, min: 1, max: 3);
 
             var max = context.Query<Words>().CountBy(level, language);
-
             var index = system.Random(0, max);
 
             return context.Query<Words>().SingleBy(level, language, index);
@@ -34,7 +33,7 @@ namespace Learn.Hangman.Module.WordManagement
         #region Service Mapping
 
         IOutWord IWordManagerService.GetRandom(int Level, Language language) => GetRandom(Level, language);
-        IOutWord IWordManagerService.AddWord(string text, int level, Language language) => AddWord(text, level, language);
+        IOutWord IWordManagerService.CreateWord(string text, int level, Language language) => CreateWord(text, level, language);
 
         #endregion
     }
