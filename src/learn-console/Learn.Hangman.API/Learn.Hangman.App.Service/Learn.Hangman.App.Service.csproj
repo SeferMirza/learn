@@ -221,9 +221,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Learn.Hangman.Module.Configuration\Learn.Hangman.Module.Configuration.csproj">
       <Project>{d77a2e17-a6e1-44df-801a-9cfbffddd461}</Project>

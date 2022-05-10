@@ -48,7 +48,7 @@ namespace Learn.Hangman.Test
 
             BeginTest();
 
-            Assert.Throws<CannotFind>(() => testing.GetRandom(1, Language.Turkce), "No words find");
+            Assert.Throws<CannotFindARecord>(() => testing.GetRandom(1, Language.Turkce), "No words find");
         }
     }
 }

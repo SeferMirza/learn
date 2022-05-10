@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Swagger Hangmen
+  title: Swagger Hangman
   description: This is the swagger design of the hangman project's word repository API.
   termsOfService: https://github.com/SeferMirza/learn/tree/master/src/learn-console/
   contact:

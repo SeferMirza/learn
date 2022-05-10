@@ -28,9 +28,9 @@ namespace Learn.Hangman.Module.Configuration
                 : base(ResultCodes.WordManagement.Err(3), parameterName, max) { }
         }
 
-        public class CannotFind : ServiceException
+        public class CannotFindARecord : ServiceException
         {
-            public CannotFind()
+            public CannotFindARecord()
                 : base(ResultCodes.WordManagement.Err(4)) { }
         }
     }

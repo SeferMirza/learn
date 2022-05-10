@@ -29,7 +29,7 @@ namespace Learn.Hangman.Module.WordManagement
 
             if (max == 0)
             {
-                throw new CannotFind();
+                throw new CannotFindARecord();
             }
 
             var index = system.Random(0, max);
