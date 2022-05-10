@@ -5,45 +5,39 @@ namespace Learn.Hangman
 {
     public class MainMenu : IMenu
     {
-        public GameStatus GameStatus { get; private set; }
-        public List<Menu> Menus { get;private set; }
-        public int Position { get;private set; }
-        private IGame game;
-        private IConsole console;
-        private GameRunner runner;
-        public MainMenu(List<Menu> menus)
+        private readonly List<IMenuOptionsEvent> menus;
+        IMenuOptionsEvent currentMenu;
+        private int currentIndex = 0;
+        public MainMenu(List<IMenuOptionsEvent> menus)
         {
-            this.Menus = menus;
-            Position = 0;
-            game = new GameFactory().CreateDefault();
-            console = new SystemConsole();
-            runner = new GameRunner(game, console);
+            currentMenu = menus.First();
+            this.menus = menus;
         }
 
-        public void ProcessKey(ConsoleKey key)
+        public void Enter()
         {
-            if (key == ConsoleKey.Enter) Select();
-            else if(key == ConsoleKey.UpArrow) Position = Position <= 0 ? (Menus.Count - 1) : (Position - 1);
-            else if(key == ConsoleKey.DownArrow) Position = Position >= (Menus.Count - 1) ? 0 : (Position + 1);
+            currentMenu.Select();
+        }
+
+        public void Left()
+        {
+            currentIndex--;
+            if (currentIndex < 0) currentIndex = 0;
+            currentMenu = menus.Skip(currentIndex).First();
+        }
+
+        public void Right()
+        {
+            currentIndex++;
+            if (currentIndex == menus.Count) currentIndex = menus.Count - 1;
+            currentMenu = menus.Skip(currentIndex).First();
         }
 
         public string Render()
-        {      
-            return string.Join("\n",Menus.Select(x => x.Id == (Position) ? (">>" + x.Title) : ("  " + x.Title)));
-        }
-
-        public void Select()
         {
-            if(Menus.Where(x => x.Id == (Position)).Select(x  => x.Title).First() == "Play")
-            {
-                GameStatus = GameStatus.Play;
-                runner.Run();
-            }
-            else if(Menus.Where(x => x.Id == (Position)).Select(x => x.Title).First() == "Exit")
-            {
-                GameStatus = GameStatus.Exit;
-                Environment.Exit(0);
-            }
+            return "<" + new string(' ', (9 - currentMenu.Title.Length) / 2) +
+                currentMenu.Title +
+                new string(' ', (9 - currentMenu.Title.Length) / 2) + ">";
         }
     }
 }

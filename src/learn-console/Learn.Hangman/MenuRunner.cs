@@ -13,14 +13,14 @@
 
         public void Run()
         {
-            while (mainMenu.GameStatus != GameStatus.Exit)
+            while (true)
             {
                 console.Clear();
                 console.WriteLine(mainMenu.Render());
-                mainMenu.ProcessKey(console.ReadKey().Key);
+                var key = console.ReadKey();
+                if (key.Key == ConsoleKey.LeftArrow) mainMenu.Left();
+                if (key.Key == ConsoleKey.RightArrow) mainMenu.Right();
             }
-
-            console.Clear();
         }
     }
 }

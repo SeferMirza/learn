@@ -2,9 +2,9 @@
 {
     public interface IMenu
     {
-        public void Select();
-        GameStatus GameStatus { get; }
-        void ProcessKey(ConsoleKey key);
+        void Left();
+        void Right();
+        void Enter();
         string Render();
     }
 }

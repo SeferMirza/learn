@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Learn.Hangman.Models
+namespace Learn.Hangman
 {
-    public class Menu
+    public interface IMenuOptionsEvent
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
+        string Title { get; }
+
+        void Select();
     }
 }

@@ -17,13 +17,12 @@ namespace Learn.Hangman
                 console.Clear();
                 console.WriteLine(game.Render());
                 game.ProcessKey(console.ReadKey().Key);
-                Thread.Sleep(TimeSpan.FromSeconds(0.5));
+                console.Sleep(500);
             }
 
             console.Clear();
             console.WriteLine(game.Render());
-
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+            console.Sleep(300);
         }
     }
 }
