@@ -6,5 +6,6 @@ namespace Learn.Hangman
         void Clear();
         ConsoleKeyInfo ReadKey();
         void Sleep(int milliseconds);
+        void Exit();
     }
 }

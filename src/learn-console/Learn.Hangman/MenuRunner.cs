@@ -17,9 +17,10 @@
             {
                 console.Clear();
                 console.WriteLine(mainMenu.Render());
-                var key = console.ReadKey();
-                if (key.Key == ConsoleKey.LeftArrow) mainMenu.Left();
-                if (key.Key == ConsoleKey.RightArrow) mainMenu.Right();
+                var key = console.ReadKey().Key;
+                if (key == ConsoleKey.LeftArrow) mainMenu.Left();
+                else if (key == ConsoleKey.RightArrow) mainMenu.Right();
+                else if (key == ConsoleKey.Enter) mainMenu.Enter();
             }
         }
     }
