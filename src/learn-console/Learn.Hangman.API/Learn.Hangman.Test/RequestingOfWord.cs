@@ -44,8 +44,6 @@ namespace Learn.Hangman.Test
         [Test]
         public void If_there_are_no_words_in_the_given_parameters__Returns_the_message_not_found()
         {
-            Assert.Fail("Kelime olmadığına dair mesaj");
-
             var testing = Context.Get<WordManager>() as IWordManagerService;
 
             BeginTest();

@@ -24,16 +24,12 @@ paths:
           description: Word level.
           schema:
             type: integer
-        - name: per-page
+        - name: language
           in: query
-          description: Return word counts.
+          description: Words language. 0 => Turkçe, 1 => English
           schema:
-            type: integer
-        - name: random
-          in: query
-          description: Return random or sequential word.
-          schema:
-            type: boolean
+            type: int
+            enum: [0, 1]
       responses:
         '200':
           description: succes
@@ -77,7 +73,7 @@ paths:
       summary: Adds a word in the database.
       description: Adds a word in the database
       requestBody:
-        description: Add new word
+        description: Add new word. Note - 0 => Turkce, 1 => English
         content:
           application/json:
             schema:
@@ -96,61 +92,15 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/out-word'
-        '400':
-          description: Invalid word supplied
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/400'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/400'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/404'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/404'
-        '405':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/405'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/405'
-      x-codegen-request-body-name: word
-  /words/{id}:
-    put:
-      tags:
-        - word
-      summary: Update word
-      description: Update word
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema: {}
-      requestBody:
-        content:
-          '*/*':
-            schema:
-              $ref: '#/components/schemas/in-word'
-        required: true
-      responses:
-        '200':
+        '201':
           description: succes
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/out-word'
+                $ref: '#/components/schemas/201'
             application/xml:
               schema:
-                $ref: '#/components/schemas/out-word'
+                $ref: '#/components/schemas/201'
         '400':
           description: Invalid word supplied
           content:
@@ -181,6 +131,20 @@ paths:
       x-codegen-request-body-name: word
 components:
   schemas:
+    '201':
+      type: object
+      properties:
+        id:
+          type: integer
+          description: success code
+          format: int64
+          example: 201
+        message:
+          type: string
+          description: "Yeni kelime yaratıldı!"
+          example: Wrong
+      xml:
+        name: success
     '400':
       type: object
       properties:
@@ -229,30 +193,26 @@ components:
         id:
           type: integer
           format: int64
-        word:
+        text:
           type: string
         level:
           type: integer
           format: int32
         language:
-          type: string
-          enum:
-            - Türkçe
-            - İngilizce
+          type: integer
+          enum: [0, 1]
       xml:
         name: Word
     in-word:
       type: object
       properties:
-        word:
+        text:
           type: string
         level:
           type: integer
           format: int32
         language:
-          type: string
-          enum:
-            - Türkçe
-            - İngilizce
+          type: integer
+          enum: [ 0, 1 ]
       xml:
         name: Word

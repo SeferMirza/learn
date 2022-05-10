@@ -1,6 +1,7 @@
 ﻿using Gazel;
 using Learn.Hangman.Module.Configuration;
 using Learn.Hangman.Module.WordManagement.Service;
+using static Learn.Hangman.Module.Configuration.WordManagementExceptions;
 
 namespace Learn.Hangman.Module.WordManagement
 {
@@ -25,6 +26,12 @@ namespace Learn.Hangman.Module.WordManagement
             validate.Limit(() => level, min: 1, max: 3);
 
             var max = context.Query<Words>().CountBy(level, language);
+
+            if (max == 0)
+            {
+                throw new CannotFind();
+            }
+
             var index = system.Random(0, max);
 
             return context.Query<Words>().SingleBy(level, language, index);
