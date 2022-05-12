@@ -3,12 +3,12 @@ using Learn.Hangman.Models;
 
 namespace Learn.Hangman
 {
-    public class MainMenu : IMenu
+    public class MainMenu
     {
-        private readonly List<IMenuOptionsEvent> menus;
-        IMenuOptionsEvent currentMenu;
+        private readonly List<IMenuOption> menus;
+        IMenuOption currentMenu;
         private int currentIndex = 0;
-        public MainMenu(List<IMenuOptionsEvent> menus)
+        public MainMenu(List<IMenuOption> menus)
         {
             currentMenu = menus.First();
             this.menus = menus;
@@ -35,9 +35,13 @@ namespace Learn.Hangman
 
         public string Render()
         {
-            return "<" + new string(' ', (9 - currentMenu.Title.Length) / 2) +
+            //TODO - ?
+            var leftArrow = currentMenu.Title == "Play" ? " " : "<";
+            var rightArrow = currentMenu.Title == "Exit" ? " " : ">";
+
+            return leftArrow + new string(' ', (9 - currentMenu.Title.Length) / 2) +
                 currentMenu.Title +
-                new string(' ', (9 - currentMenu.Title.Length) / 2) + ">";
+                new string(' ', (9 - currentMenu.Title.Length) / 2) + rightArrow;
         }
     }
 }

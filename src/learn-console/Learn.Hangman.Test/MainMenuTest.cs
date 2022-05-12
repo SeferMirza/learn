@@ -1,64 +1,103 @@
-﻿using Learn.Hangman.Lists;
-using Learn.Hangman.Models;
+﻿using Learn.Hangman.Consoles;
+using Learn.Hangman.MenuOptions;
+using Moq;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Learn.Hangman.Test
 {
     public class MainMenuTest
     {
-        private MenuList menuList = new MenuList();
-        public IMenu GMenu()
+        private List<IMenuOption> AList()
         {
-            MainMenu mainMenu = new MainMenu(menuList.GetMainMenu());
-            return mainMenu;
+            List<IMenuOption> options = new List<IMenuOption>();
+            options.Add(new Play(new GameRunner(AGame(), AConsole())));
+            options.Add(new Exit(AConsole()));
+            return options;
+        }
+        public IGame AGame() {
+            var mock = new Mock<IGame>();
+            mock.Setup(t => t.Render());
+
+            return mock.Object;
+        }
+        public IConsole AConsole() {
+            var mock = new Mock<IConsole>();
+            ConsoleKeyInfo key = new ConsoleKeyInfo(keyChar:'a', key:ConsoleKey.Enter,false,false,false);
+            mock.Setup(t => t.ReadKey()).Returns(key);
+            mock.Setup(t => t.Clear());
+            return mock.Object;
         }
 
-        public IMenu MMenu()
-        {
-            MainMenu mainMenu = new MainMenu(menuList.GetMainMenu());
-            return mainMenu;
-        }
+        public MainMenu AMenu(List<IMenuOption> optionsList) => new MainMenu(optionsList);
 
-        public MainMenu Menu()
+        [Fact]
+        public void Menu_acildiginda_Play_secenegi_baslangicta_gelir()
         {
-            MainMenu mainMenu = new MainMenu(menuList.GetMainMenu());
-            return mainMenu;
+            List<IMenuOption> options = new List<IMenuOption>();
+            options.Add(new Play(new GameRunner(AGame(), AConsole())));
+            options.Add(new Exit(AConsole()));
+            var menu = AMenu(options);
+      
+            Assert.Contains("Play", menu.Render());
         }
 
         [Fact]
-        public void Oyun_basladiginda_menu_ekrani_yuklenir()
+        public void Kullanici_Play_seceneginde_degilken_sol_ok_tusuna_basar_Menude_goruntulenen_sekme_bir_gerideki_olur()
         {
-            var menu = GMenu();
-            var expect = ">>Play" + Environment.NewLine + "  Exit" + Environment.NewLine;
+            List<IMenuOption> options = new List<IMenuOption>();
+            options.Add(new Play(new GameRunner(AGame(), AConsole())));
+            options.Add(new Exit(AConsole()));
+            var menu = AMenu(options);
+            menu.Right();
+            
+            menu.Left();
 
-            Assert.Equal(expect, menu.Render());
+            Assert.Contains("Play", menu.Render());
         }
 
         [Fact]
-        public void Kullanici_asagi_ok_tusuna_basar_Menude_secili_sekme_bir_alttaki_olur()
+        public void Kullanici_sag_ok_tusuna_basar_Menude_goruntulenen_secenek_bir_sonraki_olur()
         {
-            var menu = Menu();
-            menu.ProcessKey(ConsoleKey.DownArrow);
+            List<IMenuOption> options = new List<IMenuOption>();
+            options.Add(new Play(new GameRunner(AGame(), AConsole())));
+            options.Add(new Exit(AConsole()));
+            var menu = AMenu(options);
 
-            Assert.Equal(1, menu.Position);
+            menu.Right();
+
+            Assert.Contains("Exit", menu.Render());
         }
 
         [Fact]
-        public void Kullanici_yukarı_ok_tusuna_basar_Menude_secili_sekme_bir_ustteki_olur()
+        public void Kullanici_Play_secenegini_secer_Game_calisir()
         {
-            var menu = Menu();
-            menu.ProcessKey(ConsoleKey.UpArrow);
+            var game = AGame();
+            List<IMenuOption> options = new List<IMenuOption>();
+            options.Add(new Play(new GameRunner(game, AConsole())));
+            options.Add(new Exit(AConsole()));
+            var menu = AMenu(options);
 
-            Assert.Equal(menu.Menus.Count - 1, menu.Position);
+            menu.Enter();
+
+            Mock.Get(game).Verify(g => g.Render(), Times.AtLeast(1));
         }
 
         [Fact]
         public void Kullanici_Exit_secenegini_secer_program_sonlanir()
         {
-            var menu = Menu();
-            menu.ProcessKey(ConsoleKey.UpArrow);
-            menu.Select();
+            var game = AGame();
+            var console = AConsole();
+            List<IMenuOption> options = new List<IMenuOption>();
+            options.Add(new Play(new GameRunner(game, console)));
+            options.Add(new Exit(console));
+            var menu = AMenu(options);
+            menu.Right();
+
+            menu.Enter();
+
+            Mock.Get(console).Verify(g => g.Exit(), Times.AtLeast(1));
         }
     }
 }

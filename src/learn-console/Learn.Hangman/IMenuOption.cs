@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Learn.Hangman
 {
-    public interface IMenuOptionsEvent
+    public interface IMenuOption
     {
         string Title { get; }
 

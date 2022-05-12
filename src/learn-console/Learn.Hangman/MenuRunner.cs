@@ -2,13 +2,13 @@
 {
     public class MenuRunner
     {
-        private readonly IMenu mainMenu;
+        private readonly MainMenu menu;
         private readonly IConsole console;
 
-        public MenuRunner(IMenu mainMenu, IConsole console)
+        public MenuRunner(MainMenu menu, IConsole console)
         {
             this.console = console;
-            this.mainMenu = mainMenu;
+            this.menu = menu;
         }
 
         public void Run()
@@ -16,11 +16,15 @@
             while (true)
             {
                 console.Clear();
-                console.WriteLine(mainMenu.Render());
+                console.WriteLine(menu.Render());
                 var key = console.ReadKey().Key;
-                if (key == ConsoleKey.LeftArrow) mainMenu.Left();
-                else if (key == ConsoleKey.RightArrow) mainMenu.Right();
-                else if (key == ConsoleKey.Enter) mainMenu.Enter();
+                if (key == ConsoleKey.LeftArrow) menu.Left();
+                else if (key == ConsoleKey.RightArrow) menu.Right();
+                else if (key == ConsoleKey.Enter)
+                {
+                    menu.Enter();
+                    break;
+                }
             }
         }
     }

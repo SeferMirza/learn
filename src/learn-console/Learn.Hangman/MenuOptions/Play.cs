@@ -1,6 +1,6 @@
 ﻿namespace Learn.Hangman.MenuOptions
 {
-    public class Play : IMenuOptionsEvent
+    public class Play : IMenuOption
     {
         private readonly GameRunner gameRunner;
 

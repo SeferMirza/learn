@@ -1,6 +1,6 @@
 ﻿namespace Learn.Hangman.MenuOptions
 {
-    public class Exit : IMenuOptionsEvent
+    public class Exit : IMenuOption
     {
         private readonly IConsole console;
 

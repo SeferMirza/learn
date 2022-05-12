@@ -1,74 +1,48 @@
-﻿using Learn.Hangman.Lists;
+﻿using Learn.Hangman.MenuOptions;
 using Moq;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Learn.Hangman.Test
 {
     public class MenuRunnerTest
     {
-        //TODO - Play durumundaki testleri yaz
-        private ConsoleKeyInfo AKey(char key = '0') => new ConsoleKeyInfo(key, (ConsoleKey)key, false, false, false);
+        public IGame AGame()
+        {
+            var mock = new Mock<IGame>();
+            mock.Setup(t => t.Render());
 
-        public IConsole AConsole(int tour = 1)
+            return mock.Object;
+        }
+
+        public IConsole AConsole()
         {
             var mock = new Mock<IConsole>();
-            var setup = mock.SetupSequence(t => t.ReadKey());
-            for (var i = 0; i < tour; i++)
-            {
-                setup.Returns(AKey((char)ConsoleKey.DownArrow));
-            }
-
-            setup.Returns(AKey((char)ConsoleKey.Enter));
-
+            ConsoleKeyInfo key = new ConsoleKeyInfo(keyChar: 'a', key: ConsoleKey.Enter, false, false, false);
+            mock.Setup(t => t.ReadKey()).Returns(key);
             return mock.Object;
         }
 
-        public IMenu AMenu(int tour = 1, GameStatus lastStatus = GameStatus.Exit)
+        public MainMenu AMenu(IGame game)
         {
-            var mock = new Mock<IMenu>();
-            var setup = mock.SetupSequence(t => t.GameStatus);
-            for (var i = 0; i < tour; i++)
-            {
-                setup = setup.Returns(GameStatus.Play);
-            }
-            setup.Returns(lastStatus);
+            List<IMenuOption> options = new List<IMenuOption>();
+            options.Add(new Play(new GameRunner(game, AConsole())));
+            options.Add(new Exit(AConsole()));
 
-            return mock.Object;
-        }
-
-        public MainMenu AMenu()
-        {
-            var menuList = new MenuList();
-
-            MainMenu mainMenu = new MainMenu(menuList.GetMainMenu());
-
-            return mainMenu;
+            return new MainMenu(options);
         }
 
         [Fact]
-        public void Kullanici_exit_secenegini_secer_menu_tekrar_gosterilmez()
+        public void MenuRunner_calisir_verilen_menu_render_olur()
         {
-            var mockConsole = AConsole(1);
-            MenuRunner menu = new MenuRunner(AMenu(), mockConsole);
+            var game = AGame();
+            var menu = AMenu(game);
+            MenuRunner menuRunner = new MenuRunner(menu,AConsole());
 
-            menu.Run();
+            menuRunner.Run();
 
-            Mock.Get(mockConsole).Verify(t => t.WriteLine(It.IsAny<string>()), Times.AtLeast(2));
+            Mock.Get(game).Verify(t => t.Render(), Times.AtLeastOnce());
         }
-
-        [Fact]
-        public void Kullanici_exit_secenegini_secer_oyun_cikis_moduna_gecer()
-        {
-            var mockConsole = AConsole(1);
-            var aMenu = AMenu();
-            MenuRunner menu = new MenuRunner(aMenu, mockConsole);
-
-            menu.Run();
-
-            Assert.Equal(GameStatus.Exit, aMenu.GameStatus);
-        }
-
-
     }
 }

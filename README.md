@@ -4,8 +4,8 @@
 - [x] Kelime Tahmini
 - [x] Yanlış tahminde limit
 - [x] İnsan figürü
-  - [ ] [Animasyon gecikmeleri](work/hangman/animasyon-gecikmeleri.md)
-- [ ] [Ana Menü](work/hangman/ana-menu.md)
+  - [x] [Animasyon gecikmeleri](work/hangman/animasyon-gecikmeleri.md)
+- [ ] Ana Menü
   - [x] [Başlangıç Menüsü](work/hangman/ana-menu.md)
   - [ ] [Ayarlar Menüsü](work/hangman/ayarlar-menusu.md)
 - [ ] Soru Deposu

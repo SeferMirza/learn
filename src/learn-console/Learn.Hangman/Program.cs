@@ -2,8 +2,11 @@
 using Learn.Hangman.Consoles;
 using Learn.Hangman.MenuOptions;
 
-var mainMenuOptionsList = new MenuOptionFactory().FillMainMenuOptions(new SystemConsole(), new GameRunner(new GameFactory().CreateDefault(), new SystemConsole()));
+var console = new SystemConsole();
+List<IMenuOption> options = new List<IMenuOption>();
+options.Add(new Play(new GameRunner(new GameFactory().CreateDefault(), console)));
+options.Add(new Exit(console));
 
-var menuRunner = new MenuRunner(new MainMenu(mainMenuOptionsList), new SystemConsole());
+var menuRunner = new MenuRunner(new MainMenu(options), console);
 
 menuRunner.Run();
