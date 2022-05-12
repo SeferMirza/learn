@@ -21,15 +21,15 @@ namespace Learn.Hangman.Test
         protected virtual IConsole AConsole(ConsoleKey lastKey = ConsoleKey.Enter)
         {
             var mock = new Mock<IConsole>();
-            var key = new ConsoleKeyInfo(keyChar: 'a', key: ConsoleKey.Enter, false, false, false);
+            var key = new ConsoleKeyInfo(keyChar: 'a', key: lastKey, false, false, false);
             mock.Setup(t => t.ReadKey()).Returns(key);
             return mock.Object;
         }
 
         protected virtual IGame AGame() => new Mock<IGame>().Object;
 
-        protected virtual IMenuOption Play(IGame game, IConsole console) => new Play(new GameRunner(game, console));
+        protected virtual IMenuOption Play(IGame game = null, IConsole console = null) => new Play(new GameRunner(game ?? AGame(), console ?? AConsole()));
 
-        protected virtual IMenuOption Exit(IConsole console) => new Exit(console);
+        protected virtual IMenuOption Exit(IConsole console = null) => new Exit(console ?? AConsole());
     }
 }

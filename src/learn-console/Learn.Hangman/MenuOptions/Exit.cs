@@ -4,15 +4,10 @@
     {
         private readonly IConsole console;
 
-        public Exit(IConsole console)
-        {
-            this.console = console;
-        }
+        public Exit(IConsole console) => this.console = console;
+
         public string Title => nameof(Exit);
 
-        public void Select()
-        {
-            console.Exit();
-        }
+        public void Select() => console.Exit();
     }
 }

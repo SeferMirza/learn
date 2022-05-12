@@ -10,8 +10,8 @@ namespace Learn.Hangman.Test
         public void Menu_acildiginda_verilen_seceneklerden_ilk_verilen_secenegi_baslangicta_secili_gosterir()
         {
             var menu = AMenu(
-                Play(AGame(), AConsole(lastKey: ConsoleKey.Enter)),
-                Exit(AConsole()));
+                Play(),
+                Exit());
 
             Assert.Contains("Play", menu.Render());
         }
@@ -20,8 +20,8 @@ namespace Learn.Hangman.Test
         public void Kullanici_ilk_secenek_secili_degilken_sol_ok_tusuna_basar_bir_onceki_secenek_goruntulenir()
         {
             var menu = AMenu(
-                Play(AGame(), AConsole(lastKey: ConsoleKey.Enter)),
-                Exit(AConsole()));
+                Play(),
+                Exit());
             menu.Right();
 
             menu.Left();
@@ -33,8 +33,8 @@ namespace Learn.Hangman.Test
         public void Kullanici_ilk_secenek_secili_degiliyken_sol_ok_tusuna_basar_aynı_secenek_secili_kalir()
         {
             var menu = AMenu(
-                Play(AGame(), AConsole(lastKey: ConsoleKey.Enter)),
-                Exit(AConsole()));
+                Play(),
+                Exit());
 
             menu.Left();
 
@@ -45,8 +45,8 @@ namespace Learn.Hangman.Test
         public void Kullanici_sondaki_secenek_secili_degilken_sag_ok_tusuna_basar_sonraki_secenek_goruntulenir()
         {
             var menu = AMenu(
-                Play(AGame(), AConsole()),
-                Exit(AConsole(lastKey: ConsoleKey.Enter)));
+                Play(),
+                Exit());
 
             menu.Right();
 
@@ -57,8 +57,8 @@ namespace Learn.Hangman.Test
         public void Kullanici_sondaki_secenek_seciliyken_sag_ok_tusuna_basar_aynı_secenek_secili_kalir()
         {
             var menu = AMenu(
-                Play(AGame(), AConsole()),
-                Exit(AConsole(lastKey: ConsoleKey.Enter)));
+                Play(),
+                Exit());
             menu.Right();
 
             menu.Right();
@@ -72,7 +72,7 @@ namespace Learn.Hangman.Test
             var game = AGame();
             var menu = AMenu(
                 Play(game, AConsole(lastKey: ConsoleKey.Enter)),
-                Exit(AConsole()));
+                Exit());
 
             menu.Enter();
 
@@ -85,7 +85,7 @@ namespace Learn.Hangman.Test
             var game = AGame();
             var console = AConsole(lastKey: ConsoleKey.Enter);
             var menu = AMenu(
-                Play(game, console),
+                Play(),
                 Exit(console));
             menu.Right();
 
