@@ -8,7 +8,7 @@
         {
             this.gameRunner = gameRunner;
         }
-        public string Title => "Play";
+        public string Title => nameof(Play);
 
         public void Select()
         {

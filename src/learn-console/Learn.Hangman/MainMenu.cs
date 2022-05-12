@@ -1,47 +1,39 @@
-﻿using Learn.Hangman.Consoles;
-using Learn.Hangman.Models;
-
-namespace Learn.Hangman
+﻿namespace Learn.Hangman
 {
     public class MainMenu
     {
-        private readonly List<IMenuOption> menus;
-        IMenuOption currentMenu;
+        private readonly List<IMenuOption> menuOptions;
         private int currentIndex = 0;
-        public MainMenu(List<IMenuOption> menus)
+        public MainMenu(List<IMenuOption> menuOptions)
         {
-            currentMenu = menus.First();
-            this.menus = menus;
+            this.menuOptions = menuOptions;
         }
 
         public void Enter()
         {
-            currentMenu.Select();
+            menuOptions[currentIndex].Select();
         }
 
         public void Left()
         {
-            currentIndex--;
-            if (currentIndex < 0) currentIndex = 0;
-            currentMenu = menus.Skip(currentIndex).First();
+            if (currentIndex > 0) currentIndex--;
         }
 
         public void Right()
         {
-            currentIndex++;
-            if (currentIndex == menus.Count) currentIndex = menus.Count - 1;
-            currentMenu = menus.Skip(currentIndex).First();
+            if (currentIndex < menuOptions.Count() - 1) currentIndex++;
         }
+
+        private readonly int MAX_MENU_OPTION_SIZE = 9;
 
         public string Render()
         {
-            //TODO - ?
-            var leftArrow = currentMenu.Title == "Play" ? " " : "<";
-            var rightArrow = currentMenu.Title == "Exit" ? " " : ">";
+            var leftArrow = currentIndex == 0 ? " " : "<";
+            var rightArrow = currentIndex == menuOptions.Count() - 1 ? " " : ">";
 
-            return leftArrow + new string(' ', (9 - currentMenu.Title.Length) / 2) +
-                currentMenu.Title +
-                new string(' ', (9 - currentMenu.Title.Length) / 2) + rightArrow;
+            return leftArrow + new string(' ', (MAX_MENU_OPTION_SIZE - menuOptions[currentIndex].Title.Length) / 2) +
+                menuOptions[currentIndex].Title +
+                new string(' ', (MAX_MENU_OPTION_SIZE - menuOptions[currentIndex].Title.Length) / 2) + rightArrow;
         }
     }
 }

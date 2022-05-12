@@ -8,7 +8,7 @@
         {
             this.console = console;
         }
-        public string Title => "Exit";
+        public string Title => nameof(Exit);
 
         public void Select()
         {

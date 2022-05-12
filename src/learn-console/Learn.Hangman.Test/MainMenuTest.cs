@@ -1,69 +1,52 @@
-﻿using Learn.Hangman.Consoles;
-using Learn.Hangman.MenuOptions;
-using Moq;
+﻿using Moq;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Learn.Hangman.Test
 {
-    public class MainMenuTest
+    public class MainMenuTest : TestBase
     {
-        private List<IMenuOption> AList()
-        {
-            List<IMenuOption> options = new List<IMenuOption>();
-            options.Add(new Play(new GameRunner(AGame(), AConsole())));
-            options.Add(new Exit(AConsole()));
-            return options;
-        }
-        public IGame AGame() {
-            var mock = new Mock<IGame>();
-            mock.Setup(t => t.Render());
-
-            return mock.Object;
-        }
-        public IConsole AConsole() {
-            var mock = new Mock<IConsole>();
-            ConsoleKeyInfo key = new ConsoleKeyInfo(keyChar:'a', key:ConsoleKey.Enter,false,false,false);
-            mock.Setup(t => t.ReadKey()).Returns(key);
-            mock.Setup(t => t.Clear());
-            return mock.Object;
-        }
-
-        public MainMenu AMenu(List<IMenuOption> optionsList) => new MainMenu(optionsList);
-
         [Fact]
-        public void Menu_acildiginda_Play_secenegi_baslangicta_gelir()
+        public void Menu_acildiginda_verilen_seceneklerden_ilk_verilen_secenegi_baslangicta_secili_gosterir()
         {
-            List<IMenuOption> options = new List<IMenuOption>();
-            options.Add(new Play(new GameRunner(AGame(), AConsole())));
-            options.Add(new Exit(AConsole()));
-            var menu = AMenu(options);
-      
+            var menu = AMenu(
+                Play(AGame(), AConsole(lastKey: ConsoleKey.Enter)),
+                Exit(AConsole()));
+
             Assert.Contains("Play", menu.Render());
         }
 
         [Fact]
-        public void Kullanici_Play_seceneginde_degilken_sol_ok_tusuna_basar_Menude_goruntulenen_sekme_bir_gerideki_olur()
+        public void Kullanici_ilk_secenek_secili_degilken_sol_ok_tusuna_basar_bir_onceki_secenek_goruntulenir()
         {
-            List<IMenuOption> options = new List<IMenuOption>();
-            options.Add(new Play(new GameRunner(AGame(), AConsole())));
-            options.Add(new Exit(AConsole()));
-            var menu = AMenu(options);
+            var menu = AMenu(
+                Play(AGame(), AConsole(lastKey: ConsoleKey.Enter)),
+                Exit(AConsole()));
             menu.Right();
-            
+
             menu.Left();
 
             Assert.Contains("Play", menu.Render());
         }
 
         [Fact]
-        public void Kullanici_sag_ok_tusuna_basar_Menude_goruntulenen_secenek_bir_sonraki_olur()
+        public void Kullanici_ilk_secenek_secili_degiliyken_sol_ok_tusuna_basar_aynı_secenek_secili_kalir()
         {
-            List<IMenuOption> options = new List<IMenuOption>();
-            options.Add(new Play(new GameRunner(AGame(), AConsole())));
-            options.Add(new Exit(AConsole()));
-            var menu = AMenu(options);
+            var menu = AMenu(
+                Play(AGame(), AConsole(lastKey: ConsoleKey.Enter)),
+                Exit(AConsole()));
+
+            menu.Left();
+
+            Assert.Contains("Play", menu.Render());
+        }
+
+        [Fact]
+        public void Kullanici_sondaki_secenek_secili_degilken_sag_ok_tusuna_basar_sonraki_secenek_goruntulenir()
+        {
+            var menu = AMenu(
+                Play(AGame(), AConsole()),
+                Exit(AConsole(lastKey: ConsoleKey.Enter)));
 
             menu.Right();
 
@@ -71,13 +54,25 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Kullanici_Play_secenegini_secer_Game_calisir()
+        public void Kullanici_sondaki_secenek_seciliyken_sag_ok_tusuna_basar_aynı_secenek_secili_kalir()
+        {
+            var menu = AMenu(
+                Play(AGame(), AConsole()),
+                Exit(AConsole(lastKey: ConsoleKey.Enter)));
+            menu.Right();
+
+            menu.Right();
+
+            Assert.Contains("Exit", menu.Render());
+        }
+
+        [Fact]
+        public void Kullanici_Play_secenegini_secer_secenekteki_action_calisir()
         {
             var game = AGame();
-            List<IMenuOption> options = new List<IMenuOption>();
-            options.Add(new Play(new GameRunner(game, AConsole())));
-            options.Add(new Exit(AConsole()));
-            var menu = AMenu(options);
+            var menu = AMenu(
+                Play(game, AConsole(lastKey: ConsoleKey.Enter)),
+                Exit(AConsole()));
 
             menu.Enter();
 
@@ -88,11 +83,10 @@ namespace Learn.Hangman.Test
         public void Kullanici_Exit_secenegini_secer_program_sonlanir()
         {
             var game = AGame();
-            var console = AConsole();
-            List<IMenuOption> options = new List<IMenuOption>();
-            options.Add(new Play(new GameRunner(game, console)));
-            options.Add(new Exit(console));
-            var menu = AMenu(options);
+            var console = AConsole(lastKey: ConsoleKey.Enter);
+            var menu = AMenu(
+                Play(game, console),
+                Exit(console));
             menu.Right();
 
             menu.Enter();
