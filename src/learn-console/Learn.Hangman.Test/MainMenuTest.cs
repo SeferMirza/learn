@@ -82,7 +82,6 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Kullanici_Exit_secenegini_secer_program_sonlanir()
         {
-            var game = AGame();
             var console = AConsole(lastKey: ConsoleKey.Enter);
             var menu = AMenu(
                 Play(),
