@@ -21,7 +21,7 @@ namespace Learn.Hangman.Test
         protected virtual IConsole AConsole(ConsoleKey lastKey = ConsoleKey.Enter)
         {
             var mock = new Mock<IConsole>();
-            var key = new ConsoleKeyInfo(keyChar: 'a', key: lastKey, false, false, false);
+            var key = new ConsoleKeyInfo(keyChar: 'k', key: lastKey, false, false, false);
             mock.Setup(t => t.ReadKey()).Returns(key);
             return mock.Object;
         }
