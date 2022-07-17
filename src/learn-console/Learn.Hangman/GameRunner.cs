@@ -21,8 +21,9 @@ namespace Learn.Hangman
             }
 
             console.Clear();
-            console.WriteLine(game.Render());
-            console.Sleep(300);
+            console.WriteLine(game.Render() + "\n If you want to return menu press 'm' \n If you want to exit press any key");
+            var finalKey = console.ReadKey().Key;
+            if (finalKey != ConsoleKey.M) console.Exit();
         }
     }
 }

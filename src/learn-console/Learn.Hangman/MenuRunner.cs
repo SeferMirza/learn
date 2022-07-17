@@ -23,7 +23,6 @@
                 else if (key == ConsoleKey.Enter)
                 {
                     menu.Enter();
-                    break;
                 }
             }
         }
