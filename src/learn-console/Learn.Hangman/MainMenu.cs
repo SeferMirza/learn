@@ -1,4 +1,4 @@
-﻿namespace Learn.Hangman
+﻿ namespace Learn.Hangman
 {
     public class MainMenu
     {
