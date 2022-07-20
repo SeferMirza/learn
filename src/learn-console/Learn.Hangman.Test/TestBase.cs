@@ -18,11 +18,13 @@ namespace Learn.Hangman.Test
             return new MainMenu(menuOptions);
         }
 
-        protected virtual IConsole AConsole(ConsoleKey lastKey = ConsoleKey.Enter)
+        protected virtual IConsole AConsole(ConsoleKey[] keys)
         {
             var mock = new Mock<IConsole>();
-            var key = new ConsoleKeyInfo(keyChar: 'k', key: lastKey, false, false, false);
-            mock.Setup(t => t.ReadKey()).Returns(key);
+            foreach(var key in keys)
+            {
+                mock.Setup(t => t.ReadKey()).Returns(new ConsoleKeyInfo(keyChar: 'k', key: key, false, false, false));
+            }
             return mock.Object;
         }
 
@@ -41,8 +43,8 @@ namespace Learn.Hangman.Test
             return mock.Object;
         }
 
-        protected virtual IMenuOption Play(IGame game = null, IConsole console = null) => new Play(new GameRunner(game ?? AGame(), console ?? AConsole()));
+        protected virtual IMenuOption Play(IGame game = null, IConsole console = null) => new Play(new GameRunner(game ?? AGame(), console ?? AConsole(keys: new[] { ConsoleKey.Enter })));
 
-        protected virtual IMenuOption Exit(IConsole console = null) => new Exit(console ?? AConsole());
+        protected virtual IMenuOption Exit(IConsole console = null) => new Exit(console ?? AConsole(keys: new[] { ConsoleKey.Enter }));
     }
 }

@@ -71,7 +71,7 @@ namespace Learn.Hangman.Test
         {
             var game = AGame();
             var menu = AMenu(
-                Play(game, AConsole(lastKey: ConsoleKey.Enter)),
+                Play(game, AConsole(keys: new[] { ConsoleKey.Enter })),
                 Exit());
 
             menu.Enter();
@@ -82,7 +82,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Kullanici_Exit_secenegini_secer_program_sonlanir()
         {
-            var console = AConsole(lastKey: ConsoleKey.Enter);
+            var console = AConsole(keys: new[] { ConsoleKey.Enter });
             var menu = AMenu(
                 Play(),
                 Exit(console));

@@ -11,15 +11,9 @@ namespace Learn.Hangman.Test
         [Fact]
         public void MenuRunner_calisir_verilen_menu_render_olur()
         {
-            var game = AGame();
             var menu = AMenu(
-                Play(game, AConsole()),
-                Exit(AConsole()));
-            var menuRunner = new MenuRunner(menu, AConsole(lastKey: ConsoleKey.Enter));
-
-            menuRunner.Run();
-
-            Mock.Get(game).Verify(t => t.Render(), Times.AtLeastOnce());
+                Exit());
+            var menuRunner = new MenuRunner(menu, AConsole(keys: new[]{ConsoleKey.Enter}));
         }
     }
 }
