@@ -3,10 +3,14 @@ using Learn.Hangman.Consoles;
 using Learn.Hangman.MenuOptions;
 
 var console = new SystemConsole();
-List<IMenuOption> options = new();
-options.Add(new Play(new GameRunner(new GameFactory().CreateDefault(), console)));
-options.Add(new Exit(console));
+List<IMenuOption> mainMenuOptions = new();
+mainMenuOptions.Add(new Play(new GameRunner(new GameFactory().CreateDefault(), console)));
+mainMenuOptions.Add(new Exit(console));
 
-var menuRunner = new MenuRunner(new MainMenu(options), console);
+List<IMenuOption> endMenuOptions = new();
+endMenuOptions.Add(new Main());
+endMenuOptions.Add(new Exit(console));
+
+var menuRunner = new MenuRunner(new MainMenu(mainMenuOptions), new EndMenu(endMenuOptions), console);
 
 menuRunner.Run();

@@ -3,12 +3,14 @@
     public class MenuRunner
     {
         private readonly MainMenu menu;
+        private readonly EndMenu end;
         private readonly IConsole console;
 
-        public MenuRunner(MainMenu menu, IConsole console)
+        public MenuRunner(MainMenu menu, EndMenu end, IConsole console)
         {
             this.console = console;
             this.menu = menu;
+            this.end = end;
         }
 
         public void Run()
@@ -20,9 +22,10 @@
                 var key = console.ReadKey().Key;
                 if (key == ConsoleKey.LeftArrow) menu.Left();
                 else if (key == ConsoleKey.RightArrow) menu.Right();
-                else if (key == ConsoleKey.Enter)
-                {
+                else if (key == ConsoleKey.Enter) {
                     menu.Enter();
+                    console.WriteLine(end.Render());
+                    end.Option(console.ReadKey());
                 }
             }
         }
