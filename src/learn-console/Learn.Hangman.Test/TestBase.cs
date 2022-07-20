@@ -26,7 +26,20 @@ namespace Learn.Hangman.Test
             return mock.Object;
         }
 
-        protected virtual IGame AGame() => new Mock<IGame>().Object;
+        protected virtual IGame AGame(int remainingRounds = 1, GameStatus lastStatus = GameStatus.Won)
+        {
+            var mock = new Mock<IGame>();
+
+            var setup = mock.SetupSequence(t => t.GameStatus);
+            for (var i = 0; i < remainingRounds; i++)
+            {
+                setup = setup.Returns(GameStatus.Play);
+            }
+
+            setup.Returns(lastStatus);
+
+            return mock.Object;
+        }
 
         protected virtual IMenuOption Play(IGame game = null, IConsole console = null) => new Play(new GameRunner(game ?? AGame(), console ?? AConsole()));
 
