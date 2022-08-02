@@ -69,17 +69,5 @@ namespace Learn.Hangman.Test
 
             Mock.Get(game).Verify(t => t.Render(), Times.AtLeastOnce());
         }
-
-        [Fact]
-        public void Oyun_bittiginde_kullanici_m_tusu_disinda_farkli_bir_tusa_basar_oyun_sonlanir()
-        {
-            var console = AConsole();//AConsole() içerisinde default olarak '0' tuşuna basılıyor
-            var game = AGame(lastStatus: GameStatus.Won, remainingRounds: 0);
-            GameRunner gameRunner = new GameRunner(game, console);
-
-            gameRunner.Run();
-
-            Mock.Get(console).Verify(t => t.Exit(), Times.AtLeastOnce());
-        }
     }
 }

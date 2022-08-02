@@ -71,7 +71,7 @@ namespace Learn.Hangman.Test
         {
             var game = AGame();
             var menu = AMenu(
-                Play(game, AConsole(keys: new[] { ConsoleKey.Enter })),
+                Play(isClickEnter: true),
                 Exit());
 
             menu.Enter();
@@ -82,15 +82,15 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Kullanici_Exit_secenegini_secer_program_sonlanir()
         {
-            var console = AConsole(keys: new[] { ConsoleKey.Enter });
+            var exit = Exit();
             var menu = AMenu(
                 Play(),
-                Exit(console));
+                Exit(isClickEnter:true));
             menu.Right();
 
             menu.Enter();
 
-            Mock.Get(console).Verify(g => g.Exit(), Times.AtLeast(1));
+            Mock.Get(exit).Verify(g => g.Select(), Times.AtLeast(1));
         }
     }
 }

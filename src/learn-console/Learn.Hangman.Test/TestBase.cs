@@ -21,7 +21,7 @@ namespace Learn.Hangman.Test
         protected virtual IConsole AConsole(ConsoleKey[] keys)
         {
             var mock = new Mock<IConsole>();
-            foreach(var key in keys)
+            foreach (var key in keys)
             {
                 mock.Setup(t => t.ReadKey()).Returns(new ConsoleKeyInfo(keyChar: 'k', key: key, false, false, false));
             }
@@ -54,8 +54,22 @@ namespace Learn.Hangman.Test
             return new EndMenu(menuOptions);
         }
 
-        protected virtual IMenuOption Play(IGame game = null, IConsole console = null) => new Play(new GameRunner(game ?? AGame(), console ?? AConsole(keys: new[] { ConsoleKey.Enter })));
+        protected virtual IMenuOption Play(bool isClickEnter = false)
+        {
+            var mock = new Mock<IMenuOption>();
+            mock.Setup(m => m.Title).Returns("Play");
+            if (isClickEnter) mock.Setup(m => m.Select());
 
-        protected virtual IMenuOption Exit(IConsole console = null) => new Exit(console ?? AConsole(keys: new[] { ConsoleKey.Enter }));
+            return mock.Object;
+        }
+
+        protected virtual IMenuOption Exit(bool isClickEnter = false)
+        {
+            var mock = new Mock<IMenuOption>();
+            mock.Setup(m => m.Title).Returns("Exit");
+            if (isClickEnter) mock.Setup(m => m.Select());
+
+            return mock.Object;
+        }
     }
 }

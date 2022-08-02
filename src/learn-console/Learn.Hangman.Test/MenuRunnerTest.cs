@@ -11,15 +11,17 @@ namespace Learn.Hangman.Test
         [Fact]
         public void MenuRunner_calisir_verilen_menu_render_olur()
         {
+            var play = Play(isClickEnter:true);
             var menu = AMenu(
-                Play(),
+                play,
                 Exit());
             var endMenuList = AEndMenu(
-                Play(),
                 Exit());
             var menuRunner = new MenuRunner(menu, endMenuList, AConsole(keys: new[]{ConsoleKey.Enter}));
 
+            menuRunner.Run();
 
+            Mock.Get(play).Verify(m => m.Select(), Times.AtLeastOnce());
         }
     }
 }
