@@ -13,7 +13,11 @@ namespace Learn.Hangman.Test
         {
             var menu = AMenu(
                 Exit());
-            var menuRunner = new MenuRunner(menu, AConsole(keys: new[]{ConsoleKey.Enter}));
+            List<IMenuOption> endmenulist = new();
+            endmenulist.Add(Exit());
+            var endMenu = new EndMenu(endmenulist);
+
+            var menuRunner = new MenuRunner(menu, endMenu, AConsole(keys: new[]{ConsoleKey.Enter}));
         }
     }
 }

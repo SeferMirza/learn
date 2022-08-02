@@ -11,5 +11,6 @@ namespace Learn.Hangman
         GameStatus GameStatus { get; }
         void ProcessKey(ConsoleKey key);
         string Render();
+        void Release();
     }
 }

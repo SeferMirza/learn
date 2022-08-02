@@ -22,6 +22,7 @@ namespace Learn.Hangman
 
             console.Clear();
             console.WriteLine(game.Render());
+            game.Release();
         }
     }
 }

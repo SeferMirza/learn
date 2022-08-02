@@ -5,7 +5,9 @@
         private readonly int maxGuesses;
         private readonly IText text;
         private readonly string[] countDown;
-        private readonly List<Letter> letters;
+        private readonly int atTheBeginningRemainingGuesses;
+        private readonly List<Letter> atTheBeginningLetters;
+        private List<Letter> letters;
         private int remainingGuesses;
 
         public GameStatus GameStatus { get; private set; }
@@ -20,7 +22,9 @@
             GameStatus = GameStatus.Play;
 
             letters = challenge.Select(c => new Letter(c)).ToList();
+            atTheBeginningLetters = challenge.Select(c => new Letter(c)).ToList();
             remainingGuesses = maxGuesses;
+            atTheBeginningRemainingGuesses = maxGuesses;
         }
 
         public void ProcessKey(ConsoleKey key)
@@ -55,6 +59,13 @@
                 default:
                     return $"{countDown.Last()}{Environment.NewLine}{text.GameOverText()}";
             }
+        }
+
+        public void Release()
+        {
+            remainingGuesses = atTheBeginningRemainingGuesses;
+            GameStatus = GameStatus.Play;
+            letters = atTheBeginningLetters;
         }
     }
 }
