@@ -71,18 +71,6 @@ namespace Learn.Hangman.Test
         }
 
         [Fact]
-        public void Oyun_bittiginde_kullanicidan_tus_beklenir()
-        {
-            var console = AConsole();
-            var game = AGame(lastStatus: GameStatus.Won, remainingRounds: 0);
-            GameRunner gameRunner = new GameRunner(game, console);
-
-            gameRunner.Run();
-
-            Mock.Get(console).Verify(t => t.ReadKey(), Times.AtLeastOnce());
-        }
-
-        [Fact]
         public void Oyun_bittiginde_kullanici_m_tusu_disinda_farkli_bir_tusa_basar_oyun_sonlanir()
         {
             var console = AConsole();//AConsole() içerisinde default olarak '0' tuşuna basılıyor

@@ -43,6 +43,17 @@ namespace Learn.Hangman.Test
             return mock.Object;
         }
 
+        protected virtual EndMenu AEndMenu(params IMenuOption[] options)
+        {
+            var menuOptions = new List<IMenuOption>();
+            foreach (var option in options)
+            {
+                menuOptions.Add(option);
+            }
+
+            return new EndMenu(menuOptions);
+        }
+
         protected virtual IMenuOption Play(IGame game = null, IConsole console = null) => new Play(new GameRunner(game ?? AGame(), console ?? AConsole(keys: new[] { ConsoleKey.Enter })));
 
         protected virtual IMenuOption Exit(IConsole console = null) => new Exit(console ?? AConsole(keys: new[] { ConsoleKey.Enter }));

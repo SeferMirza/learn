@@ -12,12 +12,14 @@ namespace Learn.Hangman.Test
         public void MenuRunner_calisir_verilen_menu_render_olur()
         {
             var menu = AMenu(
+                Play(),
                 Exit());
-            List<IMenuOption> endmenulist = new();
-            endmenulist.Add(Exit());
-            var endMenu = new EndMenu(endmenulist);
+            var endMenuList = AEndMenu(
+                Play(),
+                Exit());
+            var menuRunner = new MenuRunner(menu, endMenuList, AConsole(keys: new[]{ConsoleKey.Enter}));
 
-            var menuRunner = new MenuRunner(menu, endMenu, AConsole(keys: new[]{ConsoleKey.Enter}));
+
         }
     }
 }
