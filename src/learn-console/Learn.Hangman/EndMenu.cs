@@ -10,7 +10,11 @@
 
         public MenuStatus Option(ConsoleKeyInfo keyInfo)
         {
-            menuOptions.Where(x => char.ToLower(x.Title[0]) == char.ToLower(keyInfo.Key.ToString().First())).First().Select();
+            var option = menuOptions.Where(x => char.ToLower(x.Title[0]) == char.ToLower(keyInfo.Key.ToString().First()));
+
+            if (option.Count() <= 0) return MenuStatus.Done;
+
+            option.First().Select();
 
             return MenuStatus.OnMenu;
         }

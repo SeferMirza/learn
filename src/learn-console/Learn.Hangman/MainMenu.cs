@@ -1,27 +1,12 @@
 ﻿namespace Learn.Hangman
 {
-    public class MainMenu: IMenu
+    public class MainMenu : IMenu
     {
         private readonly List<IMenuOption> menuOptions;
         private int currentIndex = 0;
         public MainMenu(List<IMenuOption> menuOptions)
         {
             this.menuOptions = menuOptions;
-        }
-
-        public void Enter()
-        {
-            Option();
-        }
-
-        public void Left()
-        {
-            if (currentIndex > 0) currentIndex--;
-        }
-
-        public void Right()
-        {
-            if (currentIndex < menuOptions.Count() - 1) currentIndex++;
         }
 
         private readonly int MAX_MENU_OPTION_SIZE = 9;
@@ -38,7 +23,12 @@
 
         public MenuStatus Option(ConsoleKeyInfo keyInfo = default)
         {
-            menuOptions[currentIndex].Select();
+            if (keyInfo.Key == ConsoleKey.RightArrow && currentIndex < menuOptions.Count() - 1) currentIndex++;
+            else if (keyInfo.Key == ConsoleKey.LeftArrow && currentIndex > 0) currentIndex--;
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                menuOptions[currentIndex].Select();
+            }
             return MenuStatus.OnOptions;
         }
     }

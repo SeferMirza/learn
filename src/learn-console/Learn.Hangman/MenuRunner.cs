@@ -2,11 +2,11 @@
 {
     public class MenuRunner
     {
-        private readonly MainMenu menu;
-        private readonly EndMenu end;
+        private readonly IMenu menu;
+        private readonly IMenu end;
         private readonly IConsole console;
 
-        public MenuRunner(MainMenu menu, EndMenu end, IConsole console)
+        public MenuRunner(IMenu menu, IMenu end, IConsole console)
         {
             this.console = console;
             this.menu = menu;
@@ -20,11 +20,9 @@
             {
                 console.Clear();
                 console.WriteLine(menu.Render());
-                var key = console.ReadKey().Key;
-                if (key == ConsoleKey.LeftArrow) menu.Left();
-                else if (key == ConsoleKey.RightArrow) menu.Right();
-                else if (key == ConsoleKey.Enter) {
-                    menu.Enter();
+                var keyInfo = console.ReadKey();
+                status = menu.Option(keyInfo);
+                if (keyInfo.Key == ConsoleKey.Enter) {
                     console.WriteLine(end.Render());
                     status = end.Option(console.ReadKey());
                 }

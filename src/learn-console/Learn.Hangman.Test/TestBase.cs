@@ -1,5 +1,4 @@
-﻿using Learn.Hangman.MenuOptions;
-using Moq;
+﻿using Moq;
 using System;
 using System.Collections.Generic;
 
@@ -17,13 +16,15 @@ namespace Learn.Hangman.Test
 
             return new MainMenu(menuOptions);
         }
-        private ConsoleKeyInfo AKey(char key = '0') => new ConsoleKeyInfo(key, (ConsoleKey)key, false, false, false);
 
-        protected virtual IMenu Menu()
+        protected ConsoleKeyInfo AKey(ConsoleKey key = default, char charKey = '0') => new ConsoleKeyInfo(charKey, key, false, false, false);
+
+        protected virtual IMenu Menu(MenuStatus lastStatus = MenuStatus.Done)
         {
+            var key = AKey();
             var mock = new Mock<IMenu>();
-            mock.Setup(m => m.Option());
             mock.Setup(m => m.Render());
+            mock.Setup(m => m.Option(key)).Returns(lastStatus);
 
             return mock.Object;
         }

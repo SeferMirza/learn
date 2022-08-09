@@ -22,9 +22,9 @@ namespace Learn.Hangman.Test
             var menu = AMenu(
                 Play(),
                 Exit());
-            menu.Right();
 
-            menu.Left();
+            menu.Option(AKey(ConsoleKey.RightArrow));
+            menu.Option(AKey(ConsoleKey.LeftArrow));
 
             Assert.Contains("Play", menu.Render());
         }
@@ -36,7 +36,7 @@ namespace Learn.Hangman.Test
                 Play(),
                 Exit());
 
-            menu.Left();
+            menu.Option(AKey(ConsoleKey.LeftArrow));
 
             Assert.Contains("Play", menu.Render());
         }
@@ -48,7 +48,7 @@ namespace Learn.Hangman.Test
                 Play(),
                 Exit());
 
-            menu.Right();
+            menu.Option(AKey(ConsoleKey.RightArrow));
 
             Assert.Contains("Exit", menu.Render());
         }
@@ -59,9 +59,8 @@ namespace Learn.Hangman.Test
             var menu = AMenu(
                 Play(),
                 Exit());
-            menu.Right();
 
-            menu.Right();
+            menu.Option(AKey(ConsoleKey.RightArrow));
 
             Assert.Contains("Exit", menu.Render());
         }
@@ -74,7 +73,7 @@ namespace Learn.Hangman.Test
                 Play(isClickEnter: true),
                 Exit());
 
-            menu.Enter();
+            menu.Option(AKey(ConsoleKey.Enter));
 
             Mock.Get(game).Verify(g => g.Render(), Times.AtLeast(1));
         }
@@ -86,9 +85,9 @@ namespace Learn.Hangman.Test
             var menu = AMenu(
                 Play(),
                 exit);
-            menu.Right();
+            menu.Option(AKey(ConsoleKey.RightArrow));
 
-            menu.Enter();
+            menu.Option(AKey(ConsoleKey.Enter));
 
             Mock.Get(exit).Verify(g => g.Select(), Times.AtLeast(1));
         }
