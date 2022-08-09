@@ -8,9 +8,10 @@
         Over,
         Won
     }
-    public enum MainMenuStatus
+    public enum MenuStatus
     {
-        Play,
-        Exit
+        OnOptions,
+        OnMenu,
+        Done
     }
 }

@@ -82,10 +82,10 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Kullanici_Exit_secenegini_secer_program_sonlanir()
         {
-            var exit = Exit();
+            var exit = Exit(isClickEnter: true);
             var menu = AMenu(
                 Play(),
-                Exit(isClickEnter:true));
+                exit);
             menu.Right();
 
             menu.Enter();

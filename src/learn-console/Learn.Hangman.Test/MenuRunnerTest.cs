@@ -1,7 +1,5 @@
-﻿using Learn.Hangman.MenuOptions;
-using Moq;
+﻿using Moq;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Learn.Hangman.Test
@@ -11,17 +9,15 @@ namespace Learn.Hangman.Test
         [Fact]
         public void MenuRunner_calisir_verilen_menu_render_olur()
         {
-            var play = Play(isClickEnter:true);
-            var menu = AMenu(
-                play,
-                Exit());
-            var endMenuList = AEndMenu(
-                Exit());
-            var menuRunner = new MenuRunner(menu, endMenuList, AConsole(keys: new[]{ConsoleKey.Enter}));
+            var exit = Exit(isClickEnter:true);
+            var menuRunner = new MenuRunner(
+                AMenu(exit),
+                AEndMenu(exit),
+                AConsole(keys: new[]{ConsoleKey.Enter, ConsoleKey.E}));
 
             menuRunner.Run();
 
-            Mock.Get(play).Verify(m => m.Select(), Times.AtLeastOnce());
+            Mock.Get(exit).Verify(m => m.Select(), Times.AtLeastOnce());
         }
     }
 }

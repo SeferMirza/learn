@@ -17,13 +17,25 @@ namespace Learn.Hangman.Test
 
             return new MainMenu(menuOptions);
         }
+        private ConsoleKeyInfo AKey(char key = '0') => new ConsoleKeyInfo(key, (ConsoleKey)key, false, false, false);
+
+        protected virtual IMenu Menu()
+        {
+            var mock = new Mock<IMenu>();
+            mock.Setup(m => m.Option());
+            mock.Setup(m => m.Render());
+
+            return mock.Object;
+        }
 
         protected virtual IConsole AConsole(ConsoleKey[] keys)
         {
             var mock = new Mock<IConsole>();
+            mock.Setup(t => t.Exit());
+            var setup = mock.SetupSequence(t => t.ReadKey());
             foreach (var key in keys)
             {
-                mock.Setup(t => t.ReadKey()).Returns(new ConsoleKeyInfo(keyChar: 'k', key: key, false, false, false));
+                setup = setup.Returns(new ConsoleKeyInfo(keyChar: 'k', key: key, false, false, false));
             }
             return mock.Object;
         }

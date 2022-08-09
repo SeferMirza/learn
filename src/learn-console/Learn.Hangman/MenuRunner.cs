@@ -15,7 +15,8 @@
 
         public void Run()
         {
-            while (true)
+            MenuStatus status = MenuStatus.OnMenu;
+            while (status != MenuStatus.Done)
             {
                 console.Clear();
                 console.WriteLine(menu.Render());
@@ -25,7 +26,7 @@
                 else if (key == ConsoleKey.Enter) {
                     menu.Enter();
                     console.WriteLine(end.Render());
-                    end.Option(console.ReadKey());
+                    status = end.Option(console.ReadKey());
                 }
             }
         }
