@@ -23,8 +23,7 @@ namespace Learn.Hangman.Test
         public void Listelenen_menulerin_bas_harfine_basildiginda_basilan_menu_calistirilir()
         {
             var menuOption = Exit();
-            var endMenu = AEndMenu(
-                menuOption);
+            var endMenu = AEndMenu(menuOption);
 
             endMenu.Option(AKey(ConsoleKey.E));
 
