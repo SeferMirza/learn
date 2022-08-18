@@ -6,7 +6,6 @@
         private readonly IText text;
         private readonly string[] countDown;
         private readonly int atTheBeginningRemainingGuesses;
-        private readonly List<Letter> atTheBeginningLetters;
         private List<Letter> letters;
         private int remainingGuesses;
 
@@ -22,7 +21,6 @@
             GameStatus = GameStatus.Play;
 
             letters = challenge.Select(c => new Letter(c)).ToList();
-            atTheBeginningLetters = challenge.Select(c => new Letter(c)).ToList();
             remainingGuesses = maxGuesses;
             atTheBeginningRemainingGuesses = maxGuesses;
         }
@@ -65,7 +63,7 @@
         {
             remainingGuesses = atTheBeginningRemainingGuesses;
             GameStatus = GameStatus.Play;
-            letters = atTheBeginningLetters;
+            letters = letters.Select(l => new Letter(l.Original)).ToList();
         }
     }
 }
