@@ -44,7 +44,6 @@ namespace Learn.Hangman.Test
         protected virtual IGame AGame(int remainingRounds = 1, GameStatus lastStatus = GameStatus.Won)
         {
             var mock = new Mock<IGame>();
-
             var setup = mock.SetupSequence(t => t.GameStatus);
             for (var i = 0; i < remainingRounds; i++)
             {
