@@ -55,7 +55,7 @@ namespace Learn.Hangman.Test
             return mock.Object;
         }
 
-        protected virtual EndMenu AEndMenu(params IMenuOption[] options)
+        protected virtual EndMenu AnEndMenu(params IMenuOption[] options)
         {
             var menuOptions = new List<IMenuOption>();
             foreach (var option in options)

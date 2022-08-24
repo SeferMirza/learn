@@ -68,14 +68,14 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Kullanici_Play_secenegini_secer_secenekteki_action_calisir()
         {
-            var game = AGame();
+            var playMenu = Play();
             var menu = AMenu(
-                Play(isClickEnter: true),
+                playMenu,
                 Exit());
 
             menu.Option(AKey(ConsoleKey.Enter));
 
-            Mock.Get(game).Verify(g => g.Render(), Times.AtLeast(1));
+            Mock.Get(playMenu).Verify(m => m.Select(), Times.AtLeast(1));
         }
 
         [Fact]

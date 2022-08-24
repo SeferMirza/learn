@@ -10,7 +10,7 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Menuler_parantez_icinde_menu_basliginin_bas_harfi_ile_menu_basligi_listelenir()
         {
-            var endMenu = AEndMenu( 
+            var endMenu = AnEndMenu( 
                 Play(),
                 Exit());
             var actual = endMenu.Render();
@@ -23,7 +23,7 @@ namespace Learn.Hangman.Test
         public void Listelenen_menulerin_bas_harfine_basildiginda_basilan_menu_calistirilir()
         {
             var menuOption = Exit();
-            var endMenu = AEndMenu(menuOption);
+            var endMenu = AnEndMenu(menuOption);
 
             endMenu.Option(AKey(ConsoleKey.E));
 

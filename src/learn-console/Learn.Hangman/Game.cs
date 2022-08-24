@@ -50,7 +50,7 @@
                         var yuzde = 1 - (double)remainingGuesses / maxGuesses;
                         var countDownIndex = (int)Math.Round(yuzde * (countDown.Length - 1));
 
-                        return $"{countDown[countDownIndex]}{Environment.NewLine}{string.Join(' ', letters)}";
+                        return $"{countDown[countDownIndex]}    ------->    {string.Join(' ', letters)}{Environment.NewLine}REMAINING GUESSES:{remainingGuesses}";
                     }
                 case GameStatus.Won:
                     return text.GameFinishText();
