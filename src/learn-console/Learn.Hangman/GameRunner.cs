@@ -2,16 +2,17 @@ namespace Learn.Hangman
 {
     public class GameRunner
     {
-        private readonly IGame game;
+        private readonly IGameFactory gameFactory;
         private readonly IConsole console;
-        public GameRunner(IGame game, IConsole console)
+        public GameRunner(IGameFactory gameFactory, IConsole console)
         {
-            this.game = game;
+            this.gameFactory = gameFactory;
             this.console = console;
         }
 
         public void Run()
         {
+            var game = gameFactory.CreateDefault();
             while (game.GameStatus == GameStatus.Play)
             {
                 console.Clear();
@@ -22,7 +23,6 @@ namespace Learn.Hangman
 
             console.Clear();
             console.WriteLine(game.Render());
-            game.Release();
         }
     }
 }

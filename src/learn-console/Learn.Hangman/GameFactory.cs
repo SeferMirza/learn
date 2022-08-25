@@ -3,7 +3,7 @@ using Learn.Hangman.Texts;
 
 namespace Learn.Hangman
 {
-    public class GameFactory
+    public class GameFactory : IGameFactory
     {
         public Game CreateDefault() =>
             new Game("I AM IRONMAN",
