@@ -21,7 +21,7 @@
                 new string(' ', (MAX_MENU_OPTION_SIZE - menuOptions[currentIndex].Title.Length) / 2) + rightArrow;
         }
 
-        public MenuStatus Option(ConsoleKeyInfo keyInfo = default)
+        public void Option(ConsoleKeyInfo keyInfo = default)
         {
             if (keyInfo.Key == ConsoleKey.RightArrow && currentIndex < menuOptions.Count() - 1) currentIndex++;
             else if (keyInfo.Key == ConsoleKey.LeftArrow && currentIndex > 0) currentIndex--;
@@ -29,7 +29,6 @@
             {
                 menuOptions[currentIndex].Select();
             }
-            return MenuStatus.OnOptions;
         }
     }
 }

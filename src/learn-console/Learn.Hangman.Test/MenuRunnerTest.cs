@@ -9,11 +9,11 @@ namespace Learn.Hangman.Test
         [Fact]
         public void MenuRunner_calisir_verilen_menu_render_olur()
         {
-            var menu = Menu(lastStatus:MenuStatus.Done);
+            var menu = Menu();
             var menuRunner = new MenuRunner(
                 menu,
                 menu,
-                AConsole(keys: new[] { ConsoleKey.S }));
+                AConsole(keys: new[] { ConsoleKey.Escape }));
 
             menuRunner.Run();
 

@@ -19,12 +19,12 @@ namespace Learn.Hangman.Test
 
         protected ConsoleKeyInfo AKey(ConsoleKey key = default, char charKey = '0') => new ConsoleKeyInfo(charKey, key, false, false, false);
 
-        protected virtual IMenu Menu(MenuStatus lastStatus = MenuStatus.Done)
+        protected virtual IMenu Menu()
         {
             var key = AKey();
             var mock = new Mock<IMenu>();
             mock.Setup(m => m.Render());
-            mock.Setup(m => m.Option(key)).Returns(lastStatus);
+            mock.Setup(m => m.Option(key));
 
             return mock.Object;
         }

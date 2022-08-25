@@ -2,7 +2,7 @@
 {
     public interface IMenu
     {
-        MenuStatus Option(ConsoleKeyInfo keyInfo);
+        void Option(ConsoleKeyInfo keyInfo);
         string Render();
     }
 }

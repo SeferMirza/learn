@@ -15,16 +15,19 @@
 
         public void Run()
         {
-            MenuStatus status = MenuStatus.OnMenu;
-            while (status != MenuStatus.Done)
+            var showMustGoOn = true;
+            while (showMustGoOn)
             {
                 console.Clear();
                 console.WriteLine(menu.Render());
                 var keyInfo = console.ReadKey();
-                status = menu.Option(keyInfo);
+
+                if (keyInfo.Key == ConsoleKey.Escape) showMustGoOn = false;
+                
+                menu.Option(keyInfo);
                 if (keyInfo.Key == ConsoleKey.Enter) {
                     console.WriteLine(end.Render());
-                    status = end.Option(console.ReadKey());
+                    end.Option(console.ReadKey());
                 }
             }
         }
