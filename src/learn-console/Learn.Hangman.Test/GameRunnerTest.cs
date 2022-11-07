@@ -8,6 +8,11 @@ namespace Learn.Hangman.Test
     {
         private ConsoleKeyInfo AKey(char key = '0') => new ConsoleKeyInfo(key, (ConsoleKey)key, false, false, false);
 
+        public IGameFactory AGameFactory()
+        {
+            return new GameFactory();
+        }
+
         public IGame AGame(int remainingRounds = 1, GameStatus lastStatus = GameStatus.Won)
         {
             var mock = new Mock<IGame>();
