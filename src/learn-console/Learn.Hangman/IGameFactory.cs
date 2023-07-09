@@ -1,7 +1,6 @@
-﻿namespace Learn.Hangman
+﻿namespace Learn.Hangman;
+
+public interface IGameFactory
 {
-    public interface IGameFactory
-    {
-        public Game CreateDefault();
-    }
+    public Game CreateDefault();
 }

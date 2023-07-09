@@ -1,8 +1,7 @@
-﻿namespace Learn.Hangman
+﻿namespace Learn.Hangman;
+
+public interface IMenu
 {
-    public interface IMenu
-    {
-        void Option(ConsoleKeyInfo keyInfo);
-        string Render();
-    }
+    void Option(ConsoleKeyInfo keyInfo);
+    string Render();
 }

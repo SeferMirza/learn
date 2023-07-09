@@ -1,10 +1,10 @@
-﻿namespace Learn.Hangman.Texts
+﻿namespace Learn.Hangman.Texts;
+
+public class BloodyText : IText
 {
-    public class BloodyText : IText
+    public string GameFinishText()
     {
-        public string GameFinishText()
-        {
-            return @"
+        return @"
 
  █     █░▓█████  ██▓     ██▓       ▓█████▄  ▒█████   ███▄    █ ▓█████     ▄▄▄▄    ▒█████ ▓██   ██▓
 ▓█░ █ ░█░▓█   ▀ ▓██▒    ▓██▒       ▒██▀ ██▌▒██▒  ██▒ ██ ▀█   █ ▓█   ▀    ▓█████▄ ▒██▒  ██▒▒██  ██▒
@@ -18,11 +18,11 @@
                                     ░                                          ░          ░ ░
 
 ";
-        }
+    }
 
-        public string GameOverText()
-        {
-            return @"
+    public string GameOverText()
+    {
+        return @"
 
   ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███
  ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒
@@ -36,6 +36,5 @@
                                                      ░
 
 ";
-        }
     }
 }
