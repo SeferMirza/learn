@@ -5,6 +5,7 @@
 - [x] Yanlış tahminde limit
 - [x] İnsan figürü
   - [x] [Animasyon gecikmeleri](work/hangman/animasyon-gecikmeleri.md)
+- [x] Oyun sonu seçenekleri
 - [ ] Ana Menü
   - [x] [Başlangıç Menüsü](work/hangman/ana-menu.md)
   - [ ] [Ayarlar Menüsü](work/hangman/ayarlar-menusu.md)

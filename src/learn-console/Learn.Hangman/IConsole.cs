@@ -1,11 +1,10 @@
-namespace Learn.Hangman
+namespace Learn.Hangman;
+
+public interface IConsole
 {
-    public interface IConsole
-    {
-        void WriteLine(string message);
-        void Clear();
-        ConsoleKeyInfo ReadKey();
-        void Sleep(int milliseconds);
-        void Exit();
-    }
+    void WriteLine(string message);
+    void Clear();
+    ConsoleKeyInfo ReadKey();
+    void Sleep(int milliseconds);
+    void Exit();
 }

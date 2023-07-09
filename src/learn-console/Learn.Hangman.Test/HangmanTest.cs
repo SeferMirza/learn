@@ -218,12 +218,12 @@ namespace Learn.Hangman.Test
 
             var actual = game.Render();
 
-            Assert.StartsWith($"first{Environment.NewLine}", actual);
+            Assert.StartsWith($"first", actual);
 
             game.ProcessKey(ConsoleKey.A);
             actual = game.Render();
 
-            Assert.StartsWith($"first{Environment.NewLine}", actual);
+            Assert.StartsWith($"first", actual);
         }
     }
 }

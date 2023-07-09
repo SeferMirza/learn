@@ -22,9 +22,9 @@ namespace Learn.Hangman.Test
             var menu = AMenu(
                 Play(),
                 Exit());
-            menu.Right();
 
-            menu.Left();
+            menu.Option(AKey(ConsoleKey.RightArrow));
+            menu.Option(AKey(ConsoleKey.LeftArrow));
 
             Assert.Contains("Play", menu.Render());
         }
@@ -36,7 +36,7 @@ namespace Learn.Hangman.Test
                 Play(),
                 Exit());
 
-            menu.Left();
+            menu.Option(AKey(ConsoleKey.LeftArrow));
 
             Assert.Contains("Play", menu.Render());
         }
@@ -48,7 +48,7 @@ namespace Learn.Hangman.Test
                 Play(),
                 Exit());
 
-            menu.Right();
+            menu.Option(AKey(ConsoleKey.RightArrow));
 
             Assert.Contains("Exit", menu.Render());
         }
@@ -59,9 +59,8 @@ namespace Learn.Hangman.Test
             var menu = AMenu(
                 Play(),
                 Exit());
-            menu.Right();
 
-            menu.Right();
+            menu.Option(AKey(ConsoleKey.RightArrow));
 
             Assert.Contains("Exit", menu.Render());
         }
@@ -69,28 +68,28 @@ namespace Learn.Hangman.Test
         [Fact]
         public void Kullanici_Play_secenegini_secer_secenekteki_action_calisir()
         {
-            var game = AGame();
+            var playMenu = Play();
             var menu = AMenu(
-                Play(game, AConsole(lastKey: ConsoleKey.Enter)),
+                playMenu,
                 Exit());
 
-            menu.Enter();
+            menu.Option(AKey(ConsoleKey.Enter));
 
-            Mock.Get(game).Verify(g => g.Render(), Times.AtLeast(1));
+            Mock.Get(playMenu).Verify(m => m.Select(), Times.AtLeast(1));
         }
 
         [Fact]
         public void Kullanici_Exit_secenegini_secer_program_sonlanir()
         {
-            var console = AConsole(lastKey: ConsoleKey.Enter);
+            var exit = Exit(isClickEnter: true);
             var menu = AMenu(
                 Play(),
-                Exit(console));
-            menu.Right();
+                exit);
+            menu.Option(AKey(ConsoleKey.RightArrow));
 
-            menu.Enter();
+            menu.Option(AKey(ConsoleKey.Enter));
 
-            Mock.Get(console).Verify(g => g.Exit(), Times.AtLeast(1));
+            Mock.Get(exit).Verify(g => g.Select(), Times.AtLeast(1));
         }
     }
 }

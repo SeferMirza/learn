@@ -1,30 +1,33 @@
-﻿namespace Learn.Hangman
+﻿namespace Learn.Hangman;
+
+public class MenuRunner
 {
-    public class MenuRunner
+    private readonly IMenu menu;
+    private readonly IMenu end;
+    private readonly IConsole console;
+
+    public MenuRunner(IMenu menu, IMenu end, IConsole console)
     {
-        private readonly MainMenu menu;
-        private readonly IConsole console;
+        this.console = console;
+        this.menu = menu;
+        this.end = end;
+    }
 
-        public MenuRunner(MainMenu menu, IConsole console)
+    public void Run()
+    {
+        var showMustGoOn = true;
+        while (showMustGoOn)
         {
-            this.console = console;
-            this.menu = menu;
-        }
+            console.Clear();
+            console.WriteLine(menu.Render());
+            var keyInfo = console.ReadKey();
 
-        public void Run()
-        {
-            while (true)
-            {
-                console.Clear();
-                console.WriteLine(menu.Render());
-                var key = console.ReadKey().Key;
-                if (key == ConsoleKey.LeftArrow) menu.Left();
-                else if (key == ConsoleKey.RightArrow) menu.Right();
-                else if (key == ConsoleKey.Enter)
-                {
-                    menu.Enter();
-                    break;
-                }
+            if (keyInfo.Key == ConsoleKey.Escape) showMustGoOn = false;
+            
+            menu.Option(keyInfo);
+            if (keyInfo.Key == ConsoleKey.Enter) {
+                console.WriteLine(end.Render());
+                end.Option(console.ReadKey());
             }
         }
     }
