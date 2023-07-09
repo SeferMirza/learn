@@ -1,13 +1,12 @@
-﻿namespace Learn.Hangman.MenuOptions
+﻿namespace Learn.Hangman.MenuOptions;
+
+public class Exit : IMenuOption
 {
-    public class Exit : IMenuOption
-    {
-        private readonly IConsole console;
+    private readonly IConsole console;
 
-        public Exit(IConsole console) => this.console = console;
+    public Exit(IConsole console) => this.console = console;
 
-        public string Title => nameof(Exit);
+    public string Title => nameof(Exit);
 
-        public void Select() => console.Exit();
-    }
+    public void Select() => console.Exit();
 }

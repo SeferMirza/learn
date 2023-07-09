@@ -1,8 +1,7 @@
-﻿namespace Learn.Hangman
+﻿namespace Learn.Hangman;
+
+public interface IText
 {
-    public interface IText
-    {
-        string GameOverText();
-        string GameFinishText();
-    }
+    string GameOverText();
+    string GameFinishText();
 }

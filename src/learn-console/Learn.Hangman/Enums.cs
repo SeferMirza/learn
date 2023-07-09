@@ -1,16 +1,15 @@
-﻿namespace Learn.Hangman
+﻿namespace Learn.Hangman;
+
+public enum GameStatus
 {
-    public enum GameStatus
-    {
-        MainMenu,
-        Exit,
-        Play,
-        Over,
-        Won
-    }
-    public enum MainMenuStatus
-    {
-        Play,
-        Exit
-    }
+    MainMenu,
+    Exit,
+    Play,
+    Over,
+    Won
+}
+public enum MainMenuStatus
+{
+    Play,
+    Exit
 }

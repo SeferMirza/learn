@@ -1,9 +1,8 @@
-﻿namespace Learn.Hangman
-{
-    public interface IMenuOption
-    {
-        string Title { get; }
+﻿namespace Learn.Hangman;
 
-        void Select();
-    }
+public interface IMenuOption
+{
+    string Title { get; }
+
+    void Select();
 }
