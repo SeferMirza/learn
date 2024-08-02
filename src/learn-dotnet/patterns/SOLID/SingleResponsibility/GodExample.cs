@@ -1,10 +1,10 @@
 namespace SingleResponsibility;
 
-public class RentCar // This class about renting a car
+public class RentCarGood // This class about renting a car
 {
     public List<object> Cars { get; set; }
 
-    public object Rent() {}
+    public object Rent() => Cars[0];
 }
 
 public class CarMaintenance // This class about
