@@ -29,7 +29,7 @@ public class Circle
 }
 
 // 4. Area service needs to be updated
-public class AreaService
+public class AreaServiceUpdated
 {
     public double CalculateArea(List<Object> shapes)
     {
@@ -38,18 +38,19 @@ public class AreaService
         {
             // As a solution, you changed the code you wrote before
             // When a new shape comes, will there be another if?
-            if (shape instanceof Rectangle)
+            if (shape is Rectangle)
             {
                 Rectangle rect = (Rectangle) shape;
                 area += (rect.length * rect.height);
             }
-            else if (shape instanceof Circle)
+            else if (shape is Circle)
             {
                 Circle circle = (Circle) shape;
-                area += circle.radius * cirlce.radius * Math.PI;
-            } else
+                area += circle.radius * circle.radius * Math.PI;
+            }
+            else
             {
-                throw new RuntimeException("Shape not supported");
+                throw new Exception("Shape not supported");
             }
         }
         return area;
@@ -64,7 +65,7 @@ public interface IShape
     double GetArea();
 }
 
-public class Rectangle : IShape
+public class RectangleNew : IShape
 {
     public double length;
     public double height;
@@ -75,7 +76,7 @@ public class Rectangle : IShape
     }
 }
 
-public class Circle : IShape
+public class CircleNew : IShape
 {
     public double radius;
 
@@ -93,7 +94,7 @@ public class AreaManager
         double area = 0;
         foreach(IShape shape in shapes)
         {
-            area += shape.getArea();
+            area += shape.GetArea();
         }
         return area;
     }
