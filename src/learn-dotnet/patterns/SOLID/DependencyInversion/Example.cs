@@ -29,7 +29,7 @@ public class ChangedSomeService
 public class SomeClass2
 {
     private SomeService someService;
-    private OtherService otherService
+    private OtherService otherService;
 
     public SomeClass2()
     {
